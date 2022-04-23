@@ -29,7 +29,12 @@ struct WatchFace: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.red)
                     .padding(.bottom, 28.0)
-                
+                Button {
+                    WKInterfaceDevice.current().play(.click)
+                } label: {
+                    Text("Button")
+                }
+
                 Spacer()
                 
             }
