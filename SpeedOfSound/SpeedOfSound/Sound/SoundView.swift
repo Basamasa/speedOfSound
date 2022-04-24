@@ -10,12 +10,12 @@ import AVFoundation
 
 var player: AVAudioPlayer!
 
-struct MetroView: View {
+struct SoundView: View {
     
-    @ObservedObject var metroViewModel = MetroViewModel()
+    @ObservedObject var metroViewModel = SoundViewModel()
     
     let colorGradient = LinearGradient(
-        gradient: Gradient(colors: [Color.cyan, Color.green]),
+        gradient: Gradient(colors: [Color.green, Color.clear]),
                             startPoint: .topLeading, endPoint: .bottomTrailing)
     let grayGradient = LinearGradient(
                             gradient: Gradient(colors: [Color(.systemGray4), Color(.systemGray4)]),
@@ -27,54 +27,24 @@ struct MetroView: View {
             ZStack(alignment: .topLeading) {
                 VStack {
                     HStack {
-                        Spacer()
-                        if(metroViewModel.mode == .stopped) {
-                            Button(action: {
-                                metroViewModel.start(interval: 60/metroViewModel.BPM,
-                                                     effect: metroViewModel.effectIndex,
-                                                     time: Int(metroViewModel.beatsIndex))
-                            }, label: {
-                                Image(systemName: "play.fill")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(Color("ButtonAccent"))
-                                    .font(.largeTitle)
-                                    
-                            })
-                        } else {
-                            Button(action: {
-                                metroViewModel.stop()
-                            }, label: {
-                                Image(systemName: "pause.fill")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(Color("ButtonAccent"))
-                                    .font(.largeTitle)
-                            })
-                        }
-                        Button(action: {
-                            metroViewModel.clickOnHeart()
-                        }, label: {
-                            VStack {
-                                Label("BPM", systemImage: "heart")
-                                Text("\(Int(metroViewModel.BPM))")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                Text(metroViewModel.speedString)
-                                    .font(.footnote)
+                        Image(systemName: "music.note")
+                        Picker("Effect", selection: $metroViewModel.effectIndex) {
+                            ForEach(0 ..< metroViewModel.effect.count, id:\.self) { index in
+                                    Text(metroViewModel.effect[index]).tag(index)
                             }
-                            .foregroundColor(Color("ButtonAccent"))
-                        })
-                        
-                        Spacer()
-                        
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .onChange(of: metroViewModel.effectIndex) { _ in
+                            metroViewModel.runRestart()
+                        }
+                    }
+                    HStack {
                         HStack {
                             Button(action: {
                                 metroViewModel.clickOnMinusButton()
                             }, label: {
                                 Circle()
                                     .fill(metroViewModel.mode == .stopped ? grayGradient : colorGradient)
-//                                    .frame(width: 100, height: 100)
                                     .overlay(
                                         Image(systemName: "minus.circle")
                                             .resizable()
@@ -89,9 +59,8 @@ struct MetroView: View {
                             Button(action: {
                                 metroViewModel.clickOnPlusButton()
                             }, label: {
-                                RoundedRectangle(cornerRadius: 15)
+                                Circle()
                                     .fill(metroViewModel.mode == .stopped ? grayGradient : colorGradient)
-//                                    .frame(width: 100, height: 100)
                                     .overlay(
                                         Image(systemName: "plus.circle")
                                             .resizable()
@@ -103,34 +72,50 @@ struct MetroView: View {
                                 metroViewModel.longPressPlusTap()
                             })
                         }
-//                        .animation(.easeIn)
                         .onChange(of: metroViewModel.BPM) { _ in
                             metroViewModel.bpmChange()
                             metroViewModel.runRestart()
                         }
-                    }
-                    
-                    HStack {
-                        Image(systemName: "music.quarternote.3")
-                        Picker("Effect", selection: $metroViewModel.effectIndex) {
-                            ForEach(0 ..< metroViewModel.effect.count) { index in
-                                    Text(metroViewModel.effect[index]).tag(index)
+                        Button(action: {
+                            metroViewModel.clickOnHeart()
+                        }, label: {
+                            VStack {
+                                Label(metroViewModel.speedString, systemImage: "metronome")
+                                    .font(.footnote)
+                                Text("\(Int(metroViewModel.BPM))")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                Text("BPM")
+                                    .font(.footnote)
                             }
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: metroViewModel.effectIndex) { _ in
-                            metroViewModel.runRestart()
-                        }
+                            .foregroundColor(Color("ButtonAccent"))
+                        })
+                        Button(action: {
+                            if metroViewModel.mode == .stopped {
+                                metroViewModel.start(interval: 60/metroViewModel.BPM,
+                                                     effect: metroViewModel.effectIndex,
+                                                     time: Int(metroViewModel.beatsIndex))
+                            } else {
+                                metroViewModel.stop()
+                            }
+                        }, label: {
+                            Image(systemName: metroViewModel.mode == .stopped ? "play.fill" : "pause.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(Color("ButtonAccent"))
+                                .font(.largeTitle)
+                                
+                        })
                     }
                 }
                 .padding()
             }
             Spacer()
         }
-        .frame(height: 200)
+        .frame(height: 180)
         .background(metroViewModel.mode == .stopped ? grayGradient : colorGradient)
         .cornerRadius(25.0)
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+        .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
         .onReceive(BPMtimer) { _ in metroViewModel.difference1 += 0.001}
         .padding()
     }

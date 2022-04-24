@@ -8,10 +8,10 @@
 import Foundation
 import AVFoundation
 
-class MetroViewModel: ObservableObject {
+class SoundViewModel: ObservableObject {
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
-    @Published var effect = ["Sound 1","Sound 2","Sound 3"]
+    @Published var effect = ["1","2","3","4","5","6","7","8"]
     @Published var beatsIndex: Double = 1
     @Published var fastPlus = false
     @Published var fastMinus = false
@@ -27,6 +27,9 @@ class MetroViewModel: ObservableObject {
     @Published var meas3 = -1
     @Published var calc1 = -1
     @Published var speedString = "Allegro"
+    
+    let concurrentQueue = DispatchQueue(label: "ConcurrentQueue", attributes: .concurrent)
+    
     var timer = Timer()
     
     func start(interval: Double, effect: Int, time: Int) {
@@ -135,7 +138,7 @@ class MetroViewModel: ObservableObject {
     }
     
     func longPressMinusTap() {
-        fastPlus = true
+        fastMinus = true
         timer1 = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
             self.BPM -= 1
         })
@@ -157,20 +160,27 @@ class MetroViewModel: ObservableObject {
     }
     
     func playSound(effect: Int) {
-        var url = Bundle.main.url(forResource: "Click", withExtension: "mp3")
+        var url = Bundle.main.url(forResource: "Mechanical metronome - High", withExtension: "aif")
         
         switch effect {
         case 0:
-            url = Bundle.main.url(forResource: "Click", withExtension: "mp3")
-        
+            url = Bundle.main.url(forResource: "Mechanical metronome - High", withExtension: "aif")
         case 1:
-            url = Bundle.main.url(forResource: "Typewriter", withExtension: "mp3")
-        
+            url = Bundle.main.url(forResource: "Hi-hat", withExtension: "aif")
         case 2:
-            url = Bundle.main.url(forResource: "Electronic", withExtension: "mp3")
-            
+            url = Bundle.main.url(forResource: "Cowbell", withExtension: "aif")
+        case 3:
+            url = Bundle.main.url(forResource: "Bass drum", withExtension: "aif")
+        case 4:
+            url = Bundle.main.url(forResource: "Jack slap", withExtension: "aif")
+        case 5:
+            url = Bundle.main.url(forResource: "Mechanical metronome - Low", withExtension: "aif")
+        case 6:
+            url = Bundle.main.url(forResource: "Rimshot", withExtension: "aif")
+        case 7:
+            url = Bundle.main.url(forResource: "LAUGH!", withExtension: "aif")
         default:
-            url = Bundle.main.url(forResource: "Click", withExtension: "mp3")
+            url = Bundle.main.url(forResource: "Mechanical metronome - High", withExtension: "aif")
         }
         
         guard url != nil else {
