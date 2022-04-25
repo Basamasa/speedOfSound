@@ -12,11 +12,13 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
-	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
-	<string>Health records usage allowed?</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Health share usage allowed?</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Health update usage allowed?</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+	<key>WKBackgroundModes</key>
+	<array>
+		<string>workout-processing</string>
+	</array>
 </dict>
 </plist>

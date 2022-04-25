@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var metroViewModel = SoundViewModel()
+    
     var body: some View {
-        VStack {
-            MetroView()
+        ScrollView {
+            VStack {
+                SoundView()
+                HeartRateView()
+            }
         }
+        .environmentObject(metroViewModel)
     }
 }
 

@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct HeartRateView: View {
+    @StateObject var model = ViewModelPhone()
+    @EnvironmentObject var metroViewModel: SoundViewModel
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Text("❤️ \(model.count)")
+                .font(.largeTitle)
+        }
+        .frame(maxWidth: .infinity,
+             maxHeight: .infinity)
+        .background((metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient))
+        .cornerRadius(25.0)
+        .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
+        .padding()
     }
 }
 
-struct HeartRateView_Previews: PreviewProvider {
-    static var previews: some View {
-        HeartRateView()
-    }
-}

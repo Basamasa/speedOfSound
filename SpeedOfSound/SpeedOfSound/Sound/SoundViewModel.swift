@@ -45,25 +45,26 @@ class SoundViewModel: ObservableObject {
     }
     
     func clickOnHeart() {
-        difference2 = 60000/difference1
-        BPM = Double(Int(difference2/1000))
-        
-        if(currentNum == 1) {
-            meas1 = Int(BPM)
-            currentNum = 2
-        }
-        else if(currentNum == 2) {
-            meas2 = Int(BPM)
-            currentNum = 3
-        }
-        else if(currentNum == 3) {
-            meas3 = Int(BPM)
-            currentNum = 1
-        }
-        
-        calc1 = meas1 + meas2 + meas3
-        BPM = Double(calc1/3)
-        difference1 = 0
+//        difference2 = 60000/difference1
+//        BPM = Double(Int(difference2/1000))
+//
+//        if(currentNum == 1) {
+//            meas1 = Int(BPM)
+//            currentNum = 2
+//        }
+//        else if(currentNum == 2) {
+//            meas2 = Int(BPM)
+//            currentNum = 3
+//        }
+//        else if(currentNum == 3) {
+//            meas3 = Int(BPM)
+//            currentNum = 1
+//        }
+//
+//        calc1 = meas1 + meas2 + meas3
+//        BPM = Double(calc1/3)
+//        difference1 = 0
+        BPM = 60
     }
     
     func bpmChange() {

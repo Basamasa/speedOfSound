@@ -12,14 +12,7 @@ var player: AVAudioPlayer!
 
 struct SoundView: View {
     
-    @ObservedObject var metroViewModel = SoundViewModel()
-    
-    let colorGradient = LinearGradient(
-        gradient: Gradient(colors: [Color.green, Color.clear]),
-                            startPoint: .topLeading, endPoint: .bottomTrailing)
-    let grayGradient = LinearGradient(
-                            gradient: Gradient(colors: [Color(.systemGray4), Color(.systemGray4)]),
-                            startPoint: .topLeading, endPoint: .bottomTrailing)
+    @EnvironmentObject var metroViewModel: SoundViewModel
     let BPMtimer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -44,7 +37,7 @@ struct SoundView: View {
                                 metroViewModel.clickOnMinusButton()
                             }, label: {
                                 Circle()
-                                    .fill(metroViewModel.mode == .stopped ? grayGradient : colorGradient)
+                                    .fill(metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
                                     .overlay(
                                         Image(systemName: "minus.circle")
                                             .resizable()
@@ -60,7 +53,7 @@ struct SoundView: View {
                                 metroViewModel.clickOnPlusButton()
                             }, label: {
                                 Circle()
-                                    .fill(metroViewModel.mode == .stopped ? grayGradient : colorGradient)
+                                    .fill(metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
                                     .overlay(
                                         Image(systemName: "plus.circle")
                                             .resizable()
@@ -113,7 +106,7 @@ struct SoundView: View {
             Spacer()
         }
         .frame(height: 180)
-        .background(metroViewModel.mode == .stopped ? grayGradient : colorGradient)
+        .background(metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
         .cornerRadius(25.0)
         .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
         .onReceive(BPMtimer) { _ in metroViewModel.difference1 += 0.001}

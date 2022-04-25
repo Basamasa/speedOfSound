@@ -11,42 +11,55 @@ import HealthKit
 struct WatchFace: View {
     
     @ObservedObject var watchFaceModel = WatchFaceModel()
+//    @ObservedObject var viewModelWatch = ViewModelWatch()
     
     var body: some View {
         VStack{
             HStack{
                 Text("❤️")
                     .font(.system(size: 50))
+                Button {
+                    watchFaceModel.endSession()
+                } label: {
+                    Text("End")
+                }
                 Spacer()
             }
             HStack{
                 Text("\(watchFaceModel.value)")
                     .fontWeight(.regular)
                     .font(.system(size: 70))
-                
+
                 Text("BPM")
                     .font(.headline)
                     .fontWeight(.bold)
                     .foregroundColor(Color.red)
                     .padding(.bottom, 28.0)
-                Button {
-                    WKInterfaceDevice.current().play(.click)
-                } label: {
-                    Text("Button")
-                }
 
                 Spacer()
-                
+
             }
 
         }
+//        VStack {
+//            Text("\(viewModelWatch.count)")
+//                .font(.largeTitle)
+//
+//            HStack {
+//                Button(action: viewModelWatch.decrement) {
+//                    Label("Decrement", systemImage: "minus.circle")
+//                }
+//                .padding()
+//
+//                Button(action: viewModelWatch.increment) {
+//                    Label("Increment", systemImage: "plus.circle.fill")
+//                }
+//                .padding()
+//            }
+//            .font(.headline)
+//            .labelStyle(IconOnlyLabelStyle())
+//        }
         .padding()
         .onAppear(perform: watchFaceModel.startCalculateHeartRate)
-    }
-}
-
-struct WatchFace_Previews: PreviewProvider {
-    static var previews: some View {
-        WatchFace()
     }
 }
