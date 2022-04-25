@@ -11,7 +11,6 @@ import HealthKit
 struct WatchFace: View {
     
     @ObservedObject var watchFaceModel = WatchFaceModel()
-//    @ObservedObject var viewModelWatch = ViewModelWatch()
     
     var body: some View {
         VStack{
@@ -41,24 +40,6 @@ struct WatchFace: View {
             }
 
         }
-//        VStack {
-//            Text("\(viewModelWatch.count)")
-//                .font(.largeTitle)
-//
-//            HStack {
-//                Button(action: viewModelWatch.decrement) {
-//                    Label("Decrement", systemImage: "minus.circle")
-//                }
-//                .padding()
-//
-//                Button(action: viewModelWatch.increment) {
-//                    Label("Increment", systemImage: "plus.circle.fill")
-//                }
-//                .padding()
-//            }
-//            .font(.headline)
-//            .labelStyle(IconOnlyLabelStyle())
-//        }
         .padding()
         .onAppear(perform: watchFaceModel.startCalculateHeartRate)
     }
