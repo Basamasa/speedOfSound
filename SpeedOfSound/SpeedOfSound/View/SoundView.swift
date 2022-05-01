@@ -12,7 +12,7 @@ var player: AVAudioPlayer!
 
 struct SoundView: View {
     
-    @EnvironmentObject var metroViewModel: SoundViewModel
+    @EnvironmentObject var soundViewModel: SoundViewModel
     let BPMtimer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -21,23 +21,23 @@ struct SoundView: View {
                 VStack {
                     HStack {
                         Image(systemName: "music.note")
-                        Picker("Effect", selection: $metroViewModel.effectIndex) {
-                            ForEach(0 ..< metroViewModel.effect.count, id:\.self) { index in
-                                    Text(metroViewModel.effect[index]).tag(index)
+                        Picker("Effect", selection: $soundViewModel.effectIndex) {
+                            ForEach(0 ..< soundViewModel.effect.count, id:\.self) { index in
+                                    Text(soundViewModel.effect[index]).tag(index)
                             }
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: metroViewModel.effectIndex) { _ in
-                            metroViewModel.runRestart()
+                        .onChange(of: soundViewModel.effectIndex) { _ in
+                            soundViewModel.runRestart()
                         }
                     }
                     HStack {
                         HStack {
                             Button(action: {
-                                metroViewModel.clickOnMinusButton()
+                                soundViewModel.clickOnMinusButton()
                             }, label: {
                                 Circle()
-                                    .fill(metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
+                                    .fill(soundViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
                                     .overlay(
                                         Image(systemName: "minus.circle")
                                             .resizable()
@@ -46,14 +46,14 @@ struct SoundView: View {
                                             .font(Font.title.weight(.light)))
                             })
                             .simultaneousGesture(LongPressGesture(minimumDuration: 0.2).onEnded { _ in
-                                metroViewModel.longPressMinusTap()
+                                soundViewModel.longPressMinusTap()
                             })
                             
                             Button(action: {
-                                metroViewModel.clickOnPlusButton()
+                                soundViewModel.clickOnPlusButton()
                             }, label: {
                                 Circle()
-                                    .fill(metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
+                                    .fill(soundViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
                                     .overlay(
                                         Image(systemName: "plus.circle")
                                             .resizable()
@@ -62,20 +62,20 @@ struct SoundView: View {
                                             .font(Font.title.weight(.light)))
                             })
                             .simultaneousGesture(LongPressGesture(minimumDuration: 0.2).onEnded { _ in
-                                metroViewModel.longPressPlusTap()
+                                soundViewModel.longPressPlusTap()
                             })
                         }
-                        .onChange(of: metroViewModel.BPM) { _ in
-                            metroViewModel.bpmChange()
-                            metroViewModel.runRestart()
+                        .onChange(of: soundViewModel.BPM) { _ in
+                            soundViewModel.bpmChange()
+                            soundViewModel.runRestart()
                         }
                         Button(action: {
-                            metroViewModel.clickOnHeart()
+                            soundViewModel.clickOnHeart()
                         }, label: {
                             VStack {
-                                Label(metroViewModel.speedString, systemImage: "metronome")
+                                Label(soundViewModel.speedString, systemImage: "metronome")
                                     .font(.footnote)
-                                Text("\(Int(metroViewModel.BPM))")
+                                Text("\(Int(soundViewModel.BPM))")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
                                 Text("BPM")
@@ -84,15 +84,9 @@ struct SoundView: View {
                             .foregroundColor(Color("ButtonAccent"))
                         })
                         Button(action: {
-                            if metroViewModel.mode == .stopped {
-                                metroViewModel.start(interval: 60/metroViewModel.BPM,
-                                                     effect: metroViewModel.effectIndex,
-                                                     time: Int(metroViewModel.beatsIndex))
-                            } else {
-                                metroViewModel.stop()
-                            }
+                            soundViewModel.tapOnStartButton()
                         }, label: {
-                            Image(systemName: metroViewModel.mode == .stopped ? "play.fill" : "pause.fill")
+                            Image(systemName: soundViewModel.mode == .stopped ? "play.fill" : "pause.fill")
                                 .resizable()
                                 .frame(width: 50, height: 50)
                                 .foregroundColor(Color("ButtonAccent"))
@@ -106,11 +100,21 @@ struct SoundView: View {
             Spacer()
         }
         .frame(height: 180)
-        .background(metroViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
+        .background(soundViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
         .cornerRadius(25.0)
         .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
-        .onReceive(BPMtimer) { _ in metroViewModel.difference1 += 0.001}
+        .onReceive(BPMtimer) { _ in soundViewModel.difference1 += 0.001}
         .padding()
+        .onAppear() {
+            // Activate Audio Playback in Background
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+                try AVAudioSession.sharedInstance().setActive(true)
+                }
+            catch let error {
+                print("Error \(error.localizedDescription)")
+            }
+        }
     }
 }
 

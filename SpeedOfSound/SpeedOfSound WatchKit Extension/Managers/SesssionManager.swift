@@ -27,9 +27,22 @@ class SessionManager: ObservableObject {
             .assign(to: &$count)
     }
     
-    func bpmchanged(_ count: Int) {
-        wcSession.sendMessage(["count": count], replyHandler: nil) { error in
+    private func sendMessage(_ message: String, count: Int? = nil, session: Bool? = nil) {
+        wcSession.sendMessage([message: count ?? session!], replyHandler: nil) { error in
             print(error.localizedDescription)
         }
+    }
+    
+    func bpmchanged(_ count: Int) {
+        sendMessage("count", count: count)
+    }
+    
+    func workSessionBegin() {
+        sendMessage("workSessionBegin", session: true)
+    }
+    
+    func workSessionEnd() {
+        sendMessage("workSessionBegin", session: false)
+
     }
 }

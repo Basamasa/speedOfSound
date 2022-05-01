@@ -20,10 +20,13 @@
 		6B305DC22814A1D300D877CB /* LAUGH!.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DBA2814A1D300D877CB /* LAUGH!.aif */; };
 		6B305DC6281585B900D877CB /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DC5281585B900D877CB /* HeartRateView.swift */; };
 		6B305DC82815860E00D877CB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DC72815860E00D877CB /* Colors.swift */; };
-		6B305DCC2815D8A200D877CB /* ViewModelPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCB2815D8A200D877CB /* ViewModelPhone.swift */; };
+		6B305DCC2815D8A200D877CB /* HeartRateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */; };
 		6B305DD02815D98900D877CB /* ViewModelWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCF2815D98900D877CB /* ViewModelWatch.swift */; };
 		6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DD12815E47900D877CB /* SessionDelegater.swift */; };
 		6B305DD42815E6D500D877CB /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DD32815E6D500D877CB /* SessionDelegater.swift */; };
+		6B3402AD281DA24000C71216 /* NewWorkOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402AC281DA24000C71216 /* NewWorkOutView.swift */; };
+		6B3402AF281DA46A00C71216 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402AE281DA46A00C71216 /* DashboardView.swift */; };
+		6B3402B1281DD1A100C71216 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402B0281DD1A100C71216 /* Styles.swift */; };
 		6B4D30A22816D09C0078FEA3 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */; };
 		6B4D30A42816D2290078FEA3 /* SessionPaginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */; };
 		6B4D30A62816D2530078FEA3 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A52816D2530078FEA3 /* ControlsView.swift */; };
@@ -139,10 +142,14 @@
 		6B305DBA2814A1D300D877CB /* LAUGH!.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LAUGH!.aif"; sourceTree = "<group>"; };
 		6B305DC5281585B900D877CB /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		6B305DC72815860E00D877CB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		6B305DCB2815D8A200D877CB /* ViewModelPhone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelPhone.swift; sourceTree = "<group>"; };
+		6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateViewModel.swift; sourceTree = "<group>"; };
 		6B305DCF2815D98900D877CB /* ViewModelWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelWatch.swift; sourceTree = "<group>"; };
 		6B305DD12815E47900D877CB /* SessionDelegater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		6B305DD32815E6D500D877CB /* SessionDelegater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
+		6B3402AA281A9C7600C71216 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6B3402AC281DA24000C71216 /* NewWorkOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkOutView.swift; sourceTree = "<group>"; };
+		6B3402AE281DA46A00C71216 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		6B3402B0281DD1A100C71216 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPaginView.swift; sourceTree = "<group>"; };
 		6B4D30A52816D2530078FEA3 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
@@ -245,23 +252,25 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		6B305DC32815858300D877CB /* Sound */ = {
+		6B305DC32815858300D877CB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				6B305DB028145CBA00D877CB /* SoundViewModel.swift */,
-				6B305DAE28145B8500D877CB /* SoundView.swift */,
-			);
-			path = Sound;
-			sourceTree = "<group>";
-		};
-		6B305DC42815859600D877CB /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				6B305DC5281585B900D877CB /* HeartRateView.swift */,
-				6B305DCB2815D8A200D877CB /* ViewModelPhone.swift */,
+				6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */,
 				6B305DD12815E47900D877CB /* SessionDelegater.swift */,
 			);
-			path = Map;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6B305DC42815859600D877CB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6BE4A01928107A54004CB806 /* ContentView.swift */,
+				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
+				6B3402AC281DA24000C71216 /* NewWorkOutView.swift */,
+				6B305DAE28145B8500D877CB /* SoundView.swift */,
+				6B305DC5281585B900D877CB /* HeartRateView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6B305DCD2815D93500D877CB /* WatchFace */ = {
@@ -281,6 +290,15 @@
 				6BE4A04C28107A58004CB806 /* NotificationController.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		6B3402AB281D97EC00C71216 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				6B305DC72815860E00D877CB /* Colors.swift */,
+				6B3402B0281DD1A100C71216 /* Styles.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		6B4D30A92816D34A0078FEA3 /* Views */ = {
@@ -338,11 +356,12 @@
 		6BE4A01628107A54004CB806 /* SpeedOfSound */ = {
 			isa = PBXGroup;
 			children = (
+				6B3402AA281A9C7600C71216 /* Info.plist */,
 				6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */,
-				6BE4A01928107A54004CB806 /* ContentView.swift */,
-				6B305DC72815860E00D877CB /* Colors.swift */,
-				6B305DC42815859600D877CB /* Map */,
-				6B305DC32815858300D877CB /* Sound */,
+				6B305DB028145CBA00D877CB /* SoundViewModel.swift */,
+				6B305DC42815859600D877CB /* View */,
+				6B305DC32815858300D877CB /* ViewModel */,
+				6B3402AB281D97EC00C71216 /* Utility */,
 				6B305DB22814A1D300D877CB /* Sounds */,
 				6BE4A01B28107A57004CB806 /* Assets.xcassets */,
 				6BE4A01D28107A57004CB806 /* Preview Content */,
@@ -451,6 +470,8 @@
 				6BE4A03B28107A57004CB806 /* PBXTargetDependency */,
 			);
 			name = SpeedOfSound;
+			packageProductDependencies = (
+			);
 			productName = SpeedOfSound;
 			productReference = 6BE4A01428107A54004CB806 /* SpeedOfSound.app */;
 			productType = "com.apple.product-type.application";
@@ -607,6 +628,8 @@
 				Base,
 			);
 			mainGroup = 6BE4A00B28107A54004CB806;
+			packageReferences = (
+			);
 			productRefGroup = 6BE4A01528107A54004CB806 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -699,8 +722,11 @@
 				6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */,
 				6B305DAF28145B8500D877CB /* SoundView.swift in Sources */,
 				6B305DB128145CBA00D877CB /* SoundViewModel.swift in Sources */,
-				6B305DCC2815D8A200D877CB /* ViewModelPhone.swift in Sources */,
+				6B305DCC2815D8A200D877CB /* HeartRateViewModel.swift in Sources */,
+				6B3402AF281DA46A00C71216 /* DashboardView.swift in Sources */,
 				6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */,
+				6B3402B1281DD1A100C71216 /* Styles.swift in Sources */,
+				6B3402AD281DA24000C71216 /* NewWorkOutView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,11 +872,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Debug;
 		};
@@ -898,10 +926,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -1036,15 +1066,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SpeedOfSound/Preview Content\"";
 				DEVELOPMENT_TEAM = ZCPG2Z69ZT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpeedOfSound/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
@@ -1055,6 +1088,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anzer.SpeedOfSound;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1067,15 +1101,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SpeedOfSound/Preview Content\"";
 				DEVELOPMENT_TEAM = ZCPG2Z69ZT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpeedOfSound/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
@@ -1086,6 +1123,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anzer.SpeedOfSound;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

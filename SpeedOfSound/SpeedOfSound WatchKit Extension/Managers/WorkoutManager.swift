@@ -15,6 +15,7 @@ class WorkoutManager: NSObject, ObservableObject {
             guard let selectedWorkout = selectedWorkout else { return }
             startWorkout(workoutType: selectedWorkout)
             wcsessionManager = SessionManager()
+            wcsessionManager?.workSessionBegin()
         }
     }
 
@@ -74,6 +75,7 @@ class WorkoutManager: NSObject, ObservableObject {
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
             HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.activitySummaryType()
         ]
 
@@ -107,11 +109,14 @@ class WorkoutManager: NSObject, ObservableObject {
     func endWorkout() {
         session?.end()
         showingSummaryView = true
+        wcsessionManager?.workSessionEnd()
     }
 
     // MARK: - Workout Metrics
     @Published var averageHeartRate: Double = 0
     @Published var heartRate: Double = 0
+    @Published var steps: Double = 0
+    @Published var averageSteps: Double = 0
     @Published var activeEnergy: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
@@ -126,6 +131,10 @@ class WorkoutManager: NSObject, ObservableObject {
                 self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
                 self.wcsessionManager?.bpmchanged(Int(self.heartRate))
                 self.averageHeartRate = statistics.averageQuantity()?.doubleValue(for: heartRateUnit) ?? 0
+            case HKQuantityType.quantityType(forIdentifier: .stepCount):
+                let stepsUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+                self.steps = statistics.mostRecentQuantity()?.doubleValue(for: stepsUnit) ?? 0
+                self.averageSteps = statistics.averageQuantity()?.doubleValue(for: stepsUnit) ?? 0
             case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
                 let energyUnit = HKUnit.kilocalorie()
                 self.activeEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
@@ -143,6 +152,8 @@ class WorkoutManager: NSObject, ObservableObject {
         builder = nil
         workout = nil
         session = nil
+        steps = 0
+        averageSteps = 0
         activeEnergy = 0
         averageHeartRate = 0
         heartRate = 0

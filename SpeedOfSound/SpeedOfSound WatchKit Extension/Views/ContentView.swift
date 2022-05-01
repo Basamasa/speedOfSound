@@ -35,21 +35,15 @@ extension HKWorkoutActivityType: Identifiable {
     var name: String {
         switch self {
         case .running:
-            return "Run 🏃🏻‍♂️"
+            return "🏃🏻‍♂️Run"
         case .cycling:
-            return "Bike 🚴🏻"
+            return "🚴🏻 Bike"
         case .walking:
-            return "Walk 🚶🏻"
+            return "🚶🏻 Walk"
         case .traditionalStrengthTraining:
-            return "Strength Training 🏋🏻‍♂️"
+            return "🏋🏻‍♂️ Strength Training"
         default:
             return ""
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
