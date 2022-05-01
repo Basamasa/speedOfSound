@@ -7,8 +7,16 @@
 
 import Foundation
 import AVFoundation
+import Combine
 
-class SoundViewModel: ObservableObject {
+class MetronomeViewModel: ObservableObject, MetronomeDelegate {
+    func metronomeTicking(_ metronome: Metronome, currentTick: Int) {
+        print(metronome.tempoBPM, currentTick)
+        
+        print("my: \(myMetronome.meter) / \(myMetronome.division)")
+        print("\(metronome.meter) / \(metronome.division)")
+    }
+    
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
     @Published var effect = ["1","2","3","4","5","6","7","8"]
@@ -28,20 +36,28 @@ class SoundViewModel: ObservableObject {
     @Published var calc1 = -1
     @Published var speedString = "Allegro"
     
-    let concurrentQueue = DispatchQueue(label: "ConcurrentQueue", attributes: .concurrent)
+    let myMetronome = Metronome(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 1)!)
+    
+    var pub1: Publishers.Autoconnect<Timer.TimerPublisher> {
+        Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
+    }
+    
+    var pub: AnyPublisher<Void, Never> {
+        Just(())
+           .delay(for: .seconds(0.001), scheduler: DispatchQueue.main)
+           .eraseToAnyPublisher()
+    }
     
     var timer = Timer()
     
-    func start(interval: Double, effect: Int, time: Int) {
+    func start() {
         mode = .running
-        timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(interval), repeats: true) { timer in
-                self.playSound(effect: effect)
-            }
+        try? myMetronome.start()
     }
     
     func stop() {
         mode = .stopped
-        timer.invalidate()
+        myMetronome.stop()
     }
     
     func clickOnHeart() {
@@ -50,12 +66,14 @@ class SoundViewModel: ObservableObject {
     
     func tapOnStartButton() {
         if mode == .stopped {
-            start(interval: 60/BPM,
-                                 effect: effectIndex,
-                                 time: Int(beatsIndex))
+            start()
         } else {
             stop()
         }
+    }
+    
+    private func updateBpm() {
+        BPM = Double(myMetronome.tempoBPM)
     }
     
     func bpmChange() {
@@ -105,50 +123,29 @@ class SoundViewModel: ObservableObject {
     }
     
     func clickOnMinusButton() {
-        if fastMinus {
-            fastMinus.toggle()
-            timer1?.invalidate()
-        } else {
-            BPM = BPM - 1
-        }
+        myMetronome.setTempo(to: myMetronome.tempoBPM - 1)
+        updateBpm()
     }
     
     func clickOnPlusButton() {
-        if fastPlus {
-            fastPlus.toggle()
-            timer1?.invalidate()
-        } else {
-            BPM = BPM + 1
-        }
-    }
-    
-    func longPressPlusTap() {
-        fastPlus = true
-        timer1 = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
-            self.BPM += 1
-        })
-    }
-    
-    func longPressMinusTap() {
-        fastMinus = true
-        timer1 = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
-            self.BPM -= 1
-        })
+        myMetronome.setTempo(to: myMetronome.tempoBPM + 1)
+        updateBpm()
     }
     
     func runRestart() {
-        if mode == .running {
-            wasRunning = true
+    }
+    
+    func soundViewAppear() {
+        // Activate Audio Playback in Background
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+            }
+        catch let error {
+            print("Error \(error.localizedDescription)")
         }
-        else {
-            wasRunning = false
-        }
-        stop()
-        if wasRunning == true {
-            start(interval: 60/BPM,
-                                 effect: effectIndex,
-                                 time: Int(beatsIndex))
-        }
+        myMetronome.delegate = self
+        updateBpm()
     }
     
     func playSound(effect: Int) {

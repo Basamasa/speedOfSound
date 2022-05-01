@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B305DAB28145B5100D877CB /* Click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DAA28145B5100D877CB /* Click.mp3 */; };
 		6B305DAF28145B8500D877CB /* SoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DAE28145B8500D877CB /* SoundView.swift */; };
-		6B305DB128145CBA00D877CB /* SoundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DB028145CBA00D877CB /* SoundViewModel.swift */; };
+		6B305DB128145CBA00D877CB /* MetronomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DB028145CBA00D877CB /* MetronomeViewModel.swift */; };
 		6B305DBB2814A1D300D877CB /* Mechanical metronome - High.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB32814A1D300D877CB /* Mechanical metronome - High.aif */; };
 		6B305DBC2814A1D300D877CB /* Hi-hat.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB42814A1D300D877CB /* Hi-hat.aif */; };
 		6B305DBD2814A1D300D877CB /* Cowbell.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB52814A1D300D877CB /* Cowbell.aif */; };
@@ -18,7 +18,6 @@
 		6B305DC02814A1D300D877CB /* Mechanical metronome - Low.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB82814A1D300D877CB /* Mechanical metronome - Low.aif */; };
 		6B305DC12814A1D300D877CB /* Rimshot.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB92814A1D300D877CB /* Rimshot.aif */; };
 		6B305DC22814A1D300D877CB /* LAUGH!.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DBA2814A1D300D877CB /* LAUGH!.aif */; };
-		6B305DC6281585B900D877CB /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DC5281585B900D877CB /* HeartRateView.swift */; };
 		6B305DC82815860E00D877CB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DC72815860E00D877CB /* Colors.swift */; };
 		6B305DCC2815D8A200D877CB /* HeartRateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */; };
 		6B305DD02815D98900D877CB /* ViewModelWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCF2815D98900D877CB /* ViewModelWatch.swift */; };
@@ -27,6 +26,10 @@
 		6B3402AD281DA24000C71216 /* NewWorkOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402AC281DA24000C71216 /* NewWorkOutView.swift */; };
 		6B3402AF281DA46A00C71216 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402AE281DA46A00C71216 /* DashboardView.swift */; };
 		6B3402B1281DD1A100C71216 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402B0281DD1A100C71216 /* Styles.swift */; };
+		6B3402B7281ED71400C71216 /* SwiftUIGIF in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402B6281ED71400C71216 /* SwiftUIGIF */; };
+		6B3402B9281ED9EE00C71216 /* appleWatchAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */; };
+		6B3402C0281EEBD400C71216 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402BF281EEBD400C71216 /* Metronome.swift */; };
+		6B3402C2281EEC6400C71216 /* TriangleWaveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */; };
 		6B4D30A22816D09C0078FEA3 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */; };
 		6B4D30A42816D2290078FEA3 /* SessionPaginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */; };
 		6B4D30A62816D2530078FEA3 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A52816D2530078FEA3 /* ControlsView.swift */; };
@@ -131,7 +134,7 @@
 /* Begin PBXFileReference section */
 		6B305DAA28145B5100D877CB /* Click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Click.mp3; sourceTree = "<group>"; };
 		6B305DAE28145B8500D877CB /* SoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundView.swift; sourceTree = "<group>"; };
-		6B305DB028145CBA00D877CB /* SoundViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundViewModel.swift; sourceTree = "<group>"; };
+		6B305DB028145CBA00D877CB /* MetronomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewModel.swift; sourceTree = "<group>"; };
 		6B305DB32814A1D300D877CB /* Mechanical metronome - High.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mechanical metronome - High.aif"; sourceTree = "<group>"; };
 		6B305DB42814A1D300D877CB /* Hi-hat.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hi-hat.aif"; sourceTree = "<group>"; };
 		6B305DB52814A1D300D877CB /* Cowbell.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cowbell.aif; sourceTree = "<group>"; };
@@ -140,7 +143,6 @@
 		6B305DB82814A1D300D877CB /* Mechanical metronome - Low.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mechanical metronome - Low.aif"; sourceTree = "<group>"; };
 		6B305DB92814A1D300D877CB /* Rimshot.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rimshot.aif; sourceTree = "<group>"; };
 		6B305DBA2814A1D300D877CB /* LAUGH!.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LAUGH!.aif"; sourceTree = "<group>"; };
-		6B305DC5281585B900D877CB /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
 		6B305DC72815860E00D877CB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateViewModel.swift; sourceTree = "<group>"; };
 		6B305DCF2815D98900D877CB /* ViewModelWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelWatch.swift; sourceTree = "<group>"; };
@@ -150,6 +152,9 @@
 		6B3402AC281DA24000C71216 /* NewWorkOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkOutView.swift; sourceTree = "<group>"; };
 		6B3402AE281DA46A00C71216 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		6B3402B0281DD1A100C71216 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = appleWatchAnimation.gif; sourceTree = "<group>"; };
+		6B3402BF281EEBD400C71216 /* Metronome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
+		6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleWaveGenerator.swift; sourceTree = "<group>"; };
 		6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPaginView.swift; sourceTree = "<group>"; };
 		6B4D30A52816D2530078FEA3 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
@@ -194,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3402B7281ED71400C71216 /* SwiftUIGIF in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */,
-				6B305DD12815E47900D877CB /* SessionDelegater.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -264,11 +269,11 @@
 		6B305DC42815859600D877CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */,
 				6BE4A01928107A54004CB806 /* ContentView.swift */,
 				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
 				6B3402AC281DA24000C71216 /* NewWorkOutView.swift */,
 				6B305DAE28145B8500D877CB /* SoundView.swift */,
-				6B305DC5281585B900D877CB /* HeartRateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,10 +300,20 @@
 		6B3402AB281D97EC00C71216 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				6B305DD12815E47900D877CB /* SessionDelegater.swift */,
 				6B305DC72815860E00D877CB /* Colors.swift */,
 				6B3402B0281DD1A100C71216 /* Styles.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		6B3402BC281EE51F00C71216 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6B3402BF281EEBD400C71216 /* Metronome.swift */,
+				6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6B4D30A92816D34A0078FEA3 /* Views */ = {
@@ -357,13 +372,14 @@
 			isa = PBXGroup;
 			children = (
 				6B3402AA281A9C7600C71216 /* Info.plist */,
-				6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */,
-				6B305DB028145CBA00D877CB /* SoundViewModel.swift */,
+				6B305DB028145CBA00D877CB /* MetronomeViewModel.swift */,
 				6B305DC42815859600D877CB /* View */,
 				6B305DC32815858300D877CB /* ViewModel */,
 				6B3402AB281D97EC00C71216 /* Utility */,
+				6B3402BC281EE51F00C71216 /* Model */,
 				6B305DB22814A1D300D877CB /* Sounds */,
 				6BE4A01B28107A57004CB806 /* Assets.xcassets */,
+				6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */,
 				6BE4A01D28107A57004CB806 /* Preview Content */,
 			);
 			path = SpeedOfSound;
@@ -471,6 +487,7 @@
 			);
 			name = SpeedOfSound;
 			packageProductDependencies = (
+				6B3402B6281ED71400C71216 /* SwiftUIGIF */,
 			);
 			productName = SpeedOfSound;
 			productReference = 6BE4A01428107A54004CB806 /* SpeedOfSound.app */;
@@ -629,6 +646,7 @@
 			);
 			mainGroup = 6BE4A00B28107A54004CB806;
 			packageReferences = (
+				6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */,
 			);
 			productRefGroup = 6BE4A01528107A54004CB806 /* Products */;
 			projectDirPath = "";
@@ -650,6 +668,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3402B9281ED9EE00C71216 /* appleWatchAnimation.gif in Resources */,
 				6BE4A01F28107A57004CB806 /* Preview Assets.xcassets in Resources */,
 				6B305DBB2814A1D300D877CB /* Mechanical metronome - High.aif in Resources */,
 				6B305DBE2814A1D300D877CB /* Bass drum.aif in Resources */,
@@ -716,13 +735,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B305DC6281585B900D877CB /* HeartRateView.swift in Sources */,
+				6B3402C2281EEC6400C71216 /* TriangleWaveGenerator.swift in Sources */,
 				6B305DC82815860E00D877CB /* Colors.swift in Sources */,
 				6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */,
 				6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */,
 				6B305DAF28145B8500D877CB /* SoundView.swift in Sources */,
-				6B305DB128145CBA00D877CB /* SoundViewModel.swift in Sources */,
+				6B305DB128145CBA00D877CB /* MetronomeViewModel.swift in Sources */,
 				6B305DCC2815D8A200D877CB /* HeartRateViewModel.swift in Sources */,
+				6B3402C0281EEBD400C71216 /* Metronome.swift in Sources */,
 				6B3402AF281DA46A00C71216 /* DashboardView.swift in Sources */,
 				6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */,
 				6B3402B1281DD1A100C71216 /* Styles.swift in Sources */,
@@ -1374,6 +1394,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-gif";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6B3402B6281ED71400C71216 /* SwiftUIGIF */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */;
+			productName = SwiftUIGIF;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6BE4A00C28107A54004CB806 /* Project object */;
 }

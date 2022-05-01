@@ -6,13 +6,23 @@
 //
 
 import SwiftUI
+import SwiftUIGIF
 
 struct NewWorkOutView: View {
     @State var username = ""
     @State var sleepAmount = 0
-    @State private var lowBPM = 60
-    @State private var highBPM = 200
+    @State private var lowBPM: Int = 120
+    @State private var highBPM = 140
     @State private var isShowingSheet = false
+    private let heartRange = [40, 60, 80, 100, 120, 140, 160, 180, 200]
+    
+    func popView() -> some View {
+        ScrollView {
+            GIFImage(name: "appleWatchAnimation")
+                .frame(height: 200)
+            SoundView()
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -32,12 +42,18 @@ struct NewWorkOutView: View {
                 }.padding()
             }
             .padding([.leading])
+            .offset(y: -50)
             HStack {
                 Picker("", selection: $lowBPM) {
                     ForEach([60, 80, 100, 120], id: \.self) {
                         Text("\($0)")
+                            .foregroundColor(.white)
+                            .tag($0)
                     }
                 }
+                .pickerStyle(.wheel)
+                .fixedSize()
+                .frame(width: 30, height: 30)
                 Text("BPM")
                     .foregroundColor(.white)
                     .bold()
@@ -51,8 +67,14 @@ struct NewWorkOutView: View {
                 Picker("", selection: $highBPM) {
                     ForEach([140, 160, 180, 200], id: \.self) {
                         Text("\($0)")
+                            .foregroundColor(.white)
+
                     }
                 }
+                .pickerStyle(.wheel)
+                .fixedSize()
+                .frame(width: 30, height: 30)
+
                 Text("BPM")
                     .foregroundColor(.white)
                     .bold()
@@ -69,6 +91,7 @@ struct NewWorkOutView: View {
                 Spacer()
             }
             .padding()
+            .offset(y: 50)
         }
         .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
         .background(Color.green)
@@ -78,10 +101,7 @@ struct NewWorkOutView: View {
         .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $isShowingSheet,
                        onDismiss: didDismiss) {
-            VStack {
-                SoundView()
-                HeartRateView()
-            }
+            popView()
         }
         }
     }

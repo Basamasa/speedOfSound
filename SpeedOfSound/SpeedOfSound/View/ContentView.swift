@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var metroViewModel = SoundViewModel()
+    @StateObject var metroViewModel = MetronomeViewModel()
     
     func buttonView(_ text: String) -> some View {
         Text(text)
@@ -21,38 +21,41 @@ struct ContentView: View {
     }
     
     var body: some View {
-//        ScrollView {
-//            VStack {
-//                SoundView()
-//                HeartRateView()
-//            }
-//        }
-        NavigationView {
-            ZStack {
-                Color.green.opacity(0.2).edgesIgnoringSafeArea(.all)
-            VStack {
-                Text("Let's workout 💪")
-                    .font(.title)
-                    .bold()
-                    .offset(y: -40)
-                    .foregroundColor(Color.white)
-                NavigationLink(destination: NewWorkOutView()) {
-                    buttonView("Start new workout")
+        TabView {
+            NavigationView {
+                ZStack {
+                    Color.green.opacity(0.2).edgesIgnoringSafeArea(.all)
+                VStack {
+                    Text("Let's workout 💪")
+                        .font(.title)
+                        .bold()
+                        .offset(y: -40)
+                        .foregroundColor(Color.white)
+                    NavigationLink(destination: NewWorkOutView()) {
+                        buttonView("Start new workout")
+                    }
                 }
-                NavigationLink(destination: DashboardView()) {
-                    buttonView("Dashboard")
+                .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
+                .background(Color.green)
+                .cornerRadius(25.0)
+                .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
+                .padding()
+                .navigationTitle("Sound of Speed")
+                .navigationBarTitleTextColor(.green)
+                .navigationBarTitleDisplayMode(.large)
                 }
             }
-            .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
-            .background(Color.green)
-            .cornerRadius(25.0)
-            .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
-            .padding()
-            .navigationTitle("Sound of Speed")
-            .navigationBarTitleTextColor(.green)
-            .navigationBarTitleDisplayMode(.large)
+            .tabItem {
+                Image(systemName: "1.square.fill")
+                Text("First")
             }
+            DashboardView()
+                .tabItem {
+                    Image(systemName: "2.square.fill")
+                    Text("Dashboard")
+                }
         }
+        .font(.headline)
         .environmentObject(metroViewModel)
     }
 }
