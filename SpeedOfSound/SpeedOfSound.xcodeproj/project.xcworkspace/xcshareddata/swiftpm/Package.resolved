@@ -1,6 +1,24 @@
 {
   "pins" : [
     {
+      "identity" : "halfasheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/franklynw/HalfASheet",
+      "state" : {
+        "revision" : "4f43296b3722082dd5735521ee0fbf25e61cd21c",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "snap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nerdsupremacist/Snap.git",
+      "state" : {
+        "revision" : "29943b7064547f391ea8352dea04903e2263d831",
+        "version" : "0.2.2"
+      }
+    },
+    {
       "identity" : "swiftui-gif",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/globulus/swiftui-gif",

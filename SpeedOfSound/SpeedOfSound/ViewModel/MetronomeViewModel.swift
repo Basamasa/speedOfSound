@@ -10,33 +10,16 @@ import AVFoundation
 import Combine
 
 class MetronomeViewModel: ObservableObject, MetronomeDelegate {
-    func metronomeTicking(_ metronome: Metronome, currentTick: Int) {
-        print(metronome.tempoBPM, currentTick)
-        
-        print("my: \(myMetronome.meter) / \(myMetronome.division)")
-        print("\(metronome.meter) / \(metronome.division)")
-    }
-    
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
     @Published var effect = ["1","2","3","4","5","6","7","8"]
-    @Published var beatsIndex: Double = 1
-    @Published var fastPlus = false
-    @Published var fastMinus = false
-    @Published var timer1: Timer?
     @Published var wasRunning = false
     
     @Published var BPM: Double = 120
-    @Published var difference1: Float = 0
-    @Published var difference2: Float = 0
-    @Published var currentNum = 1
-    @Published var meas1 = -1
-    @Published var meas2 = -1
-    @Published var meas3 = -1
-    @Published var calc1 = -1
     @Published var speedString = "Allegro"
+    @Published var isShowingSheet = false
     
-    let myMetronome = Metronome(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 1)!)
+    let myMetronome = Metronome(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
     
     var pub1: Publishers.Autoconnect<Timer.TimerPublisher> {
         Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
@@ -49,6 +32,9 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     }
     
     var timer = Timer()
+    
+    func metronomeTicking(_ metronome: Metronome, currentTick: Int) {
+    }
     
     func start() {
         mode = .running
@@ -123,12 +109,12 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     }
     
     func clickOnMinusButton() {
-        myMetronome.setTempo(to: myMetronome.tempoBPM - 1)
+        myMetronome.incrementTempo(by: -1)
         updateBpm()
     }
     
     func clickOnPlusButton() {
-        myMetronome.setTempo(to: myMetronome.tempoBPM + 1)
+        myMetronome.incrementTempo(by: 1)
         updateBpm()
     }
     

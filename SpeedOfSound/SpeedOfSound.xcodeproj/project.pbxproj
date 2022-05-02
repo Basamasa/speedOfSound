@@ -30,6 +30,10 @@
 		6B3402B9281ED9EE00C71216 /* appleWatchAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */; };
 		6B3402C0281EEBD400C71216 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402BF281EEBD400C71216 /* Metronome.swift */; };
 		6B3402C2281EEC6400C71216 /* TriangleWaveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */; };
+		6B3402C5281F376600C71216 /* HalfASheet in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402C4281F376600C71216 /* HalfASheet */; };
+		6B3402C7281F3B3F00C71216 /* Representables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402C6281F3B3F00C71216 /* Representables.swift */; };
+		6B3402CA281F3C6C00C71216 /* Snap in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402C9281F3C6C00C71216 /* Snap */; };
+		6B3402CC281FE40200C71216 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402CB281FE40200C71216 /* Extensions.swift */; };
 		6B4D30A22816D09C0078FEA3 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */; };
 		6B4D30A42816D2290078FEA3 /* SessionPaginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */; };
 		6B4D30A62816D2530078FEA3 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A52816D2530078FEA3 /* ControlsView.swift */; };
@@ -155,6 +159,8 @@
 		6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = appleWatchAnimation.gif; sourceTree = "<group>"; };
 		6B3402BF281EEBD400C71216 /* Metronome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
 		6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleWaveGenerator.swift; sourceTree = "<group>"; };
+		6B3402C6281F3B3F00C71216 /* Representables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Representables.swift; sourceTree = "<group>"; };
+		6B3402CB281FE40200C71216 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPaginView.swift; sourceTree = "<group>"; };
 		6B4D30A52816D2530078FEA3 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
@@ -199,7 +205,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3402CA281F3C6C00C71216 /* Snap in Frameworks */,
 				6B3402B7281ED71400C71216 /* SwiftUIGIF in Frameworks */,
+				6B3402C5281F376600C71216 /* HalfASheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +269,7 @@
 		6B305DC32815858300D877CB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6B305DB028145CBA00D877CB /* MetronomeViewModel.swift */,
 				6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */,
 			);
 			path = ViewModel;
@@ -303,6 +312,8 @@
 				6B305DD12815E47900D877CB /* SessionDelegater.swift */,
 				6B305DC72815860E00D877CB /* Colors.swift */,
 				6B3402B0281DD1A100C71216 /* Styles.swift */,
+				6B3402C6281F3B3F00C71216 /* Representables.swift */,
+				6B3402CB281FE40200C71216 /* Extensions.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -372,7 +383,6 @@
 			isa = PBXGroup;
 			children = (
 				6B3402AA281A9C7600C71216 /* Info.plist */,
-				6B305DB028145CBA00D877CB /* MetronomeViewModel.swift */,
 				6B305DC42815859600D877CB /* View */,
 				6B305DC32815858300D877CB /* ViewModel */,
 				6B3402AB281D97EC00C71216 /* Utility */,
@@ -488,6 +498,8 @@
 			name = SpeedOfSound;
 			packageProductDependencies = (
 				6B3402B6281ED71400C71216 /* SwiftUIGIF */,
+				6B3402C4281F376600C71216 /* HalfASheet */,
+				6B3402C9281F3C6C00C71216 /* Snap */,
 			);
 			productName = SpeedOfSound;
 			productReference = 6BE4A01428107A54004CB806 /* SpeedOfSound.app */;
@@ -647,6 +659,8 @@
 			mainGroup = 6BE4A00B28107A54004CB806;
 			packageReferences = (
 				6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */,
+				6B3402C3281F376600C71216 /* XCRemoteSwiftPackageReference "HalfASheet" */,
+				6B3402C8281F3C6C00C71216 /* XCRemoteSwiftPackageReference "Snap" */,
 			);
 			productRefGroup = 6BE4A01528107A54004CB806 /* Products */;
 			projectDirPath = "";
@@ -735,6 +749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3402C7281F3B3F00C71216 /* Representables.swift in Sources */,
 				6B3402C2281EEC6400C71216 /* TriangleWaveGenerator.swift in Sources */,
 				6B305DC82815860E00D877CB /* Colors.swift in Sources */,
 				6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */,
@@ -747,6 +762,7 @@
 				6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */,
 				6B3402B1281DD1A100C71216 /* Styles.swift in Sources */,
 				6B3402AD281DA24000C71216 /* NewWorkOutView.swift in Sources */,
+				6B3402CC281FE40200C71216 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1098,8 +1114,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1133,8 +1149,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1404,6 +1420,22 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		6B3402C3281F376600C71216 /* XCRemoteSwiftPackageReference "HalfASheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/franklynw/HalfASheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		6B3402C8281F3C6C00C71216 /* XCRemoteSwiftPackageReference "Snap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nerdsupremacist/Snap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1411,6 +1443,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */;
 			productName = SwiftUIGIF;
+		};
+		6B3402C4281F376600C71216 /* HalfASheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3402C3281F376600C71216 /* XCRemoteSwiftPackageReference "HalfASheet" */;
+			productName = HalfASheet;
+		};
+		6B3402C9281F3C6C00C71216 /* Snap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3402C8281F3C6C00C71216 /* XCRemoteSwiftPackageReference "Snap" */;
+			productName = Snap;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -7,23 +7,17 @@
 
 import SwiftUI
 import SwiftUIGIF
+import Snap
+import HalfASheet
 
 struct NewWorkOutView: View {
     @State var username = ""
     @State var sleepAmount = 0
     @State private var lowBPM: Int = 120
     @State private var highBPM = 140
-    @State private var isShowingSheet = false
     private let heartRange = [40, 60, 80, 100, 120, 140, 160, 180, 200]
-    
-    func popView() -> some View {
-        ScrollView {
-            GIFImage(name: "appleWatchAnimation")
-                .frame(height: 200)
-            SoundView()
-        }
-    }
-    
+    @EnvironmentObject var soundViewModel: MetronomeViewModel
+
     var body: some View {
         ZStack {
             Color.green.opacity(0.2).edgesIgnoringSafeArea(.all)
@@ -83,7 +77,7 @@ struct NewWorkOutView: View {
             .padding([.leading, .trailing])
             HStack {
                 Spacer()
-                Button("Start", action: {isShowingSheet.toggle()})
+                Button("Start", action: {soundViewModel.isShowingSheet.toggle()})
                 .buttonStyle(.bordered)
                 .font(.title)
                 .foregroundColor(.white)
@@ -99,10 +93,6 @@ struct NewWorkOutView: View {
         .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
         .padding()
         .navigationBarTitleDisplayMode(.large)
-        .sheet(isPresented: $isShowingSheet,
-                       onDismiss: didDismiss) {
-            popView()
-        }
         }
     }
     func didDismiss() {

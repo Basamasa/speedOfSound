@@ -11,8 +11,16 @@ struct DashboardView: View {
     
     
     var body: some View {
-        List() {
-            
+        NavigationView {
+            ZStack {
+                Color.green.opacity(0.2).edgesIgnoringSafeArea(.all)
+                VStack() {
+                   Text("Hi")
+                }
+            }
+            .navigationTitle("Dashboard")
+            .navigationBarTitleTextColor(.green)
+            .navigationBarTitleDisplayMode(.large)
         }
     }
 }
