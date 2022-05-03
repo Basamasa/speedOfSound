@@ -8,6 +8,7 @@
 import Foundation
 import AVFoundation
 import Combine
+import WatchConnectivity
 
 class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     @Published var mode:isMetroRunning = .stopped
@@ -19,34 +20,52 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     @Published var speedString = "Allegro"
     @Published var isShowingSheet = false
     
-    let myMetronome = Metronome(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
+    // Heart rate
+    var session: WCSession
+    let delegate: WCSessionDelegate
+    let subject1 = PassthroughSubject<Int, Never>()
+    let subject2 = PassthroughSubject<Bool, Never>()
+    @Published private(set) var count: Int = 0
+    @Published private(set) var sessionWorkout: Bool = false
     
-    var pub1: Publishers.Autoconnect<Timer.TimerPublisher> {
-        Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
+    let myMetronome: Metronome
+        
+    init(session: WCSession = .default) {
+        self.delegate = SessionDelegater(countSubject: subject1, sessionWorkoutSubject: subject2)
+        self.session = session
+        self.session.delegate = self.delegate
+        self.session.activate()
+           
+        myMetronome = Metronome(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
+
+        subject1
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$count)
+        
+        subject2
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$sessionWorkout)
     }
     
-    var pub: AnyPublisher<Void, Never> {
-        Just(())
-           .delay(for: .seconds(0.001), scheduler: DispatchQueue.main)
-           .eraseToAnyPublisher()
-    }
-    
-    var timer = Timer()
-    
+    // Delegate function
     func metronomeTicking(_ metronome: Metronome, currentTick: Int) {
     }
     
     func start() {
-        mode = .running
-        try? myMetronome.start()
+        if sessionWorkout {
+            mode = .running
+            try? myMetronome.start()
+        }
     }
     
     func stop() {
-        mode = .stopped
-        myMetronome.stop()
+        if !sessionWorkout {
+            mode = .stopped
+            myMetronome.stop()
+        }
     }
     
-    func clickOnHeart() {
+    func clickOnBPM() {
         BPM = 60
     }
     
@@ -161,11 +180,11 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
         guard url != nil else {
             return
         }
-        do {
-            player = try AVAudioPlayer(contentsOf: url!)
-            player?.play()
-        } catch {
-            print("\(error)")
-        }
+//        do {
+//            player = try AVAudioPlayer(contentsOf: url!)
+//            player?.play()
+//        } catch {
+//            print("\(error)")
+//        }
     }
 }

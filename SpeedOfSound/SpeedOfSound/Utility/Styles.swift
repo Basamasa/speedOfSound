@@ -38,26 +38,18 @@ struct DraggableModifier : ViewModifier {
 
     @State private var draggedOffset: CGSize = .zero
     @Binding var showPlayer: Bool
-
-    func valueChanged(value: DragGesture.Value) {
-        if direction == .top {
-            if (value.location.y - value.startLocation.y) <= 0 {
-                self.draggedOffset = value.translation
-            }
-        } else {
-            if (value.location.y - value.startLocation.y) >= 0 {
-                self.draggedOffset = value.translation
-            }
-        }
-    }
     
     func valueChangeEnded(value: DragGesture.Value) {
         if value.translation.height < 0 {
-            showPlayer = true
+            withAnimation {
+                showPlayer = true
+            }
         }
 
         if value.translation.height > 0 {
-            showPlayer = false
+            withAnimation {
+                showPlayer = false
+            }
         }
     }
     
@@ -68,9 +60,6 @@ struct DraggableModifier : ViewModifier {
         )
         .gesture(
             DragGesture()
-            .onChanged { value in
-                valueChanged(value: value)
-            }
             .onEnded { value in
                 self.draggedOffset = .zero
                 valueChangeEnded(value: value)

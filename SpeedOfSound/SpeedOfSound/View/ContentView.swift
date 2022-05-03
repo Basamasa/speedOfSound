@@ -73,7 +73,6 @@ struct ContentView: View {
             .height(.proportional(0.4))
         }
         .environmentObject(metroViewModel)
-
     }
 }
 
