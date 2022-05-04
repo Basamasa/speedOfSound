@@ -12,10 +12,10 @@ import UIKit
 import SwiftUI
 
 protocol MetronomeDelegate: AnyObject {
-    func metronomeTicking(_ metronome: Metronome, currentTick: Int)
+    func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int)
 }
 
-class Metronome {
+class MetronomeModel {
     
     struct Constants {
         static let kBipDurationSeconds = 0.02
@@ -86,8 +86,8 @@ class Metronome {
         soundBuffer[1]?.frameLength = bipFrames
         
         // Generate the metronme bips, first buffer will be A440 and the second buffer Middle C.
-        let wg1 = TriangleWaveGenerator(sampleRate: Float(audioFormat.sampleRate), frequency: 261.6)
-        let wg2 = TriangleWaveGenerator(sampleRate: Float(audioFormat.sampleRate))
+        let wg1 = TriangleWaveModel(sampleRate: Float(audioFormat.sampleRate), frequency: 261.6)
+        let wg2 = TriangleWaveModel(sampleRate: Float(audioFormat.sampleRate))
         
         wg1.render(soundBuffer[0]!)
         wg2.render(soundBuffer[1]!)

@@ -19,13 +19,10 @@ struct NowPlayingBar<Content: View>: View {
 }
 
 struct ListenNowView: View {
-    @State private var showMediaPlayer = false
-    @State private var offset = CGSize.zero
-
     @EnvironmentObject var soundViewModel: MetronomeViewModel
     @Binding var showPlayer: Bool
-    @Namespace var nspace
-    
+    @Namespace var namespace
+
     var body: some View {
         VStack {
             if !showPlayer {
@@ -34,17 +31,21 @@ struct ListenNowView: View {
                         .offset(y: -20)
                         .foregroundColor(.white)
                         .font(.title)
+                        .matchedGeometryEffect(id: "Chevron", in: namespace)
+
                     HStack {
                         HStack {
                             Text("\(Int(soundViewModel.BPM))")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
+
                             Text("BPM")
                                 .font(.footnote)
                                 .foregroundColor(.white)
                         }
                         .foregroundColor(Color("ButtonAccent"))
+                        .matchedGeometryEffect(id: "BPM", in: namespace)
                         .padding()
                         
                         Spacer()
@@ -59,15 +60,16 @@ struct ListenNowView: View {
                                 .font(.largeTitle)
                         })
                         .padding()
+                        .matchedGeometryEffect(id: "PlayButton", in: namespace)
                     }
                 }
                 .zIndex(1)
-                .background(Color.green)
+                .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .frame(height: showPlayer == true ? 500 : 65)
-//                .matchedGeometryEffect(id: "NowPlayer", in: nspace)
                 .modifier(DraggableModifier(direction: .top, showPlayer: $showPlayer))
                 .transition(.backslide1)
+                .matchedGeometryEffect(id: "NowPlayer", in: namespace)
                 .onTapGesture {
                     withAnimation {
                         showPlayer = true
@@ -79,19 +81,20 @@ struct ListenNowView: View {
                         .foregroundColor(.white)
                         .font(.title)
                         .padding()
-                    SoundView()
+                        .matchedGeometryEffect(id: "Chevron", in: namespace)
+                        .onTapGesture {
+                            withAnimation {
+                                showPlayer = false
+                            }
+                        }
+                    SoundView(namespace: namespace)
+                        .matchedGeometryEffect(id: "NowPlayer", in: namespace)
                 }
                 .zIndex(2)
-                .background(Color.green)
+                .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
-//                .matchedGeometryEffect(id: "NowPlayer", in: nspace)
                 .transition(.backslide2)
                 .modifier(DraggableModifier(direction: .bottom, showPlayer: $showPlayer))
-                .onTapGesture {
-                    withAnimation {
-                        showPlayer = false
-                    }
-                }
             }
         }
         .onChange(of: soundViewModel.sessionWorkout, perform: { newValue in

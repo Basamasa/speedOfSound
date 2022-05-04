@@ -11,6 +11,7 @@ import Combine
 import WatchConnectivity
 
 class MetronomeViewModel: ObservableObject, MetronomeDelegate {
+    // BPM metronome
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
     @Published var effect = ["1","2","3","4","5","6","7","8"]
@@ -20,7 +21,7 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     @Published var speedString = "Allegro"
     @Published var isShowingSheet = false
     
-    // Heart rate
+    // Heart rate session
     var session: WCSession
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
@@ -28,7 +29,7 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     @Published private(set) var count: Int = 0
     @Published private(set) var sessionWorkout: Bool = false
     
-    let myMetronome: Metronome
+    let myMetronome: MetronomeModel
         
     init(session: WCSession = .default) {
         self.delegate = SessionDelegater(countSubject: subject1, sessionWorkoutSubject: subject2)
@@ -36,7 +37,7 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
         self.session.delegate = self.delegate
         self.session.activate()
            
-        myMetronome = Metronome(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
+        myMetronome = MetronomeModel(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
 
         subject1
             .receive(on: DispatchQueue.main)
@@ -48,7 +49,7 @@ class MetronomeViewModel: ObservableObject, MetronomeDelegate {
     }
     
     // Delegate function
-    func metronomeTicking(_ metronome: Metronome, currentTick: Int) {
+    func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
     }
     
     func start() {

@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-class TriangleWaveGenerator : NSObject {
+class TriangleWaveModel: NSObject {
     var mSampleRate: Float = 44100.0
     var mFreqHz: Float = 440.0
     var mAmplitude: Float = 0.25

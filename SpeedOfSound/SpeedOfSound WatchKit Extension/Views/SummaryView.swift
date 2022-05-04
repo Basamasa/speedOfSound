@@ -37,13 +37,6 @@ struct SummaryView: View {
                                                                 usage: .road,
                                                                 numberFormatStyle: .number.precision(.fractionLength(2)))))
                         .foregroundStyle(.green)
-                    SummaryMetricView(title: "Total Energy",
-                                      value: Measurement(value: workoutManager.workout?.totalEnergyBurned?.doubleValue(for: .kilocalorie()) ?? 0,
-                                                         unit: UnitEnergy.kilocalories)
-                                        .formatted(.measurement(width: .abbreviated,
-                                                                usage: .workout,
-                                                                numberFormatStyle: .number.precision(.fractionLength(0)))))
-                        .foregroundStyle(.pink)
                     SummaryMetricView(title: "Avg. Heart Rate",
                                       value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
                         .foregroundStyle(.red)

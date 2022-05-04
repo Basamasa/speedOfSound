@@ -8,7 +8,6 @@
 import SwiftUI
 import HalfASheet
 import SwiftUIGIF
-import Snap
 
 struct ContentView: View {
     @StateObject var metroViewModel = MetronomeViewModel()
@@ -19,7 +18,7 @@ struct ContentView: View {
             .bold()
             .frame(width: 190, height: 60, alignment: .center)
             .background(Color.white)
-            .foregroundColor(Color.green)
+            .foregroundColor(Color.black)
             .cornerRadius(25)
     }
     
@@ -28,7 +27,7 @@ struct ContentView: View {
             TabView {
                 NavigationView {
                     ZStack {
-                        Color.green.opacity(0.2).edgesIgnoringSafeArea(.all)
+                        Color.black.edgesIgnoringSafeArea(.all)
                         VStack {
                             Text("Let's workout 💪")
                                 .font(.title)
@@ -40,26 +39,35 @@ struct ContentView: View {
                             }
                         }
                         .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
-                        .background(Color.green)
                         .cornerRadius(25.0)
-                        .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
                     }
                     .navigationTitle("Sound of Speed")
-                    .navigationBarTitleTextColor(.green)
+                    .navigationBarTitleTextColor(.white)
                     .navigationBarTitleDisplayMode(.large)
                 }
                 .tabItem {
-                    Image(systemName: "badge.plus.radiowaves.right")
-                    Text("Add workout")
+                    VStack {
+                        Image(systemName: "badge.plus.radiowaves.right")
+                            .renderingMode(.template)
+                        Text("Add workout")
+                    }
+
                 }
-                DashboardView()
-                    .tabItem {
+                .foregroundColor(.white)
+
+                ZStack {
+                    Color.black.edgesIgnoringSafeArea(.all)
+                    DashboardView()
+                }
+                .tabItem {
+                    VStack {
                         Image(systemName: "list.bullet.rectangle.fill")
+                            .renderingMode(.template)
                         Text("Dashboard")
                     }
+                }
             }
-            .accentColor(.green)
-            
+            .accentColor(.white)
             NowPlayingBar(content: ListenNowView(showPlayer: $showPlayer))
                 .tabItem {}
                 .offset(y: -50)
@@ -71,6 +79,7 @@ struct ContentView: View {
             .backgroundColor(.white)
             .closeButtonColor(.white)
             .height(.proportional(0.4))
+
         }
         .environmentObject(metroViewModel)
     }

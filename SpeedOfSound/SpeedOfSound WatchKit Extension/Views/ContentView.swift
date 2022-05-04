@@ -13,7 +13,6 @@ struct ContentView: View {
     var workoutTypes: [HKWorkoutActivityType] = [.cycling, .running, .walking, .traditionalStrengthTraining]
     
     var body: some View {
-//        WatchFace()
         List(workoutTypes) { workoutType in
             NavigationLink(workoutType.name, destination: SessionPagingView(),
                            tag: workoutType, selection: $workoutManager.selectedWorkout)

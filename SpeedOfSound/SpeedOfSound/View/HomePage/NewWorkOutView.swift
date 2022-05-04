@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftUIGIF
-import Snap
 import HalfASheet
 
 struct NewWorkOutView: View {
@@ -20,7 +19,7 @@ struct NewWorkOutView: View {
 
     var body: some View {
         ZStack {
-            Color.green.opacity(0.2).edgesIgnoringSafeArea(.all)
+            Color.black.edgesIgnoringSafeArea(.all)
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "person.circle")
@@ -88,7 +87,7 @@ struct NewWorkOutView: View {
             .offset(y: 50)
         }
         .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
-        .background(Color.green)
+        .background(.gray.opacity(0.3))
         .cornerRadius(25.0)
         .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
         .padding()

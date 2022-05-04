@@ -19,8 +19,6 @@
 		6B305DC12814A1D300D877CB /* Rimshot.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB92814A1D300D877CB /* Rimshot.aif */; };
 		6B305DC22814A1D300D877CB /* LAUGH!.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DBA2814A1D300D877CB /* LAUGH!.aif */; };
 		6B305DC82815860E00D877CB /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DC72815860E00D877CB /* Colors.swift */; };
-		6B305DCC2815D8A200D877CB /* HeartRateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */; };
-		6B305DD02815D98900D877CB /* ViewModelWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DCF2815D98900D877CB /* ViewModelWatch.swift */; };
 		6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DD12815E47900D877CB /* SessionDelegater.swift */; };
 		6B305DD42815E6D500D877CB /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DD32815E6D500D877CB /* SessionDelegater.swift */; };
 		6B3402AD281DA24000C71216 /* NewWorkOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402AC281DA24000C71216 /* NewWorkOutView.swift */; };
@@ -28,12 +26,22 @@
 		6B3402B1281DD1A100C71216 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402B0281DD1A100C71216 /* Styles.swift */; };
 		6B3402B7281ED71400C71216 /* SwiftUIGIF in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402B6281ED71400C71216 /* SwiftUIGIF */; };
 		6B3402B9281ED9EE00C71216 /* appleWatchAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */; };
-		6B3402C0281EEBD400C71216 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402BF281EEBD400C71216 /* Metronome.swift */; };
-		6B3402C2281EEC6400C71216 /* TriangleWaveGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */; };
+		6B3402C0281EEBD400C71216 /* MetronomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402BF281EEBD400C71216 /* MetronomeModel.swift */; };
+		6B3402C2281EEC6400C71216 /* TriangleWaveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402C1281EEC6400C71216 /* TriangleWaveModel.swift */; };
 		6B3402C5281F376600C71216 /* HalfASheet in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402C4281F376600C71216 /* HalfASheet */; };
 		6B3402C7281F3B3F00C71216 /* Representables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402C6281F3B3F00C71216 /* Representables.swift */; };
-		6B3402CC281FE40200C71216 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402CB281FE40200C71216 /* Extensions.swift */; };
+		6B3402CC281FE40200C71216 /* View+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402CB281FE40200C71216 /* View+extensions.swift */; };
 		6B3402CE28205EF300C71216 /* ListenNowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402CD28205EF300C71216 /* ListenNowView.swift */; };
+		6B3402D3282107E700C71216 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3402D2282107E700C71216 /* DashboardViewModel.swift */; };
+		6B3402D628210A2200C71216 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B3402D528210A2200C71216 /* HealthKit.framework */; };
+		6B3402D9282127FA00C71216 /* CorePermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402D8282127FA00C71216 /* CorePermissionsSwiftUI */; };
+		6B3402DB282127FA00C71216 /* PermissionsSwiftUIHealth in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402DA282127FA00C71216 /* PermissionsSwiftUIHealth */; };
+		6B46835D28217A630048E20B /* RecentWorkoutsWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */; };
+		6B46835F28217D350048E20B /* WorkoutRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46835E28217D350048E20B /* WorkoutRowModel.swift */; };
+		6B46836128217DCB0048E20B /* HKWorkoutActivityType+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */; };
+		6B46836328217E1A0048E20B /* HKWorkout+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836228217E1A0048E20B /* HKWorkout+extensions.swift */; };
+		6B46836528217E5F0048E20B /* Array+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836428217E5F0048E20B /* Array+extensions.swift */; };
+		6B46836728217EDE0048E20B /* Text+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836628217EDE0048E20B /* Text+extensions.swift */; };
 		6B4D30A22816D09C0078FEA3 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */; };
 		6B4D30A42816D2290078FEA3 /* SessionPaginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */; };
 		6B4D30A62816D2530078FEA3 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A52816D2530078FEA3 /* ControlsView.swift */; };
@@ -61,8 +69,6 @@
 		6BE4A06C28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A06B28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITests.swift */; };
 		6BE4A06E28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A06D28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITestsLaunchTests.swift */; };
 		6BFE6A5C28108294008FE74E /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFE6A5B28108294008FE74E /* HealthKit.framework */; };
-		6BFE6A5F2810AF66008FE74E /* WatchFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE6A5E2810AF66008FE74E /* WatchFace.swift */; };
-		6BFE6A612810AFF4008FE74E /* WatchFaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE6A602810AFF4008FE74E /* WatchFaceModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,8 +154,6 @@
 		6B305DB92814A1D300D877CB /* Rimshot.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Rimshot.aif; sourceTree = "<group>"; };
 		6B305DBA2814A1D300D877CB /* LAUGH!.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LAUGH!.aif"; sourceTree = "<group>"; };
 		6B305DC72815860E00D877CB /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateViewModel.swift; sourceTree = "<group>"; };
-		6B305DCF2815D98900D877CB /* ViewModelWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelWatch.swift; sourceTree = "<group>"; };
 		6B305DD12815E47900D877CB /* SessionDelegater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		6B305DD32815E6D500D877CB /* SessionDelegater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		6B3402AA281A9C7600C71216 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -157,11 +161,20 @@
 		6B3402AE281DA46A00C71216 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		6B3402B0281DD1A100C71216 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = appleWatchAnimation.gif; sourceTree = "<group>"; };
-		6B3402BF281EEBD400C71216 /* Metronome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
-		6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleWaveGenerator.swift; sourceTree = "<group>"; };
+		6B3402BF281EEBD400C71216 /* MetronomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeModel.swift; sourceTree = "<group>"; };
+		6B3402C1281EEC6400C71216 /* TriangleWaveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleWaveModel.swift; sourceTree = "<group>"; };
 		6B3402C6281F3B3F00C71216 /* Representables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Representables.swift; sourceTree = "<group>"; };
-		6B3402CB281FE40200C71216 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6B3402CB281FE40200C71216 /* View+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extensions.swift"; sourceTree = "<group>"; };
 		6B3402CD28205EF300C71216 /* ListenNowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenNowView.swift; sourceTree = "<group>"; };
+		6B3402D2282107E700C71216 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		6B3402D428210A2200C71216 /* SpeedOfSound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedOfSound.entitlements; sourceTree = "<group>"; };
+		6B3402D528210A2200C71216 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkoutsWidgets.swift; sourceTree = "<group>"; };
+		6B46835E28217D350048E20B /* WorkoutRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRowModel.swift; sourceTree = "<group>"; };
+		6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+extensions.swift"; sourceTree = "<group>"; };
+		6B46836228217E1A0048E20B /* HKWorkout+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkout+extensions.swift"; sourceTree = "<group>"; };
+		6B46836428217E5F0048E20B /* Array+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extensions.swift"; sourceTree = "<group>"; };
+		6B46836628217EDE0048E20B /* Text+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+extensions.swift"; sourceTree = "<group>"; };
 		6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
 		6B4D30A32816D2290078FEA3 /* SessionPaginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPaginView.swift; sourceTree = "<group>"; };
 		6B4D30A52816D2530078FEA3 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
@@ -197,8 +210,6 @@
 		6BE4A06D28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSound_WatchKit_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6BFE6A5B28108294008FE74E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		6BFE6A5D28108376008FE74E /* SpeedOfSound WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SpeedOfSound WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		6BFE6A5E2810AF66008FE74E /* WatchFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchFace.swift; sourceTree = "<group>"; };
-		6BFE6A602810AFF4008FE74E /* WatchFaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchFaceModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,8 +217,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B3402D628210A2200C71216 /* HealthKit.framework in Frameworks */,
 				6B3402B7281ED71400C71216 /* SwiftUIGIF in Frameworks */,
+				6B3402D9282127FA00C71216 /* CorePermissionsSwiftUI in Frameworks */,
 				6B3402C5281F376600C71216 /* HalfASheet in Frameworks */,
+				6B3402DB282127FA00C71216 /* PermissionsSwiftUIHealth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,8 +283,8 @@
 		6B305DC32815858300D877CB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6B3402D2282107E700C71216 /* DashboardViewModel.swift */,
 				6B305DB028145CBA00D877CB /* MetronomeViewModel.swift */,
-				6B305DCB2815D8A200D877CB /* HeartRateViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -279,23 +293,11 @@
 			isa = PBXGroup;
 			children = (
 				6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */,
-				6BE4A01928107A54004CB806 /* ContentView.swift */,
-				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
-				6B3402AC281DA24000C71216 /* NewWorkOutView.swift */,
-				6B305DAE28145B8500D877CB /* SoundView.swift */,
-				6B3402CD28205EF300C71216 /* ListenNowView.swift */,
+				6B3402D1282105F900C71216 /* HomePage */,
+				6B3402D0282105E200C71216 /* Player */,
+				6B3402CF282105CE00C71216 /* Dashboard */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		6B305DCD2815D93500D877CB /* WatchFace */ = {
-			isa = PBXGroup;
-			children = (
-				6BFE6A5E2810AF66008FE74E /* WatchFace.swift */,
-				6BFE6A602810AFF4008FE74E /* WatchFaceModel.swift */,
-				6B305DCF2815D98900D877CB /* ViewModelWatch.swift */,
-			);
-			path = WatchFace;
 			sourceTree = "<group>";
 		};
 		6B305DCE2815D95900D877CB /* Notification */ = {
@@ -314,7 +316,6 @@
 				6B305DC72815860E00D877CB /* Colors.swift */,
 				6B3402B0281DD1A100C71216 /* Styles.swift */,
 				6B3402C6281F3B3F00C71216 /* Representables.swift */,
-				6B3402CB281FE40200C71216 /* Extensions.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -322,10 +323,50 @@
 		6B3402BC281EE51F00C71216 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6B3402BF281EEBD400C71216 /* Metronome.swift */,
-				6B3402C1281EEC6400C71216 /* TriangleWaveGenerator.swift */,
+				6B3402BF281EEBD400C71216 /* MetronomeModel.swift */,
+				6B46835E28217D350048E20B /* WorkoutRowModel.swift */,
+				6B3402C1281EEC6400C71216 /* TriangleWaveModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6B3402CF282105CE00C71216 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
+				6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		6B3402D0282105E200C71216 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				6B3402CD28205EF300C71216 /* ListenNowView.swift */,
+				6B305DAE28145B8500D877CB /* SoundView.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		6B3402D1282105F900C71216 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				6BE4A01928107A54004CB806 /* ContentView.swift */,
+				6B3402AC281DA24000C71216 /* NewWorkOutView.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		6B46836828229AEC0048E20B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6B3402CB281FE40200C71216 /* View+extensions.swift */,
+				6B46836428217E5F0048E20B /* Array+extensions.swift */,
+				6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */,
+				6B46836228217E1A0048E20B /* HKWorkout+extensions.swift */,
+				6B46836628217EDE0048E20B /* Text+extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		6B4D30A92816D34A0078FEA3 /* Views */ = {
@@ -383,11 +424,13 @@
 		6BE4A01628107A54004CB806 /* SpeedOfSound */ = {
 			isa = PBXGroup;
 			children = (
+				6B3402D428210A2200C71216 /* SpeedOfSound.entitlements */,
 				6B3402AA281A9C7600C71216 /* Info.plist */,
 				6B305DC42815859600D877CB /* View */,
 				6B305DC32815858300D877CB /* ViewModel */,
-				6B3402AB281D97EC00C71216 /* Utility */,
 				6B3402BC281EE51F00C71216 /* Model */,
+				6B3402AB281D97EC00C71216 /* Utility */,
+				6B46836828229AEC0048E20B /* Extensions */,
 				6B305DB22814A1D300D877CB /* Sounds */,
 				6BE4A01B28107A57004CB806 /* Assets.xcassets */,
 				6B3402B8281ED9EE00C71216 /* appleWatchAnimation.gif */,
@@ -435,7 +478,6 @@
 				6BFE6A5D28108376008FE74E /* SpeedOfSound WatchKit Extension.entitlements */,
 				6B4D30AE2816DD840078FEA3 /* Managers */,
 				6B4D30A92816D34A0078FEA3 /* Views */,
-				6B305DCD2815D93500D877CB /* WatchFace */,
 				6BE4A05028107A58004CB806 /* ComplicationController.swift */,
 				6B305DCE2815D95900D877CB /* Notification */,
 				6BE4A05228107A59004CB806 /* Assets.xcassets */,
@@ -474,6 +516,7 @@
 		6BFE6A5A28108294008FE74E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B3402D528210A2200C71216 /* HealthKit.framework */,
 				6BFE6A5B28108294008FE74E /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -500,6 +543,8 @@
 			packageProductDependencies = (
 				6B3402B6281ED71400C71216 /* SwiftUIGIF */,
 				6B3402C4281F376600C71216 /* HalfASheet */,
+				6B3402D8282127FA00C71216 /* CorePermissionsSwiftUI */,
+				6B3402DA282127FA00C71216 /* PermissionsSwiftUIHealth */,
 			);
 			productName = SpeedOfSound;
 			productReference = 6BE4A01428107A54004CB806 /* SpeedOfSound.app */;
@@ -661,6 +706,7 @@
 				6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */,
 				6B3402C3281F376600C71216 /* XCRemoteSwiftPackageReference "HalfASheet" */,
 				6B3402C8281F3C6C00C71216 /* XCRemoteSwiftPackageReference "Snap" */,
+				6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
 			);
 			productRefGroup = 6BE4A01528107A54004CB806 /* Products */;
 			projectDirPath = "";
@@ -750,20 +796,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B3402C7281F3B3F00C71216 /* Representables.swift in Sources */,
-				6B3402C2281EEC6400C71216 /* TriangleWaveGenerator.swift in Sources */,
+				6B46836328217E1A0048E20B /* HKWorkout+extensions.swift in Sources */,
+				6B3402C2281EEC6400C71216 /* TriangleWaveModel.swift in Sources */,
+				6B46835D28217A630048E20B /* RecentWorkoutsWidgets.swift in Sources */,
 				6B305DC82815860E00D877CB /* Colors.swift in Sources */,
 				6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */,
 				6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */,
+				6B46835F28217D350048E20B /* WorkoutRowModel.swift in Sources */,
 				6B305DAF28145B8500D877CB /* SoundView.swift in Sources */,
+				6B3402D3282107E700C71216 /* DashboardViewModel.swift in Sources */,
 				6B305DB128145CBA00D877CB /* MetronomeViewModel.swift in Sources */,
-				6B305DCC2815D8A200D877CB /* HeartRateViewModel.swift in Sources */,
-				6B3402C0281EEBD400C71216 /* Metronome.swift in Sources */,
+				6B3402C0281EEBD400C71216 /* MetronomeModel.swift in Sources */,
 				6B3402AF281DA46A00C71216 /* DashboardView.swift in Sources */,
 				6B3402CE28205EF300C71216 /* ListenNowView.swift in Sources */,
 				6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */,
 				6B3402B1281DD1A100C71216 /* Styles.swift in Sources */,
 				6B3402AD281DA24000C71216 /* NewWorkOutView.swift in Sources */,
-				6B3402CC281FE40200C71216 /* Extensions.swift in Sources */,
+				6B3402CC281FE40200C71216 /* View+extensions.swift in Sources */,
+				6B46836128217DCB0048E20B /* HKWorkoutActivityType+extensions.swift in Sources */,
+				6B46836728217EDE0048E20B /* Text+extensions.swift in Sources */,
+				6B46836528217E5F0048E20B /* Array+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,14 +847,11 @@
 				6B4D30AD2816D8FE0078FEA3 /* SesssionManager.swift in Sources */,
 				6BE4A04B28107A58004CB806 /* ContentView.swift in Sources */,
 				6B4D30A62816D2530078FEA3 /* ControlsView.swift in Sources */,
-				6B305DD02815D98900D877CB /* ViewModelWatch.swift in Sources */,
-				6BFE6A5F2810AF66008FE74E /* WatchFace.swift in Sources */,
 				6BE4A05128107A58004CB806 /* ComplicationController.swift in Sources */,
 				6BE4A04928107A58004CB806 /* SpeedOfSoundApp.swift in Sources */,
 				6B4D30A22816D09C0078FEA3 /* WorkoutManager.swift in Sources */,
 				6B4D30A82816D28B0078FEA3 /* MetricsView.swift in Sources */,
 				6BE4A04F28107A58004CB806 /* NotificationView.swift in Sources */,
-				6BFE6A612810AFF4008FE74E /* WatchFaceModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1103,6 +1152,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SpeedOfSound/SpeedOfSound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1138,6 +1188,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SpeedOfSound/SpeedOfSound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1437,6 +1488,14 @@
 				minimumVersion = 0.2.2;
 			};
 		};
+		6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1449,6 +1508,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6B3402C3281F376600C71216 /* XCRemoteSwiftPackageReference "HalfASheet" */;
 			productName = HalfASheet;
+		};
+		6B3402D8282127FA00C71216 /* CorePermissionsSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = CorePermissionsSwiftUI;
+		};
+		6B3402DA282127FA00C71216 /* PermissionsSwiftUIHealth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
+			productName = PermissionsSwiftUIHealth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

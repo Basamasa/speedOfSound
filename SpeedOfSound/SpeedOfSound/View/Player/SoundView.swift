@@ -12,6 +12,7 @@ import UIKit
 struct SoundView: View {
     
     @EnvironmentObject var soundViewModel: MetronomeViewModel
+    let namespace: Namespace.ID
 
     var body: some View {
         VStack {
@@ -39,7 +40,7 @@ struct SoundView: View {
                     Image(systemName: "minus.circle")
                         .resizable()
                         .frame(width: 30, height: 30)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(.white)
                         .font(Font.title.weight(.light))
                 })
                 
@@ -53,8 +54,10 @@ struct SoundView: View {
                         Text("BPM")
                             .font(.footnote)
                     }
-                    .foregroundColor(Color("ButtonAccent"))
+                    .foregroundColor(.white)
                 })
+                .matchedGeometryEffect(id: "BPM", in: namespace)
+
                 Image(systemName: "poweron")
                     .font(.largeTitle)
                 VStack {
@@ -64,14 +67,14 @@ struct SoundView: View {
                     Text("Heart rate")
                         .font(.footnote)
                 }
-                .foregroundColor(Color("ButtonAccent"))
+                .foregroundColor(.white)
                 Button(action: {
                     soundViewModel.clickOnPlusButton()
                 }, label: {
                     Image(systemName: "plus.circle")
                         .resizable()
                         .frame(width: 30, height: 30)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(.white)
                         .font(Font.title.weight(.light))
                 })
                 Spacer()
@@ -83,14 +86,16 @@ struct SoundView: View {
                 Image(systemName: soundViewModel.mode == .stopped ? "play.circle.fill" : "pause.circle.fill")
                     .resizable()
                     .frame(width: 100, height: 100)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(.white)
                     .font(.largeTitle)
                     
             })
+            .matchedGeometryEffect(id: "PlayButton", in: namespace)
+
             Spacer()
         }
         .frame(height: 400)
-        .background(soundViewModel.mode == .stopped ? Colors.grayGradient : Colors.colorGradient)
+        .background(.black)
 //        .cornerRadius(25.0)
 //        .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
 //        .padding()

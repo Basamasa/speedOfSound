@@ -5,15 +5,13 @@
 //  Created by Anzer Arkin on 02.05.22.
 //
 import SwiftUI
+import HealthKit
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
-}
-
-
-extension View {
+    
     /// Sets the text color for a navigation bar title.
     /// - Parameter color: Color the title should be
     ///
@@ -27,6 +25,13 @@ extension View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: uiColor ]
     
         return self
+    }
+    
+    func cardStyle() -> some View {
+        self
+            .padding()
+            .background(Color("Card"))
+            .cornerRadius(15)
     }
 }
 
