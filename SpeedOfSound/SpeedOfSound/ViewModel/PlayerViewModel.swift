@@ -10,7 +10,7 @@ import AVFoundation
 import Combine
 import WatchConnectivity
 
-class MetronomeViewModel: ObservableObject, MetronomeDelegate {
+class PlayerViewModel: ObservableObject, MetronomeDelegate {
     // BPM metronome
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0

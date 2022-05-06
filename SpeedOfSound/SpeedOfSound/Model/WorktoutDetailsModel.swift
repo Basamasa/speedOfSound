@@ -1,29 +1,17 @@
 //
-//  WorkoutRowModel.swift
+//  WorktoutDetailsModel.swift
 //  SpeedOfSound
 //
-//  Created by Anzer Arkin on 03.05.22.
+//  Created by Anzer Arkin on 05.05.22.
 //
 
 import HealthKit
 
-struct WorkoutRowModel {
+struct WorktoutDetailsModel {
     let workout: HKWorkout
     
     var activityName: String {
         return workout.workoutActivityType.name
-    }
-    
-    var startTime: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        return dateFormatter.string(from: workout.startDate)
-    }
-    
-    var endTime: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        return dateFormatter.string(from: workout.endDate)
     }
     
     var distance: String {

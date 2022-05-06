@@ -15,7 +15,7 @@ struct NewWorkOutView: View {
     @State private var lowBPM: Int = 120
     @State private var highBPM = 140
     private let heartRange = [40, 60, 80, 100, 120, 140, 160, 180, 200]
-    @EnvironmentObject var soundViewModel: MetronomeViewModel
+    @EnvironmentObject var soundViewModel: PlayerViewModel
 
     var body: some View {
         ZStack {
@@ -29,7 +29,8 @@ struct NewWorkOutView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         TextField("", text: $username)
-                            .foregroundColor(.green)
+                            .foregroundColor(.black)
+                            .accentColor(.black)
                     }
                     .textFieldStyle(OvalTextFieldStyle())
                 }.padding()
@@ -77,10 +78,11 @@ struct NewWorkOutView: View {
             HStack {
                 Spacer()
                 Button("Start", action: {soundViewModel.isShowingSheet.toggle()})
-                .buttonStyle(.bordered)
-                .font(.title)
-                .foregroundColor(.white)
-                .background(Color.blue.opacity(0.1))
+                    .buttonStyle(.bordered)
+                    .font(.title)
+                    .foregroundColor(.black)
+                    .background(.white)
+                    .cornerRadius(25.0)
                 Spacer()
             }
             .padding()

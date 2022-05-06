@@ -13,17 +13,17 @@ struct DashboardView: View {
     @StateObject var dashboardViewModel = DashboardViewModel()
     var body: some View {
         ScrollView {
-            ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
-                VStack {
-                    RecentWorkoutsWidgets(workouts: dashboardViewModel.recentWorkouts)
-                }
-                .padding()
+            VStack {
+                RecentWorkoutsWidgets(workouts: dashboardViewModel.runningWorkouts, text: "Running workouts")
+                    .padding(.bottom)
+                RecentWorkoutsWidgets(workouts: dashboardViewModel.walkingWorkouts, text: "Walking workouts")
             }
         }
+        .padding()
         .JMAlert(showModal: $dashboardViewModel.isNotReady, for: [.health(categories: .init(readAndWrite: [HKSampleType.quantityType(forIdentifier: .heartRate)!]))], autoCheckAuthorization: false)
         .task {
             await dashboardViewModel.checkPermission()
+            await dashboardViewModel.loadWorkoutData() // ??
         }
         .onAppear() {
             dashboardViewModel.checkCurrentAuthorizationSetting()

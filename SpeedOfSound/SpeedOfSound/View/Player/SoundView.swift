@@ -11,7 +11,7 @@ import UIKit
 
 struct SoundView: View {
     
-    @EnvironmentObject var soundViewModel: MetronomeViewModel
+    @EnvironmentObject var soundViewModel: PlayerViewModel
     let namespace: Namespace.ID
 
     var body: some View {

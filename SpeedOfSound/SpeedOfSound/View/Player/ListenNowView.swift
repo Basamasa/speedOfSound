@@ -19,7 +19,7 @@ struct NowPlayingBar<Content: View>: View {
 }
 
 struct ListenNowView: View {
-    @EnvironmentObject var soundViewModel: MetronomeViewModel
+    @EnvironmentObject var soundViewModel: PlayerViewModel
     @Binding var showPlayer: Bool
     @Namespace var namespace
 
@@ -67,7 +67,7 @@ struct ListenNowView: View {
                 .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .frame(height: showPlayer == true ? 500 : 65)
-                .modifier(DraggableModifier(direction: .top, showPlayer: $showPlayer))
+                .modifier(DraggableModifier(showPlayer: $showPlayer, direction: .top))
                 .transition(.backslide1)
                 .matchedGeometryEffect(id: "NowPlayer", in: namespace)
                 .onTapGesture {
@@ -94,7 +94,7 @@ struct ListenNowView: View {
                 .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .transition(.backslide2)
-                .modifier(DraggableModifier(direction: .bottom, showPlayer: $showPlayer))
+                .modifier(DraggableModifier(showPlayer: $showPlayer, direction: .bottom))
             }
         }
         .onChange(of: soundViewModel.sessionWorkout, perform: { newValue in

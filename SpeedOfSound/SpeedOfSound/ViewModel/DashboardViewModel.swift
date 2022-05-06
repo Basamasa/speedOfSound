@@ -11,7 +11,9 @@ class DashboardViewModel: ObservableObject {
     let store = HKHealthStore()
     
     @Published var isNotReady = false
-    @Published var recentWorkouts: [HKWorkout] = []
+    @Published var runningWorkouts: [HKWorkout] = []
+    @Published var walkingWorkouts: [HKWorkout] = []
+    @Published var cyclingWorkouts: [HKWorkout] = []
 
     var workouts: [HKWorkout]?
     
@@ -55,14 +57,14 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
-    func latestHeartRate() {
+    func latestHeartRate(startDate: Date, endDate: Date) {
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {
             return
         }
         
 //        let startDate = Calendar.current.date(byAdding: .hour, value: -6, to: Date())
         
-        let predicate = HKQuery.predicateForSamples(withStart: workouts?.first?.startDate, end: workouts?.first?.endDate, options: .strictEndDate)
+        let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
         
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
@@ -94,7 +96,7 @@ class DashboardViewModel: ObservableObject {
     
     private func runQuery(predicate: NSPredicate) async -> [HKSample] {
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 3,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
+            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 10,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
                 if let hasError = error {
                     continuation.resume(throwing: hasError)
                     return
@@ -111,24 +113,37 @@ class DashboardViewModel: ObservableObject {
         return samples
     }
     
-    func readWorkouts() async {
+    func readRunningWorkouts() async {
         let runningWorkouts = HKQuery.predicateForWorkouts(with: .running)
-        let walkingWorkouts = HKQuery.predicateForWorkouts(with: .walking)
-        let cyclingWorkouts = HKQuery.predicateForWorkouts(with: .cycling)
-        let strengthWorkouts = HKQuery.predicateForWorkouts(with: .traditionalStrengthTraining)
         
-        let samplesRunning = try await runQuery(predicate: runningWorkouts)
-        let samplesWalking = try await runQuery(predicate: walkingWorkouts)
-        let samplesCycling = try await runQuery(predicate: cyclingWorkouts)
-        let samplesStrength = try await runQuery(predicate: strengthWorkouts)
+        let samplesRunning = await runQuery(predicate: runningWorkouts)
+        DispatchQueue.main.async {
+            self.runningWorkouts = samplesRunning as! [HKWorkout]
+        }
+    }
+    
+    func readWalkingWorkouts() async {
+        let walkingWorkouts = HKQuery.predicateForWorkouts(with: .walking)
+        
+        let samplesWalking = await runQuery(predicate: walkingWorkouts)
+        DispatchQueue.main.async {
+            self.walkingWorkouts = samplesWalking as! [HKWorkout]
+        }
+    }
+    
+    func readCyclingWorkouts() async {
+        let cyclingWorkouts = HKQuery.predicateForWorkouts(with: .cycling)
 
-        var receivedWorkouts = samplesRunning
-//        receivedWorkouts.append(contentsOf: samplesCycling)
-        self.workouts = receivedWorkouts as! [HKWorkout]
+        let samplesCycling = await runQuery(predicate: cyclingWorkouts)
+        DispatchQueue.main.async {
+            self.cyclingWorkouts = samplesCycling as! [HKWorkout]
+        }
     }
     
     func loadWorkoutData() async {
-        await readWorkouts()
-        latestHeartRate()
+        await readRunningWorkouts()
+        await readWalkingWorkouts()
+        await readCyclingWorkouts()
+//        latestHeartRate()
     }
 }

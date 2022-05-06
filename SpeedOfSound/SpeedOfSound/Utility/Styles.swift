@@ -29,15 +29,14 @@ struct RoundedCorner: Shape {
 
 struct DraggableModifier : ViewModifier {
 
+    @State private var draggedOffset: CGSize = .zero
+    @Binding var showPlayer: Bool
+    let direction: Direction
+
     enum Direction {
         case top
         case bottom
     }
-
-    let direction: Direction
-
-    @State private var draggedOffset: CGSize = .zero
-    @Binding var showPlayer: Bool
     
     func valueChanged(value: DragGesture.Value) {
          if direction == .bottom {

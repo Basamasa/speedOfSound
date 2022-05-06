@@ -10,7 +10,7 @@ import HalfASheet
 import SwiftUIGIF
 
 struct ContentView: View {
-    @StateObject var metroViewModel = MetronomeViewModel()
+    @StateObject var metroViewModel = PlayerViewModel()
     @State var showPlayer: Bool = false
     
     func buttonView(_ text: String) -> some View {
@@ -55,9 +55,11 @@ struct ContentView: View {
                 }
                 .foregroundColor(.white)
 
-                ZStack {
-                    Color.black.edgesIgnoringSafeArea(.all)
-                    DashboardView()
+                NavigationView {
+                    ZStack {
+                        Color.black.edgesIgnoringSafeArea(.all)
+                        DashboardView()
+                    }
                 }
                 .tabItem {
                     VStack {
@@ -81,7 +83,9 @@ struct ContentView: View {
             .height(.proportional(0.4))
 
         }
+        .preferredColorScheme(.dark)
         .environmentObject(metroViewModel)
+        .ignoresSafeArea(.keyboard)
     }
 }
 
