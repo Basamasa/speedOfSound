@@ -58,7 +58,7 @@ struct ThreeRowWorkouts: View {
                 NavigationLink {
                     ZStack {
                         Color.black.edgesIgnoringSafeArea(.all)
-                        RowDetailsView()
+                        RowDetailsView(rowDetailsViewModel: RowDetailsViewModel(startDate: element.startDate, endDate: element.endDate))
                     }
                 } label: {
                     WorkoutRowView(workout: WorkoutRowModel(workout: element))

@@ -33,6 +33,10 @@ extension View {
             .background(Color("Card"))
             .cornerRadius(15)
     }
+    
+    func onLoad(perform action: (() -> Void)? = nil) -> some View {
+        modifier(ViewDidLoadModifier(perform: action))
+    }
 }
 
 extension AnyTransition {

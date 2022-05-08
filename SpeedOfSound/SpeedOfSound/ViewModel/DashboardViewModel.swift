@@ -14,7 +14,7 @@ class DashboardViewModel: ObservableObject {
     @Published var runningWorkouts: [HKWorkout] = []
     @Published var walkingWorkouts: [HKWorkout] = []
     @Published var cyclingWorkouts: [HKWorkout] = []
-
+        
     var workouts: [HKWorkout]?
     
     func checkPermission() async {

@@ -6,16 +6,74 @@
 //
 
 import SwiftUI
+//import SwiftUICharts
+import SwiftUICharts
 
 struct RowDetailsView: View {
+    @StateObject var rowDetailsViewModel: RowDetailsViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .foregroundColor(.white)
+        ScrollView {
+            HeartRateRangeView(rowDetailsViewModel: rowDetailsViewModel)
+            HeartRateSummaryView(rowDetailsViewModel: rowDetailsViewModel)
+        }
     }
 }
 
-struct RowDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        RowDetailsView()
+struct HeartRateRangeView: View {
+    @StateObject var rowDetailsViewModel: RowDetailsViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack(spacing: 3) {
+                Image(systemName: "heart.fill")
+                Text("Details")
+                Spacer()
+                Image(systemName: "chart.xyaxis.line")
+            }
+            .font(Font.body.bold())
+            .foregroundColor(Color("Main"))
+            LineChartView(dataPoints: rowDetailsViewModel.points)
+                .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
+                .frame(height: 200)
+        }
+        .cardStyle()
+        .frame(maxHeight: Constants.widgetLargeHeight)
+//            .frame(minWidth: geometry.size.width)
+        .onAppear() {
+            rowDetailsViewModel.latestHeartRate()
+        }
+        .padding()
     }
 }
+
+struct HeartRateSummaryView: View {
+    @StateObject var rowDetailsViewModel: RowDetailsViewModel
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack(spacing: 3) {
+                Image(systemName: "heart.fill")
+                Text("Summary")
+            }
+            .font(Font.body.bold())
+            .foregroundColor(Color("Main"))
+            HorizontalBarChartView(dataPoints: rowDetailsViewModel.points)
+                .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
+                .frame(height: 200)
+        }
+        .cardStyle()
+        .frame(maxHeight: Constants.widgetLargeHeight)
+//            .frame(minWidth: geometry.size.width)
+        .onAppear() {
+            rowDetailsViewModel.latestHeartRate()
+        }
+        .padding()
+    }
+}
+
+//struct RowDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RowDetailsView()
+//    }
+//}

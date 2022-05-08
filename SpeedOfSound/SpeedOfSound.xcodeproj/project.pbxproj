@@ -37,6 +37,7 @@
 		6B3402D9282127FA00C71216 /* CorePermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402D8282127FA00C71216 /* CorePermissionsSwiftUI */; };
 		6B3402DB282127FA00C71216 /* PermissionsSwiftUIHealth in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402DA282127FA00C71216 /* PermissionsSwiftUIHealth */; };
 		6B4434BD28258E58006CBA12 /* RowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4434BC28258E58006CBA12 /* RowDetailsView.swift */; };
+		6B4434BF28259144006CBA12 /* RowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4434BE28259144006CBA12 /* RowDetailsViewModel.swift */; };
 		6B46835D28217A630048E20B /* RecentWorkoutsWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */; };
 		6B46835F28217D350048E20B /* WorkoutRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46835E28217D350048E20B /* WorkoutRowModel.swift */; };
 		6B46836128217DCB0048E20B /* HKWorkoutActivityType+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */; };
@@ -50,6 +51,7 @@
 		6B4D30A82816D28B0078FEA3 /* MetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30A72816D28B0078FEA3 /* MetricsView.swift */; };
 		6B4D30AB2816D6060078FEA3 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30AA2816D6060078FEA3 /* SummaryView.swift */; };
 		6B4D30AD2816D8FE0078FEA3 /* SesssionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4D30AC2816D8FE0078FEA3 /* SesssionManager.swift */; };
+		6BC3409B2825CFA90078E363 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 6BC3409A2825CFA90078E363 /* SwiftUICharts */; };
 		6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */; };
 		6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A01928107A54004CB806 /* ContentView.swift */; };
 		6BE4A01C28107A57004CB806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BE4A01B28107A57004CB806 /* Assets.xcassets */; };
@@ -172,6 +174,7 @@
 		6B3402D428210A2200C71216 /* SpeedOfSound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedOfSound.entitlements; sourceTree = "<group>"; };
 		6B3402D528210A2200C71216 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		6B4434BC28258E58006CBA12 /* RowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowDetailsView.swift; sourceTree = "<group>"; };
+		6B4434BE28259144006CBA12 /* RowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowDetailsViewModel.swift; sourceTree = "<group>"; };
 		6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkoutsWidgets.swift; sourceTree = "<group>"; };
 		6B46835E28217D350048E20B /* WorkoutRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRowModel.swift; sourceTree = "<group>"; };
 		6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+extensions.swift"; sourceTree = "<group>"; };
@@ -224,6 +227,7 @@
 				6B3402D628210A2200C71216 /* HealthKit.framework in Frameworks */,
 				6B3402B7281ED71400C71216 /* SwiftUIGIF in Frameworks */,
 				6B3402D9282127FA00C71216 /* CorePermissionsSwiftUI in Frameworks */,
+				6BC3409B2825CFA90078E363 /* SwiftUICharts in Frameworks */,
 				6B3402C5281F376600C71216 /* HalfASheet in Frameworks */,
 				6B3402DB282127FA00C71216 /* PermissionsSwiftUIHealth in Frameworks */,
 			);
@@ -288,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				6B3402D2282107E700C71216 /* DashboardViewModel.swift */,
+				6B4434BE28259144006CBA12 /* RowDetailsViewModel.swift */,
 				6B305DB028145CBA00D877CB /* PlayerViewModel.swift */,
 			);
 			path = ViewModel;
@@ -551,6 +556,7 @@
 				6B3402C4281F376600C71216 /* HalfASheet */,
 				6B3402D8282127FA00C71216 /* CorePermissionsSwiftUI */,
 				6B3402DA282127FA00C71216 /* PermissionsSwiftUIHealth */,
+				6BC3409A2825CFA90078E363 /* SwiftUICharts */,
 			);
 			productName = SpeedOfSound;
 			productReference = 6BE4A01428107A54004CB806 /* SpeedOfSound.app */;
@@ -711,8 +717,8 @@
 			packageReferences = (
 				6B3402B5281ED71400C71216 /* XCRemoteSwiftPackageReference "swiftui-gif" */,
 				6B3402C3281F376600C71216 /* XCRemoteSwiftPackageReference "HalfASheet" */,
-				6B3402C8281F3C6C00C71216 /* XCRemoteSwiftPackageReference "Snap" */,
 				6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */,
+				6BC340992825CFA90078E363 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = 6BE4A01528107A54004CB806 /* Products */;
 			projectDirPath = "";
@@ -807,6 +813,7 @@
 				6B46835D28217A630048E20B /* RecentWorkoutsWidgets.swift in Sources */,
 				6B305DC82815860E00D877CB /* Colors.swift in Sources */,
 				6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */,
+				6B4434BF28259144006CBA12 /* RowDetailsViewModel.swift in Sources */,
 				6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */,
 				6B46835F28217D350048E20B /* WorkoutRowModel.swift in Sources */,
 				6B305DAF28145B8500D877CB /* SoundView.swift in Sources */,
@@ -1488,20 +1495,20 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		6B3402C8281F3C6C00C71216 /* XCRemoteSwiftPackageReference "Snap" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nerdsupremacist/Snap.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.2;
-			};
-		};
 		6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jevonmao/PermissionsSwiftUI";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
+			};
+		};
+		6BC340992825CFA90078E363 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mecid/SwiftUICharts";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1526,6 +1533,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6B3402D7282127FA00C71216 /* XCRemoteSwiftPackageReference "PermissionsSwiftUI" */;
 			productName = PermissionsSwiftUIHealth;
+		};
+		6BC3409A2825CFA90078E363 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6BC340992825CFA90078E363 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
