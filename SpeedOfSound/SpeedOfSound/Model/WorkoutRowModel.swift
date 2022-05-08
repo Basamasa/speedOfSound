@@ -14,16 +14,24 @@ struct WorkoutRowModel {
         return workout.workoutActivityType.name
     }
     
-    var startTime: String {
+    var startTime: (String, String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        return dateFormatter.string(from: workout.startDate)
+        let dateString = dateFormatter.string(from: workout.startDate)
+        let prefix = dateString.prefix(dateString.count - 2)
+        let suffix = dateString.suffix(2)
+
+        return (String(prefix), String(suffix))
     }
     
-    var endTime: String {
+    var endTime: (String, String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        return dateFormatter.string(from: workout.endDate)
+        let dateString = dateFormatter.string(from: workout.endDate)
+        let prefix = dateString.prefix(dateString.count - 2)
+        let suffix = dateString.suffix(2)
+
+        return (String(prefix), String(suffix))
     }
     
     var distance: String {

@@ -12,11 +12,14 @@ import PermissionsSwiftUIHealth
 struct DashboardView: View {
     @StateObject var dashboardViewModel = DashboardViewModel()
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
-                RecentWorkoutsWidgets(workouts: dashboardViewModel.runningWorkouts, text: "Running workouts")
+                RecentWorkoutsWidgets(workouts: dashboardViewModel.runningWorkouts, type: .running)
                     .padding(.bottom)
-                RecentWorkoutsWidgets(workouts: dashboardViewModel.walkingWorkouts, text: "Walking workouts")
+                RecentWorkoutsWidgets(workouts: dashboardViewModel.walkingWorkouts, type: .walking)
+                Rectangle()
+                    .frame(height: 50)
+                    .foregroundColor(.black)
             }
         }
         .padding()

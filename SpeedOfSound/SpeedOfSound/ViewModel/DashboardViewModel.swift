@@ -122,6 +122,17 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    func readIndoorRunningWorkouts() async {
+        let runningWorkouts = HKQuery.predicateForWorkouts(with: .running)
+        
+        let samplesRunning = await runQuery(predicate: runningWorkouts)
+        DispatchQueue.main.async {
+            self.runningWorkouts = samplesRunning as! [HKWorkout]
+        }
+    }
+    
+    
+    
     func readWalkingWorkouts() async {
         let walkingWorkouts = HKQuery.predicateForWorkouts(with: .walking)
         
@@ -144,6 +155,5 @@ class DashboardViewModel: ObservableObject {
         await readRunningWorkouts()
         await readWalkingWorkouts()
         await readCyclingWorkouts()
-//        latestHeartRate()
     }
 }

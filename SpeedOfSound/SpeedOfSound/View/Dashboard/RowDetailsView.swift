@@ -17,6 +17,9 @@ struct RowDetailsView: View {
             HeartRateRangeView(rowDetailsViewModel: rowDetailsViewModel)
             HeartRateSummaryView(rowDetailsViewModel: rowDetailsViewModel)
         }
+        .onAppear() {
+            rowDetailsViewModel.getHeartRates()
+        }
     }
 }
 
@@ -33,16 +36,13 @@ struct HeartRateRangeView: View {
             }
             .font(Font.body.bold())
             .foregroundColor(Color("Main"))
-            LineChartView(dataPoints: rowDetailsViewModel.points)
-                .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
+            LineChartView(dataPoints: rowDetailsViewModel.heartRatePoints)
+                .frame(maxWidth: UIScreen.main.bounds.maxX - 40)
                 .frame(height: 200)
         }
         .cardStyle()
         .frame(maxHeight: Constants.widgetLargeHeight)
 //            .frame(minWidth: geometry.size.width)
-        .onAppear() {
-            rowDetailsViewModel.latestHeartRate()
-        }
         .padding()
     }
 }
@@ -58,16 +58,13 @@ struct HeartRateSummaryView: View {
             }
             .font(Font.body.bold())
             .foregroundColor(Color("Main"))
-            HorizontalBarChartView(dataPoints: rowDetailsViewModel.points)
+            HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePoints)
                 .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
                 .frame(height: 200)
         }
         .cardStyle()
         .frame(maxHeight: Constants.widgetLargeHeight)
 //            .frame(minWidth: geometry.size.width)
-        .onAppear() {
-            rowDetailsViewModel.latestHeartRate()
-        }
         .padding()
     }
 }

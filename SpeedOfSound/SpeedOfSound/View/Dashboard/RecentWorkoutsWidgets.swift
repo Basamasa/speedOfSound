@@ -9,16 +9,18 @@ import SwiftUI
 import HealthKit
 
 struct Constants {
-        static let widgetMediumHeight: CGFloat = 169
-        static let widgetLargeHeight: CGFloat = 376
+    static let widgetMediumHeight: CGFloat = 169
+    static let widgetLargeHeight: CGFloat = 376
 }
 
 struct RecentWorkoutsWidgets: View {
     let workouts: [HKWorkout]
-    let text: String
+    let type: HKWorkoutActivityType
+
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            TitleWorkouts(text: text)
+            TitleWorkouts(type: type)
+            
             Text("You did \(workouts.count) workouts in the last 7 days.")
                 .font(Font.body.bold())
                 .foregroundColor(Color.white)
@@ -26,7 +28,7 @@ struct RecentWorkoutsWidgets: View {
                 .background(Color(UIColor.systemGray2))
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 20) {
-                    ForEach(workouts.batched(into: 2), id: \.self) { items in
+                    ForEach(workouts.batched(into: 3), id: \.self) { items in
                         ThreeRowWorkouts(workouts: items)
                     }
                 }
@@ -38,11 +40,34 @@ struct RecentWorkoutsWidgets: View {
 }
 
 struct TitleWorkouts: View {
-    let text: String
+    let type: HKWorkoutActivityType
     var body: some View {
         HStack(spacing: 3) {
-            Image(systemName: "flame.fill")
-            Text(text)
+            if type == .running {
+                Image("running")
+                    .resizable()
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .frame(width: 50, height: 50, alignment: .center)
+                Text("Running workouts")
+                    .foregroundColor(Color("Green"))
+                    .padding()
+            } else if type == .cycling {
+                Image("cycling")
+                    .resizable()
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .frame(width: 50, height: 50, alignment: .center)
+                Text("Cycling workouts")
+                    .foregroundColor(Color("Green"))
+                    .padding()
+            } else if type == .walking {
+                Image("walking")
+                    .resizable()
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .frame(width: 50, height: 50, alignment: .center)
+                Text("Walking workouts")
+                    .foregroundColor(Color("Green"))
+                    .padding()
+            }
         }
         .font(Font.body.bold())
         .foregroundColor(Color("Main"))
@@ -58,7 +83,7 @@ struct ThreeRowWorkouts: View {
                 NavigationLink {
                     ZStack {
                         Color.black.edgesIgnoringSafeArea(.all)
-                        RowDetailsView(rowDetailsViewModel: RowDetailsViewModel(startDate: element.startDate, endDate: element.endDate))
+                        RowDetailsView(rowDetailsViewModel: RowDetailsViewModel(workout: element))
                     }
                 } label: {
                     WorkoutRowView(workout: WorkoutRowModel(workout: element))
@@ -74,10 +99,6 @@ struct WorkoutRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            Image(workout.imageName)
-                .resizable()
-                .foregroundColor(Color(UIColor.systemGray))
-                .frame(width: 50, height: 50, alignment: .center)
             VStack(alignment: .leading, spacing: -5)  {
                 Text(workout.activityName)
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
@@ -95,18 +116,18 @@ struct WorkoutRowView: View {
                     Divider()
                         .background(Color(UIColor.systemGray2))
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(workout.startTime)
+                        Text(workout.startTime.0)
                             .workoutTitleStyle()
-//                            + Text(" kcal")
-//                                .workoutSubheadlineStyle()
+                        + Text(workout.startTime.1)
+                                .workoutSubheadlineStyle()
                     }
                     Divider()
                         .background(Color(UIColor.systemGray2))
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(workout.endTime)
+                        Text(workout.endTime.0)
                             .workoutTitleStyle()
-//                        + Text(" km")
-//                            .workoutSubheadlineStyle()
+                        + Text(workout.startTime.1)
+                            .workoutSubheadlineStyle()
                     }
                 }
                 .frame(maxHeight: 40)
