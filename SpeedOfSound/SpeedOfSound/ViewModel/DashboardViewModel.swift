@@ -57,43 +57,6 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
-    func latestHeartRate(startDate: Date, endDate: Date) {
-        guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {
-            return
-        }
-        
-//        let startDate = Calendar.current.date(byAdding: .hour, value: -6, to: Date())
-        
-        let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
-        
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
-            guard error == nil else {
-                return
-            }
-            
-            let unit = HKUnit(from: "count/min")
-            
-            guard let realResult = result else {return}
-            for singleResult in realResult {
-                let data = singleResult as! HKQuantitySample
-                let latestHr = data.quantity.doubleValue(for: unit)
-                print("latest hr \(latestHr) BPM")
-
-                
-                let dateFormator = DateFormatter()
-                dateFormator.dateFormat = "dd/MM/yyyy hh:mm: s"
-                
-                let startdate1 = dateFormator.string(from: data.startDate)
-                let enddate1 = dateFormator.string(from: data.endDate)
-                print("start data: \(startdate1)")
-                print("end date: \(enddate1)")
-            }
-        }
-        
-        store.execute(query)
-    }
-    
     private func runQuery(predicate: NSPredicate) async -> [HKSample] {
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 10,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
@@ -155,5 +118,41 @@ class DashboardViewModel: ObservableObject {
         await readRunningWorkouts()
         await readWalkingWorkouts()
         await readCyclingWorkouts()
+    }
+}
+
+enum WorkoutType: String, Identifiable {
+    var id: RawValue { rawValue }
+
+    
+    case outdoorRunning = "Outdoor running"
+    case indoorRunning = "Indoor running"
+    case outdoorWalking = "Outdoor walking"
+    case indoorWalking = "Indoor walking"
+    
+    var name: String {
+        switch self {
+        case .outdoorRunning:
+            return "Outdoor Run"
+        case .indoorRunning:
+            return "Indoor run"
+        case .outdoorWalking:
+            return "Outdoor walk"
+        case .indoorWalking:
+            return "Indoor walk"
+        }
+    }
+    
+    var imagName: String {
+        switch self {
+        case .outdoorRunning:
+            return "running"
+        case .indoorRunning:
+            return "running"
+        case .outdoorWalking:
+            return "walking"
+        case .indoorWalking:
+            return "walking"
+        }
     }
 }

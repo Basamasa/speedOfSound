@@ -16,6 +16,7 @@ class WorktoutDetailsModel {
         self.workout = workout
     }
     var activityName: String {
+//        workout.hk == 
         return workout.workoutActivityType.name
     }
     
@@ -43,8 +44,48 @@ class WorktoutDetailsModel {
         return workout.startDate
     }
     
+    var date: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM yyyy"
+        let dateString = dateFormatter.string(from: workout.startDate)
+        return dateString
+    }
+    
     var endDate: Date {
         return workout.endDate
+    }
+    
+    var type: HKWorkoutActivityType {
+        return workout.workoutActivityType
+    }
+    
+    var startTime: (String, String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let dateString = dateFormatter.string(from: workout.startDate)
+        let prefix = dateString.prefix(dateString.count - 2)
+        let suffix = dateString.suffix(2)
+
+        return (String(prefix), String(suffix))
+    }
+    
+    var endTime: (String, String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let dateString = dateFormatter.string(from: workout.endDate)
+        let prefix = dateString.prefix(dateString.count - 2)
+        let suffix = dateString.suffix(2)
+
+        return (String(prefix), String(suffix))
+    }
+    
+    func getSteps(completion: @escaping (([Double]) -> Void)) {
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            return
+        }
+        
+        let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
+
     }
     
     func getHeartRates(completion: @escaping (([Double]) -> Void)) {

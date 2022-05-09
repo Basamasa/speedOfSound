@@ -10,14 +10,7 @@ import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
     var wcsessionManager: SessionManager?
-    var selectedWorkout: HKWorkoutActivityType? {
-        didSet {
-            guard let selectedWorkout = selectedWorkout else { return }
-            startWorkout(workoutType: selectedWorkout)
-            wcsessionManager = SessionManager()
-            wcsessionManager?.workSessionBegin()
-        }
-    }
+    var selectedWorkout: WorkoutType?
 
     @Published var showingSummaryView: Bool = false {
         didSet {
@@ -30,12 +23,32 @@ class WorkoutManager: NSObject, ObservableObject {
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
-
+    
+    func selectedOneWorkout(workoutType: WorkoutType) {
+//        guard let selectedWorkout = selectedWorkout else { return }
+        selectedWorkout = workoutType
+        if workoutType == .outdoorWalking || workoutType == .outdoorRunning {
+            if workoutType == .outdoorRunning {
+                startWorkout(workoutType: HKWorkoutActivityType.running, locationType: .outdoor)
+            } else if workoutType == .outdoorWalking {
+                startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .outdoor)
+            }
+        } else {
+            if workoutType == .indoorRunning {
+                startWorkout(workoutType: HKWorkoutActivityType.running, locationType: .indoor)
+            } else if workoutType == .indoorWalking {
+                startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .indoor)
+            }
+        }
+        wcsessionManager = SessionManager()
+        wcsessionManager?.workSessionBegin()
+    }
+    
     // Start the workout.
-    func startWorkout(workoutType: HKWorkoutActivityType) {
+    func startWorkout(workoutType: HKWorkoutActivityType, locationType: HKWorkoutSessionLocationType) {
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = workoutType
-        configuration.locationType = .outdoor
+        configuration.locationType = locationType
 
         // Create the session and obtain the workout builder.
         do {
@@ -66,7 +79,12 @@ class WorkoutManager: NSObject, ObservableObject {
     func requestAuthorization() {
         // The quantity type to write to the health store.
         let typesToShare: Set = [
-            HKQuantityType.workoutType()
+            HKQuantityType.workoutType(),
+            HKQuantityType.quantityType(forIdentifier: .heartRate)!,
+            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+            HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
         ]
 
         // The quantity types to read from the health store.

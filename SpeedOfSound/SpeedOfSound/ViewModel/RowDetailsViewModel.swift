@@ -20,6 +20,30 @@ class RowDetailsViewModel: ObservableObject {
         self.highRange = 140
         self.detailsModel = WorktoutDetailsModel(workout: workout)
     }
+    
+    var activityName: String {
+        return detailsModel.activityName
+    }
+    
+    var distance: String {
+        return detailsModel.distance
+    }
+    
+    var durationHours: Int {
+        return detailsModel.durationHours
+    }
+    
+    var durationMinutes: Int {
+        return detailsModel.durationMinutes
+    }
+    
+    var energyBurned: String {
+        return detailsModel.energyBurned
+    }
+    
+    var type: HKWorkoutActivityType {
+        return detailsModel.type
+    }
         
     private func heartRatesChanged(results: [Double]) {
         var helperPoints: [DataPoint] = []

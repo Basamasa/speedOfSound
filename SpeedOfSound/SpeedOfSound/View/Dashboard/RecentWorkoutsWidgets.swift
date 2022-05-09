@@ -48,15 +48,7 @@ struct TitleWorkouts: View {
                     .resizable()
                     .foregroundColor(Color(UIColor.systemGray))
                     .frame(width: 50, height: 50, alignment: .center)
-                Text("Running workouts")
-                    .foregroundColor(Color("Green"))
-                    .padding()
-            } else if type == .cycling {
-                Image("cycling")
-                    .resizable()
-                    .foregroundColor(Color(UIColor.systemGray))
-                    .frame(width: 50, height: 50, alignment: .center)
-                Text("Cycling workouts")
+                Text("Run")
                     .foregroundColor(Color("Green"))
                     .padding()
             } else if type == .walking {
@@ -64,7 +56,7 @@ struct TitleWorkouts: View {
                     .resizable()
                     .foregroundColor(Color(UIColor.systemGray))
                     .frame(width: 50, height: 50, alignment: .center)
-                Text("Walking workouts")
+                Text("Walk")
                     .foregroundColor(Color("Green"))
                     .padding()
             }
@@ -86,7 +78,7 @@ struct ThreeRowWorkouts: View {
                         RowDetailsView(rowDetailsViewModel: RowDetailsViewModel(workout: element))
                     }
                 } label: {
-                    WorkoutRowView(workout: WorkoutRowModel(workout: element))
+                    WorkoutRowView(workout: WorktoutDetailsModel(workout: element))
                 }
             }
             Spacer()
@@ -95,7 +87,7 @@ struct ThreeRowWorkouts: View {
 }
 
 struct WorkoutRowView: View {
-    let workout: WorkoutRowModel
+    let workout: WorktoutDetailsModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
@@ -116,19 +108,24 @@ struct WorkoutRowView: View {
                     Divider()
                         .background(Color(UIColor.systemGray2))
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(workout.startTime.0)
+                        Text(workout.date)
                             .workoutTitleStyle()
-                        + Text(workout.startTime.1)
-                                .workoutSubheadlineStyle()
                     }
-                    Divider()
-                        .background(Color(UIColor.systemGray2))
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(workout.endTime.0)
-                            .workoutTitleStyle()
-                        + Text(workout.startTime.1)
-                            .workoutSubheadlineStyle()
-                    }
+                    
+//                    VStack(alignment: .leading, spacing: 5) {
+//                        Text(workout.startTime.0)
+//                            .workoutTitleStyle()
+//                        + Text(workout.startTime.1)
+//                                .workoutSubheadlineStyle()
+//                    }
+//                    Divider()
+//                        .background(Color(UIColor.systemGray2))
+//                    VStack(alignment: .leading, spacing: 5) {
+//                        Text(workout.endTime.0)
+//                            .workoutTitleStyle()
+//                        + Text(workout.startTime.1)
+//                            .workoutSubheadlineStyle()
+//                    }
                 }
                 .frame(maxHeight: 40)
             }

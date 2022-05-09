@@ -8,18 +8,100 @@
 import SwiftUI
 //import SwiftUICharts
 import SwiftUICharts
+import HealthKit
 
 struct RowDetailsView: View {
     @StateObject var rowDetailsViewModel: RowDetailsViewModel
     
     var body: some View {
         ScrollView {
+            SummaryView(detailsModel: rowDetailsViewModel.detailsModel)
             HeartRateRangeView(rowDetailsViewModel: rowDetailsViewModel)
-            HeartRateSummaryView(rowDetailsViewModel: rowDetailsViewModel)
+            HeartRateResultsView(rowDetailsViewModel: rowDetailsViewModel)
         }
         .onAppear() {
             rowDetailsViewModel.getHeartRates()
         }
+    }
+}
+
+struct SummaryTitleWorkouts: View {
+    let type: HKWorkoutActivityType
+    var detailsModel: WorktoutDetailsModel
+
+    var body: some View {
+        HStack(spacing: 3) {
+            if type == .running {
+                Image("running")
+                    .resizable()
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .frame(width: 50, height: 50, alignment: .center)
+                VStack {
+                    Text("Workouts")
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(detailsModel.startTime.0)
+                            .workoutTitleStyle()
+                        + Text(detailsModel.startTime.1)
+                                .workoutSubheadlineStyle()
+                    }
+                }
+            } else if type == .cycling {
+                Image("cycling")
+                    .resizable()
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .frame(width: 50, height: 50, alignment: .center)
+                Text("Workouts")
+                    .padding()
+            } else if type == .walking {
+                Image("walking")
+                    .resizable()
+                    .foregroundColor(Color(UIColor.systemGray))
+                    .frame(width: 50, height: 50, alignment: .center)
+                Text("Workouts")
+                    .padding()
+            }
+        }
+        .font(Font.body.bold())
+        .foregroundColor(Color("Main"))
+    }
+}
+
+struct SummaryView: View {
+    var detailsModel: WorktoutDetailsModel
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            SummaryTitleWorkouts(type: detailsModel.type, detailsModel: detailsModel)
+            VStack(alignment: .leading, spacing: 5) {
+                Text("\(detailsModel.durationHours)")
+                    .workoutTitleStyle()
+                + Text(" hr ")
+                    .workoutSubheadlineStyle()
+                    + Text("\(detailsModel.durationMinutes)")
+                    .workoutTitleStyle()
+                + Text(" min")
+                    .workoutSubheadlineStyle()
+            }
+            Divider()
+                .background(Color(UIColor.systemGray2))
+            VStack(alignment: .leading, spacing: 5) {
+                Text(detailsModel.energyBurned)
+                    .workoutTitleStyle()
+                + Text(" kcal")
+                        .workoutSubheadlineStyle()
+            }
+            Divider()
+                .background(Color(UIColor.systemGray2))
+            VStack(alignment: .leading, spacing: 5) {
+                Text(detailsModel.distance)
+                    .workoutTitleStyle()
+                + Text(" km")
+                    .workoutSubheadlineStyle()
+            }
+        }
+        .cardStyle()
+        .frame(maxHeight: Constants.widgetLargeHeight)
+        .padding()
     }
 }
 
@@ -29,10 +111,8 @@ struct HeartRateRangeView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 3) {
-                Image(systemName: "heart.fill")
-                Text("Details")
-                Spacer()
                 Image(systemName: "chart.xyaxis.line")
+                Text("Details")
             }
             .font(Font.body.bold())
             .foregroundColor(Color("Main"))
@@ -47,7 +127,7 @@ struct HeartRateRangeView: View {
     }
 }
 
-struct HeartRateSummaryView: View {
+struct HeartRateResultsView: View {
     @StateObject var rowDetailsViewModel: RowDetailsViewModel
     
     var body: some View {
