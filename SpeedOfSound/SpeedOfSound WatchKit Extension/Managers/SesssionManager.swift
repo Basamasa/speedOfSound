@@ -27,7 +27,7 @@ class SessionManager: ObservableObject {
             .assign(to: &$count)
     }
     
-    private func sendMessage(_ message: String, count: Int? = nil, session: Bool? = nil) {
+    private func sendMessage(_ message: String, count: Int? = nil, session: Int? = nil) {
         wcSession.sendMessage([message: count ?? session!], replyHandler: nil) { error in
             print(error.localizedDescription)
         }
@@ -38,11 +38,15 @@ class SessionManager: ObservableObject {
     }
     
     func workSessionBegin() {
-        sendMessage("workSessionBegin", session: true)
+        while (!wcSession.isReachable) {
+            print("haha")
+        }
+        sendMessage("workSessionBegin", session: 1)
+
     }
     
     func workSessionEnd() {
-        sendMessage("workSessionBegin", session: false)
+        sendMessage("workSessionBegin", session: 0)
 
     }
 }

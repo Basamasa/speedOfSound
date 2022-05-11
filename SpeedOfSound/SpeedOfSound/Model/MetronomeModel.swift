@@ -31,7 +31,7 @@ class MetronomeModel {
     
     struct TempoConfig{
         static let min = 40
-        static let `default` = 80
+        static let `default` = 120
         static let max = 208
     }
     

@@ -10,9 +10,9 @@ import WatchConnectivity
 
 class SessionDelegater: NSObject, WCSessionDelegate {
     let countSubject: PassthroughSubject<Int, Never>
-    let sessionWorkoutSubject: PassthroughSubject<Bool, Never>
+    let sessionWorkoutSubject: PassthroughSubject<Int, Never>
     
-    init(countSubject: PassthroughSubject<Int, Never>, sessionWorkoutSubject: PassthroughSubject<Bool, Never>) {
+    init(countSubject: PassthroughSubject<Int, Never>, sessionWorkoutSubject: PassthroughSubject<Int, Never>) {
         self.countSubject = countSubject
         self.sessionWorkoutSubject = sessionWorkoutSubject
         super.init()
@@ -27,7 +27,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
         DispatchQueue.main.async {
             if let count = message["count"] as? Int {
                 self.countSubject.send(count)
-            } else if let session = message["workSessionBegin"] as? Bool {
+            } else if let session = message["workSessionBegin"] as? Int {
                 self.sessionWorkoutSubject.send(session)
             } else {
                 print("There was an error")

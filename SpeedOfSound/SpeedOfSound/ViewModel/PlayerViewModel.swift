@@ -25,9 +25,9 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     var session: WCSession
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
-    let subject2 = PassthroughSubject<Bool, Never>()
+    let subject2 = PassthroughSubject<Int, Never>()
     @Published private(set) var count: Int = 0
-    @Published private(set) var sessionWorkout: Bool = false
+    @Published private(set) var sessionWorkout: Int = 0
     
     let myMetronome: MetronomeModel
         
@@ -53,14 +53,14 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     }
     
     func start() {
-        if sessionWorkout {
+        if sessionWorkout == 1 {
             mode = .running
             try? myMetronome.start()
         }
     }
     
     func stop() {
-        if !sessionWorkout {
+        if sessionWorkout  == 0 {
             mode = .stopped
             myMetronome.stop()
         }
