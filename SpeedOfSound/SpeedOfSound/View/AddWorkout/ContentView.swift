@@ -11,7 +11,6 @@ import SwiftUIGIF
 
 struct ContentView: View {
     @StateObject var metroViewModel = PlayerViewModel()
-    @State var showPlayer: Bool = false
     
     func buttonView(_ text: String) -> some View {
         Text(text)
@@ -23,20 +22,36 @@ struct ContentView: View {
     }
     
     var body: some View {
+        ZStack {
         ZStack(alignment: .bottom) {
             TabView {
                 NavigationView {
                     ZStack {
                         Color.black.edgesIgnoringSafeArea(.all)
                         VStack {
-                            Text("Let's workout 💪")
+                            Text("Choose a feedback system")
                                 .font(.title)
                                 .bold()
                                 .offset(y: -40)
                                 .foregroundColor(Color.white)
-                            NavigationLink(destination: NewWorkOutView()) {
-                                buttonView("Start new workout")
+                            Button {
+                                metroViewModel.showPickerView.toggle()
+                            } label: {
+                                buttonView("Notification feedback")
                             }
+                            
+                            Button {
+                                metroViewModel.showPickerView.toggle()
+                            } label: {
+                                buttonView("Sound feedback")
+                            }
+
+//                            NavigationLink(destination: NewWorkOutView()) {
+//                                buttonView("Notification feedback")
+//                            }
+//                            NavigationLink(destination: NewWorkOutView()) {
+//                                buttonView("Sound feedback")
+//                            }
                         }
                         .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
                         .cornerRadius(25.0)
@@ -70,11 +85,10 @@ struct ContentView: View {
                 }
             }
             .accentColor(.white)
-            NowPlayingBar(content: ListenNowView(showPlayer: $showPlayer))
+            NowPlayingBar(content: ListenNowView(showPlayer: $metroViewModel.showPlayer))
                 .tabItem {}
                 .offset(y: -50)
-            
-            HalfASheet(isPresented: $metroViewModel.isShowingSheet) {
+            HalfASheet(isPresented: $metroViewModel.showGif) {
                 GIFImage(name: "appleWatchAnimation")
                     .frame(height: 250)
             }
@@ -83,6 +97,10 @@ struct ContentView: View {
             .height(.proportional(0.4))
 
         }
+            if metroViewModel.showPickerView {
+                PickerView()
+            }
+    }
         .preferredColorScheme(.dark)
         .environmentObject(metroViewModel)
         .ignoresSafeArea(.keyboard)

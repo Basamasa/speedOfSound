@@ -101,5 +101,8 @@ struct ListenNowView: View {
             soundViewModel.start()
             soundViewModel.stop()
         })
+        .onAppear() {
+            soundViewModel.soundViewAppear()
+        }
     }
 }

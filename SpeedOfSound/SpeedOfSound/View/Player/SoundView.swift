@@ -10,7 +10,6 @@ import AVFoundation
 import UIKit
 
 struct SoundView: View {
-    
     @EnvironmentObject var soundViewModel: PlayerViewModel
     let namespace: Namespace.ID
 
@@ -96,12 +95,6 @@ struct SoundView: View {
         }
         .frame(height: 400)
         .background(.black)
-//        .cornerRadius(25.0)
-//        .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
-//        .padding()
-        .onAppear() {
-            soundViewModel.soundViewAppear()
-        }
     }
 }
 

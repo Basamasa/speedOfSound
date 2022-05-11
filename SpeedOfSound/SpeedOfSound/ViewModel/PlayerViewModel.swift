@@ -15,18 +15,24 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
     @Published var effect = ["1","2","3","4","5","6","7","8"]
-    @Published var wasRunning = false
-    
     @Published var BPM: Double = 120
     @Published var speedString = "Allegro"
-    @Published var isShowingSheet = false
+    
+    // Popups
+    @Published var showGif = false
+    @Published var showPlayer: Bool = false
+    @Published var showPickerView: Bool = false
     
     // Heart rate session
     var session: WCSession
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
     let subject2 = PassthroughSubject<Int, Never>()
-    @Published private(set) var count: Int = 0
+    @Published private(set) var count: Int = 0 {
+        didSet {
+            print(count)
+        }
+    }
     @Published private(set) var sessionWorkout: Int = 0
     
     let myMetronome: MetronomeModel
@@ -56,6 +62,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         if sessionWorkout == 1 {
             mode = .running
             try? myMetronome.start()
+            showGif = false
         }
     }
     
@@ -138,6 +145,16 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         updateBpm()
     }
     
+    func increaseByTen() {
+        myMetronome.incrementTempo(by: 10)
+        updateBpm()
+    }
+    
+    func decreaseByTen() {
+        myMetronome.incrementTempo(by: -10)
+        updateBpm()
+    }
+    
     func runRestart() {
     }
     
@@ -152,6 +169,21 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         }
         myMetronome.delegate = self
         updateBpm()
+    }
+    
+    func tapOnNotificationFeedbackButton() {
+        showGif = false
+        showPickerView.toggle()
+    }
+    
+    func tapOnSoundFeedbackButton() {
+        showGif = false
+        showPickerView.toggle()
+    }
+    
+    func tapOnStartSessionButton() {
+        showPickerView = false
+        showGif.toggle()
     }
     
     func playSound(effect: Int) {
