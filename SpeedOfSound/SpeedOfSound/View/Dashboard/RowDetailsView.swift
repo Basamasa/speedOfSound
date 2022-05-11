@@ -15,12 +15,13 @@ struct RowDetailsView: View {
     
     var body: some View {
         ScrollView {
-            SummaryView(detailsModel: rowDetailsViewModel.detailsModel)
+            SummaryView(rowDetailsViewModel: rowDetailsViewModel)
             HeartRateRangeView(rowDetailsViewModel: rowDetailsViewModel)
-            HeartRateResultsView(rowDetailsViewModel: rowDetailsViewModel)
+//            HeartRateResultsView(rowDetailsViewModel: rowDetailsViewModel)
         }
         .onAppear() {
             rowDetailsViewModel.getHeartRates()
+            rowDetailsViewModel.getSteps()
         }
     }
 }
@@ -32,72 +33,80 @@ struct SummaryTitleWorkouts: View {
     var body: some View {
         HStack(spacing: 3) {
             if type == .running {
-                Image("running")
+                Image(type.associatedImageName)
                     .resizable()
                     .foregroundColor(Color(UIColor.systemGray))
                     .frame(width: 50, height: 50, alignment: .center)
-                VStack {
-                    Text("Workouts")
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(detailsModel.startTime.0)
-                            .workoutTitleStyle()
-                        + Text(detailsModel.startTime.1)
-                                .workoutSubheadlineStyle()
+                VStack(alignment: .leading) {
+                    Text(type.name)
+                        .foregroundColor(Color("Main"))
+                    HStack(alignment: .center, spacing: 5) {
+                        Text(detailsModel.startTime)
+                            .workoutSubheadlineStyle()
+                        Text("-")
+                            .workoutSubheadlineStyle()
+                        Text(detailsModel.startTime)
+                            .workoutSubheadlineStyle()
                     }
                 }
-            } else if type == .cycling {
-                Image("cycling")
-                    .resizable()
-                    .foregroundColor(Color(UIColor.systemGray))
-                    .frame(width: 50, height: 50, alignment: .center)
-                Text("Workouts")
-                    .padding()
-            } else if type == .walking {
-                Image("walking")
-                    .resizable()
-                    .foregroundColor(Color(UIColor.systemGray))
-                    .frame(width: 50, height: 50, alignment: .center)
-                Text("Workouts")
-                    .padding()
+                .padding()
             }
         }
         .font(Font.body.bold())
-        .foregroundColor(Color("Main"))
     }
 }
 
 struct SummaryView: View {
-    var detailsModel: WorktoutDetailsModel
+    @StateObject var rowDetailsViewModel: RowDetailsViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
-            SummaryTitleWorkouts(type: detailsModel.type, detailsModel: detailsModel)
-            VStack(alignment: .leading, spacing: 5) {
-                Text("\(detailsModel.durationHours)")
-                    .workoutTitleStyle()
-                + Text(" hr ")
-                    .workoutSubheadlineStyle()
-                    + Text("\(detailsModel.durationMinutes)")
-                    .workoutTitleStyle()
-                + Text(" min")
-                    .workoutSubheadlineStyle()
-            }
-            Divider()
-                .background(Color(UIColor.systemGray2))
-            VStack(alignment: .leading, spacing: 5) {
-                Text(detailsModel.energyBurned)
-                    .workoutTitleStyle()
-                + Text(" kcal")
+            SummaryTitleWorkouts(type: rowDetailsViewModel.type, detailsModel: rowDetailsViewModel.detailsModel)
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Duration")
+                        .foregroundColor(Color("Main"))
+                    Text("\(rowDetailsViewModel.durationHours)")
+                        .workoutTitleStyle()
+                    + Text(" hr ")
                         .workoutSubheadlineStyle()
+                        + Text("\(rowDetailsViewModel.durationMinutes)")
+                        .workoutTitleStyle()
+                    + Text(" min")
+                        .workoutSubheadlineStyle()
+                }
+                Spacer()
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Enery Burned")
+                        .foregroundColor(Color("Main"))
+                    Text(rowDetailsViewModel.energyBurned)
+                        .workoutTitleStyle()
+                    + Text(" kcal")
+                            .workoutSubheadlineStyle()
+                }
             }
             Divider()
                 .background(Color(UIColor.systemGray2))
-            VStack(alignment: .leading, spacing: 5) {
-                Text(detailsModel.distance)
-                    .workoutTitleStyle()
-                + Text(" km")
-                    .workoutSubheadlineStyle()
+            HStack {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Distance")
+                        .foregroundColor(Color("Main"))
+                    Text(rowDetailsViewModel.distance)
+                        .workoutTitleStyle()
+                    + Text(" km")
+                        .workoutSubheadlineStyle()
+                }
+                Spacer()
+                
             }
+//            Divider()
+//                .background(Color(UIColor.systemGray2))
+//            VStack(alignment: .leading, spacing: 5) {
+//                Text("\(rowDetailsViewModel.steps[0])")
+//                    .workoutTitleStyle()
+//                + Text(" km")
+//                    .workoutSubheadlineStyle()
+//            }
         }
         .cardStyle()
         .frame(maxHeight: Constants.widgetLargeHeight)

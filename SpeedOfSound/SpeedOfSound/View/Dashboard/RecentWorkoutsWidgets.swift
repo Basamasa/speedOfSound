@@ -90,8 +90,8 @@ struct WorkoutRowView: View {
     let workout: WorktoutDetailsModel
     
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
-            VStack(alignment: .leading, spacing: -5)  {
+        HStack(alignment: .center, spacing: 20) {
+            VStack(alignment: .leading, spacing: -3)  {
                 Text(workout.activityName)
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
                 HStack(spacing: 10) {
@@ -105,13 +105,13 @@ struct WorkoutRowView: View {
                         + Text(" min")
                             .workoutSubheadlineStyle()
                     }
+
+                    VStack {
+                        Text(workout.date)
+                            .workoutDateStyle()
+                    }
                     Divider()
                         .background(Color(UIColor.systemGray2))
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(workout.date)
-                            .workoutTitleStyle()
-                    }
-                    
 //                    VStack(alignment: .leading, spacing: 5) {
 //                        Text(workout.startTime.0)
 //                            .workoutTitleStyle()

@@ -15,6 +15,8 @@ class RowDetailsViewModel: ObservableObject {
     @Published var heartRatePoints: [DataPoint] = []
     let detailsModel: WorktoutDetailsModel
     
+    @Published var steps: [Double] = []
+    
     init(workout: HKWorkout) {
         self.lowRange = 110
         self.highRange = 140
@@ -73,6 +75,14 @@ class RowDetailsViewModel: ObservableObject {
     func getHeartRates() {
         detailsModel.getHeartRates() { results in
             self.heartRatesChanged(results: results)
+        }
+    }
+    
+    func getSteps() {
+        detailsModel.getSteps { results in
+            DispatchQueue.main.async {
+                self.steps = results
+            }
         }
     }
 }

@@ -16,7 +16,6 @@ class WorktoutDetailsModel {
         self.workout = workout
     }
     var activityName: String {
-//        workout.hk == 
         return workout.workoutActivityType.name
     }
     
@@ -46,7 +45,7 @@ class WorktoutDetailsModel {
     
     var date: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM yyyy"
+        dateFormatter.dateFormat = "MMM d"
         let dateString = dateFormatter.string(from: workout.startDate)
         return dateString
     }
@@ -59,24 +58,16 @@ class WorktoutDetailsModel {
         return workout.workoutActivityType
     }
     
-    var startTime: (String, String) {
+    var startTime: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        let dateString = dateFormatter.string(from: workout.startDate)
-        let prefix = dateString.prefix(dateString.count - 2)
-        let suffix = dateString.suffix(2)
-
-        return (String(prefix), String(suffix))
+        return dateFormatter.string(from: startDate)
     }
     
-    var endTime: (String, String) {
+    var endTime: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        let dateString = dateFormatter.string(from: workout.endDate)
-        let prefix = dateString.prefix(dateString.count - 2)
-        let suffix = dateString.suffix(2)
-
-        return (String(prefix), String(suffix))
+        return dateFormatter.string(from: endDate)
     }
     
     func getSteps(completion: @escaping (([Double]) -> Void)) {
@@ -86,6 +77,24 @@ class WorktoutDetailsModel {
         
         let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
 
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
+            guard error == nil else {
+                return
+            }
+            
+            let unit = HKUnit(from: "")
+            var results: [Double] = []
+            guard let realResult = result else {return}
+            for singleResult in realResult {
+                let data = singleResult as! HKQuantitySample
+                let latestHr = data.quantity.doubleValue(for: unit)
+                results.append(latestHr)
+            }
+            completion(results)
+        }
+        
+        store.execute(query)
     }
     
     func getHeartRates(completion: @escaping (([Double]) -> Void)) {
