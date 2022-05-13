@@ -80,11 +80,6 @@ class WorkoutManager: NSObject, ObservableObject {
         // The quantity type to write to the health store.
         let typesToShare: Set = [
             HKQuantityType.workoutType(),
-            HKQuantityType.quantityType(forIdentifier: .heartRate)!,
-            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
-            HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
-            HKQuantityType.quantityType(forIdentifier: .distanceCycling)!,
-            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
         ]
 
         // The quantity types to read from the health store.

@@ -28,7 +28,7 @@ struct PickerView: View {
                     .foregroundColor(.black)
             }
             .frame(alignment: .trailing)
-            .offset(y: -35)
+            .offset(y: -20)
 
             HStack {
                 Picker("", selection: $lowBPM) {
@@ -50,7 +50,8 @@ struct PickerView: View {
                 Text("----")
                     .foregroundColor(.black)
                     .bold()
-                    .font(.body)
+                    .font(.title)
+                    .frame(width: 100)
                 Spacer()
                 Picker("", selection: $highBPM) {
                     ForEach([140, 160, 180, 200], id: \.self) {
@@ -84,7 +85,7 @@ struct PickerView: View {
                 Spacer()
             }
             .padding()
-            .offset(y: 50)
+//            .offset(y: 50)
         }
         .padding()
         }

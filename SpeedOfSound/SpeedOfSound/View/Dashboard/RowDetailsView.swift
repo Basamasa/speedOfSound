@@ -47,7 +47,7 @@ struct SummaryTitleWorkouts: View {
                         .workoutSubheadlineStyle()
                     Text("-")
                         .workoutSubheadlineStyle()
-                    Text(detailsModel.startTime)
+                    Text(detailsModel.endTime)
                         .workoutSubheadlineStyle()
                 }
             }
@@ -67,17 +67,21 @@ struct SummaryView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Duration")
                         .foregroundColor(Color("Main"))
-                    Text("\(rowDetailsViewModel.durationHours)")
+                    Text("\(rowDetailsViewModel.detailsModel.getDuration().0)")
                         .workoutTitleStyle()
                     + Text(" hr ")
                         .workoutSubheadlineStyle()
-                        + Text("\(rowDetailsViewModel.durationMinutes)")
+                    + Text("\(rowDetailsViewModel.detailsModel.getDuration().1)")
                         .workoutTitleStyle()
                     + Text(" min")
                         .workoutSubheadlineStyle()
+                    + Text(" \(rowDetailsViewModel.detailsModel.getDuration().2)")
+                        .workoutTitleStyle()
+                    + Text(" sec")
+                        .workoutSubheadlineStyle()
                 }
                 Spacer()
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .trailing, spacing: 5) {
                     Text("Enery Burned")
                         .foregroundColor(Color("Main"))
                     Text(rowDetailsViewModel.energyBurned)
@@ -98,6 +102,14 @@ struct SummaryView: View {
                         .workoutSubheadlineStyle()
                 }
                 Spacer()
+                VStack(alignment: .trailing, spacing: 5) {
+                    Text("Steps")
+                        .foregroundColor(Color("Main"))
+                    Text("\(rowDetailsViewModel.steps)")
+                        .workoutTitleStyle()
+                    + Text(" steps")
+                        .workoutSubheadlineStyle()
+                }
 //                VStack(alignment: .leading, spacing: 5) {
 //                    Text("Lower heart rate")
 //                        .foregroundColor(Color("Main"))

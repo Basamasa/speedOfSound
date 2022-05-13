@@ -6,6 +6,7 @@
 //
 
 import HealthKit
+import Foundation
 
 class WorktoutDetailsModel {
     let workout: HKWorkout
@@ -29,6 +30,22 @@ class WorktoutDetailsModel {
     
     var durationMinutes: Int {
         return Int(floor(workout.duration.truncatingRemainder(dividingBy: 3600)) / 60)
+    }
+    
+    var durationSeconds: Int {
+        return Int(floor(workout.duration ))
+    }
+    
+    func getDuration() -> (Int, Int, Int) {
+
+        let time = NSInteger(workout.duration)
+
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
+        let hours = (time / 3600)
+
+        return (hours, minutes, seconds)
+
     }
     
     var energyBurned: String {
@@ -70,7 +87,7 @@ class WorktoutDetailsModel {
         return dateFormatter.string(from: endDate)
     }
     
-    func getSteps(completion: @escaping (([Double]) -> Void)) {
+    func getSteps(completion: @escaping ((Double) -> Void)) {
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             return
         }
@@ -78,20 +95,37 @@ class WorktoutDetailsModel {
         let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
 
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
-            guard error == nil else {
+//        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
+//            guard error == nil else {
+//                return
+//            }
+//
+//            let unit = HKUnit(from: "")
+//            var results: [Double] = []
+//            guard let realResult = result else {return}
+//            for singleResult in realResult {
+//                let data = singleResult as! HKQuantitySample
+//                let latestHr = data.quantity.doubleValue(for: HKUnit.count())
+//                print(latestHr)
+//                results.append(latestHr)
+//            }
+//            completion(results)
+//        }
+        
+        let query = HKStatisticsQuery(quantityType: sampleType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in
+            var resultCount = 0.0
+
+            guard let result = result else {
+                print("\(String(describing: error?.localizedDescription)) ")
+                completion(resultCount)
                 return
             }
-            
-            let unit = HKUnit(from: "")
-            var results: [Double] = []
-            guard let realResult = result else {return}
-            for singleResult in realResult {
-                let data = singleResult as! HKQuantitySample
-                let latestHr = data.quantity.doubleValue(for: unit)
-                results.append(latestHr)
+
+            if let sum = result.sumQuantity() {
+                resultCount = sum.doubleValue(for: HKUnit.count())
             }
-            completion(results)
+
+            completion(resultCount)
         }
         
         store.execute(query)

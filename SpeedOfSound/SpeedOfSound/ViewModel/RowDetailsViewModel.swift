@@ -18,7 +18,7 @@ class RowDetailsViewModel: ObservableObject {
     let detailsModel: WorktoutDetailsModel
     
     
-    @Published var steps: [Double] = []
+    @Published var steps: Int = 0
     
     init(workout: HKWorkout) {
         self.lowRange = 110
@@ -113,7 +113,7 @@ class RowDetailsViewModel: ObservableObject {
     func getSteps() {
         detailsModel.getSteps { results in
             DispatchQueue.main.async {
-                self.steps = results
+                self.steps = Int(results)
             }
         }
     }

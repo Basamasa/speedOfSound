@@ -96,13 +96,17 @@ struct WorkoutRowView: View {
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
                 HStack(spacing: 10) {
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("\(workout.durationHours)")
+                        Text("\(workout.getDuration().0)")
                             .workoutTitleStyle()
                         + Text(" hr ")
                             .workoutSubheadlineStyle()
-                            + Text("\(workout.durationMinutes)")
+                            + Text("\(workout.getDuration().1)")
                             .workoutTitleStyle()
                         + Text(" min")
+                            .workoutSubheadlineStyle()
+                            + Text(" \(workout.getDuration().2)")
+                            .workoutTitleStyle()
+                        + Text(" sec")
                             .workoutSubheadlineStyle()
                     }
 

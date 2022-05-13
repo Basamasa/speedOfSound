@@ -28,11 +28,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
     let subject2 = PassthroughSubject<Int, Never>()
-    @Published private(set) var count: Int = 0 {
-        didSet {
-            print(count)
-        }
-    }
+    @Published private(set) var count: Int = 0
     @Published private(set) var sessionWorkout: Int = 0
     
     let myMetronome: MetronomeModel
