@@ -17,18 +17,36 @@ struct PickerView: View {
 
     var body: some View {
         ZStack {
+            Color.black
+                .opacity(0.5)
+                .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    withAnimation {
+                        playerViewModel.showPickerView = false
+                    }
+                }
+        ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
-            VStack(alignment: .trailing) {
-            Button {
-                playerViewModel.showPickerView = false
-            } label: {
-                Image(systemName: "multiply.circle.fill")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(.black)
-            }
-            .frame(alignment: .trailing)
-            .offset(y: -20)
+            VStack() {
+                HStack {
+                    Text("Heart rate range")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(.black)
+                    Spacer()
+                    Button {
+                        withAnimation {
+                            playerViewModel.showPickerView = false
+                        }
+                    } label: {
+                        Image(systemName: "multiply.circle.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.black)
+                    }
+                    .frame(alignment: .trailing)
+                }
+                .offset(y: -30)
 
             HStack {
                 Picker("", selection: $lowBPM) {
@@ -73,7 +91,9 @@ struct PickerView: View {
             HStack {
                 Spacer()
                 Button {
-                    playerViewModel.tapOnStartSessionButton()
+                    withAnimation {
+                        playerViewModel.tapOnStartSessionButton()
+                    }
                 } label: {
                     Text("Start")
                         .bold()
@@ -85,19 +105,17 @@ struct PickerView: View {
                 Spacer()
             }
             .padding()
-//            .offset(y: 50)
         }
         .padding()
         }
-        .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
+        .frame(width: UIScreen.main.bounds.width - 100, height: 370)
                 .background(.gray.opacity(0.3))
                 .cornerRadius(25.0)
                 .shadow(color: Color.black.opacity(0.8), radius: 5, x: 0, y: 2)
                 .padding()
                 .navigationBarTitleDisplayMode(.large)
-    }
-    func didDismiss() {
-        // Handle the dismissing action.
+        }
+        .ignoresSafeArea(.all)
     }
 }
 

@@ -64,6 +64,7 @@ struct ListenNowView: View {
                     }
                 }
                 .zIndex(1)
+                .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color.gray), alignment: .top)
                 .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .frame(height: showPlayer == true ? 500 : 65)
@@ -87,10 +88,11 @@ struct ListenNowView: View {
                                 showPlayer = false
                             }
                         }
-                    SoundView(namespace: namespace)
+                    PlayerView(namespace: namespace)
                         .matchedGeometryEffect(id: "NowPlayer", in: namespace)
                 }
                 .zIndex(2)
+                .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color.gray), alignment: .top)
                 .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .transition(.backslide2)

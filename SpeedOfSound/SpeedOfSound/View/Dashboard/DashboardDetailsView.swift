@@ -6,18 +6,16 @@
 //
 
 import SwiftUI
-//import SwiftUICharts
 import SwiftUICharts
 import HealthKit
 
-struct RowDetailsView: View {
-    @StateObject var rowDetailsViewModel: RowDetailsViewModel
+struct DashboardDetailsView: View {
+    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
     
     var body: some View {
         ScrollView {
             SummaryView(rowDetailsViewModel: rowDetailsViewModel)
             HeartRateRangeView(rowDetailsViewModel: rowDetailsViewModel)
-//            HeartRateResultsView(rowDetailsViewModel: rowDetailsViewModel)
             Rectangle()
                 .frame(height: 50)
                 .foregroundColor(.black)
@@ -58,11 +56,11 @@ struct SummaryTitleWorkouts: View {
 }
 
 struct SummaryView: View {
-    @StateObject var rowDetailsViewModel: RowDetailsViewModel
+    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
-            SummaryTitleWorkouts(type: rowDetailsViewModel.type, detailsModel: rowDetailsViewModel.detailsModel)
+            SummaryTitleWorkouts(type: rowDetailsViewModel.detailsModel.type, detailsModel: rowDetailsViewModel.detailsModel)
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Duration")
@@ -84,7 +82,7 @@ struct SummaryView: View {
                 VStack(alignment: .trailing, spacing: 5) {
                     Text("Enery Burned")
                         .foregroundColor(Color("Main"))
-                    Text(rowDetailsViewModel.energyBurned)
+                    Text(rowDetailsViewModel.detailsModel.energyBurned)
                         .workoutTitleStyle()
                     + Text(" kcal")
                             .workoutSubheadlineStyle()
@@ -96,7 +94,7 @@ struct SummaryView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Distance")
                         .foregroundColor(Color("Main"))
-                    Text(rowDetailsViewModel.distance)
+                    Text(rowDetailsViewModel.detailsModel.distance)
                         .workoutTitleStyle()
                     + Text(" km")
                         .workoutSubheadlineStyle()
@@ -110,14 +108,6 @@ struct SummaryView: View {
                     + Text(" steps")
                         .workoutSubheadlineStyle()
                 }
-//                VStack(alignment: .leading, spacing: 5) {
-//                    Text("Lower heart rate")
-//                        .foregroundColor(Color("Main"))
-//                    Text(rowDetailsViewModel.getLowPercentage)
-//                        .workoutTitleStyle()
-//                    + Text(" %")
-//                        .workoutSubheadlineStyle()
-//                }
             }
             Divider()
                 .background(Color(UIColor.systemGray2))
@@ -127,34 +117,6 @@ struct SummaryView: View {
                 HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePercetages)
                     .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
             }
-//                .frame(height: 200)
-//            HStack {
-//                VStack(alignment: .leading, spacing: 5) {
-//                    Text("Inside heart rate")
-//                        .foregroundColor(Color("Main"))
-//                    Text(rowDetailsViewModel.getInsidePercentage)
-//                        .workoutTitleStyle()
-//                    + Text(" %")
-//                        .workoutSubheadlineStyle()
-//                }
-//                Spacer()
-//                VStack(alignment: .leading, spacing: 5) {
-//                    Text("Higher heart rate")
-//                        .foregroundColor(Color("Main"))
-//                    Text(rowDetailsViewModel.getHighPercentage)
-//                        .workoutTitleStyle()
-//                    + Text(" %")
-//                        .workoutSubheadlineStyle()
-//                }
-//            }
-//            Divider()
-//                .background(Color(UIColor.systemGray2))
-//            VStack(alignment: .leading, spacing: 5) {
-//                Text("\(rowDetailsViewModel.steps[0])")
-//                    .workoutTitleStyle()
-//                + Text(" km")
-//                    .workoutSubheadlineStyle()
-//            }
         }
         .cardStyle()
         .frame(maxHeight: Constants.widgetLargeHeight)
@@ -163,7 +125,7 @@ struct SummaryView: View {
 }
 
 struct HeartRateRangeView: View {
-    @StateObject var rowDetailsViewModel: RowDetailsViewModel
+    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -179,35 +141,6 @@ struct HeartRateRangeView: View {
         }
         .cardStyle()
         .frame(maxHeight: Constants.widgetLargeHeight)
-//            .frame(minWidth: geometry.size.width)
         .padding()
     }
 }
-
-struct HeartRateResultsView: View {
-    @StateObject var rowDetailsViewModel: RowDetailsViewModel
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            HStack(spacing: 3) {
-                Image(systemName: "heart.fill")
-                Text("Summary")
-            }
-            .font(Font.body.bold())
-            .foregroundColor(Color("Main"))
-            HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePercetages)
-                .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
-                .frame(height: 200)
-        }
-        .cardStyle()
-        .frame(maxHeight: Constants.widgetLargeHeight)
-//            .frame(minWidth: geometry.size.width)
-        .padding()
-    }
-}
-
-//struct RowDetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RowDetailsView()
-//    }
-//}

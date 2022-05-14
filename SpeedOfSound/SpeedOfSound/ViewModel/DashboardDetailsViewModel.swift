@@ -7,7 +7,7 @@
 import HealthKit
 import SwiftUICharts
 
-class RowDetailsViewModel: ObservableObject {
+class DashboardDetailsViewModel: ObservableObject {
     let store = HKHealthStore()
 
     let lowRange: Double
@@ -24,30 +24,6 @@ class RowDetailsViewModel: ObservableObject {
         self.lowRange = 110
         self.highRange = 140
         self.detailsModel = WorktoutDetailsModel(workout: workout)
-    }
-    
-    var activityName: String {
-        return detailsModel.activityName
-    }
-    
-    var distance: String {
-        return detailsModel.distance
-    }
-    
-    var durationHours: Int {
-        return detailsModel.durationHours
-    }
-    
-    var durationMinutes: Int {
-        return detailsModel.durationMinutes
-    }
-    
-    var energyBurned: String {
-        return detailsModel.energyBurned
-    }
-    
-    var type: HKWorkoutActivityType {
-        return detailsModel.type
     }
     
     private func getPercentageValue(upNumber: Double, downNumber: Double) -> String {
@@ -97,10 +73,6 @@ class RowDetailsViewModel: ObservableObject {
             self.heartRatePoints = helperPoints
             self.heartRatePercetages = percentagePoints
         }
-        
-    }
-    
-    private func calculatePercentage() {
         
     }
     

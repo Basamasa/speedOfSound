@@ -13,7 +13,7 @@ struct Constants {
     static let widgetLargeHeight: CGFloat = 376
 }
 
-struct RecentWorkoutsWidgets: View {
+struct DashboardRowView: View {
     let workouts: [HKWorkout]
     let type: HKWorkoutActivityType
 
@@ -75,7 +75,7 @@ struct ThreeRowWorkouts: View {
                 NavigationLink {
                     ZStack {
                         Color.black.edgesIgnoringSafeArea(.all)
-                        RowDetailsView(rowDetailsViewModel: RowDetailsViewModel(workout: element))
+                        DashboardDetailsView(rowDetailsViewModel: DashboardDetailsViewModel(workout: element))
                     }
                 } label: {
                     WorkoutRowView(workout: WorktoutDetailsModel(workout: element))
@@ -116,20 +116,6 @@ struct WorkoutRowView: View {
                     }
                     Divider()
                         .background(Color(UIColor.systemGray2))
-//                    VStack(alignment: .leading, spacing: 5) {
-//                        Text(workout.startTime.0)
-//                            .workoutTitleStyle()
-//                        + Text(workout.startTime.1)
-//                                .workoutSubheadlineStyle()
-//                    }
-//                    Divider()
-//                        .background(Color(UIColor.systemGray2))
-//                    VStack(alignment: .leading, spacing: 5) {
-//                        Text(workout.endTime.0)
-//                            .workoutTitleStyle()
-//                        + Text(workout.startTime.1)
-//                            .workoutSubheadlineStyle()
-//                    }
                 }
                 .frame(maxHeight: 40)
             }

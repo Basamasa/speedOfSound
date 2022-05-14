@@ -29,21 +29,33 @@ struct ContentView: View {
                     ZStack {
                         Color.black.edgesIgnoringSafeArea(.all)
                         VStack {
-                            Text("Choose a feedback system")
+                            Text("Choose a feedback")
                                 .font(.title)
                                 .bold()
                                 .offset(y: -40)
                                 .foregroundColor(Color.white)
                             Button {
-                                metroViewModel.showPickerView.toggle()
+                                withAnimation {
+                                    metroViewModel.showPickerView.toggle()
+                                }
                             } label: {
-                                buttonView("Notification feedback")
+                                Label("Notification", systemImage: "applewatch.radiowaves.left.and.right")
+                                        .frame(width: 190, height: 60)
+                                        .background(Color.white)
+                                        .foregroundColor(Color.black)
+                                        .cornerRadius(25)
                             }
                             
                             Button {
-                                metroViewModel.showPickerView.toggle()
-                            } label: {
-                                buttonView("Sound feedback")
+                                withAnimation {
+                                    metroViewModel.showPickerView.toggle()
+                                }                            } label: {
+                                Label("Sound", systemImage: "metronome.fill")
+                                        .frame(width: 190, height: 60)
+                                        .background(Color.white)
+                                        .foregroundColor(Color.black)
+                                        .cornerRadius(25)
+
                             }
 
 //                            NavigationLink(destination: NewWorkOutView()) {
@@ -95,11 +107,12 @@ struct ContentView: View {
             .backgroundColor(.white)
             .closeButtonColor(.white)
             .height(.proportional(0.4))
-
         }
-            if metroViewModel.showPickerView {
-                PickerView()
-            }
+
+        if metroViewModel.showPickerView {
+            PickerView()
+                .transition(.scale)
+        }
     }
         .preferredColorScheme(.dark)
         .environmentObject(metroViewModel)

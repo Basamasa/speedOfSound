@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B305DAB28145B5100D877CB /* Click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DAA28145B5100D877CB /* Click.mp3 */; };
-		6B305DAF28145B8500D877CB /* SoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DAE28145B8500D877CB /* SoundView.swift */; };
+		6B305DAF28145B8500D877CB /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DAE28145B8500D877CB /* PlayerView.swift */; };
 		6B305DB128145CBA00D877CB /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B305DB028145CBA00D877CB /* PlayerViewModel.swift */; };
 		6B305DBB2814A1D300D877CB /* Mechanical metronome - High.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB32814A1D300D877CB /* Mechanical metronome - High.aif */; };
 		6B305DBC2814A1D300D877CB /* Hi-hat.aif in Resources */ = {isa = PBXBuildFile; fileRef = 6B305DB42814A1D300D877CB /* Hi-hat.aif */; };
@@ -36,9 +36,9 @@
 		6B3402D628210A2200C71216 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B3402D528210A2200C71216 /* HealthKit.framework */; };
 		6B3402D9282127FA00C71216 /* CorePermissionsSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402D8282127FA00C71216 /* CorePermissionsSwiftUI */; };
 		6B3402DB282127FA00C71216 /* PermissionsSwiftUIHealth in Frameworks */ = {isa = PBXBuildFile; productRef = 6B3402DA282127FA00C71216 /* PermissionsSwiftUIHealth */; };
-		6B4434BD28258E58006CBA12 /* RowDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4434BC28258E58006CBA12 /* RowDetailsView.swift */; };
-		6B4434BF28259144006CBA12 /* RowDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4434BE28259144006CBA12 /* RowDetailsViewModel.swift */; };
-		6B46835D28217A630048E20B /* RecentWorkoutsWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */; };
+		6B4434BD28258E58006CBA12 /* DashboardDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4434BC28258E58006CBA12 /* DashboardDetailsView.swift */; };
+		6B4434BF28259144006CBA12 /* DashboardDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4434BE28259144006CBA12 /* DashboardDetailsViewModel.swift */; };
+		6B46835D28217A630048E20B /* DashboardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46835C28217A630048E20B /* DashboardRowView.swift */; };
 		6B46836128217DCB0048E20B /* HKWorkoutActivityType+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */; };
 		6B46836328217E1A0048E20B /* HKWorkout+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836228217E1A0048E20B /* HKWorkout+extensions.swift */; };
 		6B46836528217E5F0048E20B /* Array+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B46836428217E5F0048E20B /* Array+extensions.swift */; };
@@ -146,7 +146,7 @@
 
 /* Begin PBXFileReference section */
 		6B305DAA28145B5100D877CB /* Click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Click.mp3; sourceTree = "<group>"; };
-		6B305DAE28145B8500D877CB /* SoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundView.swift; sourceTree = "<group>"; };
+		6B305DAE28145B8500D877CB /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		6B305DB028145CBA00D877CB /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		6B305DB32814A1D300D877CB /* Mechanical metronome - High.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mechanical metronome - High.aif"; sourceTree = "<group>"; };
 		6B305DB42814A1D300D877CB /* Hi-hat.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Hi-hat.aif"; sourceTree = "<group>"; };
@@ -172,9 +172,9 @@
 		6B3402D2282107E700C71216 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		6B3402D428210A2200C71216 /* SpeedOfSound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedOfSound.entitlements; sourceTree = "<group>"; };
 		6B3402D528210A2200C71216 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
-		6B4434BC28258E58006CBA12 /* RowDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowDetailsView.swift; sourceTree = "<group>"; };
-		6B4434BE28259144006CBA12 /* RowDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowDetailsViewModel.swift; sourceTree = "<group>"; };
-		6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWorkoutsWidgets.swift; sourceTree = "<group>"; };
+		6B4434BC28258E58006CBA12 /* DashboardDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailsView.swift; sourceTree = "<group>"; };
+		6B4434BE28259144006CBA12 /* DashboardDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDetailsViewModel.swift; sourceTree = "<group>"; };
+		6B46835C28217A630048E20B /* DashboardRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardRowView.swift; sourceTree = "<group>"; };
 		6B46836028217DCB0048E20B /* HKWorkoutActivityType+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+extensions.swift"; sourceTree = "<group>"; };
 		6B46836228217E1A0048E20B /* HKWorkout+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkout+extensions.swift"; sourceTree = "<group>"; };
 		6B46836428217E5F0048E20B /* Array+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extensions.swift"; sourceTree = "<group>"; };
@@ -290,7 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				6B3402D2282107E700C71216 /* DashboardViewModel.swift */,
-				6B4434BE28259144006CBA12 /* RowDetailsViewModel.swift */,
+				6B4434BE28259144006CBA12 /* DashboardDetailsViewModel.swift */,
 				6B305DB028145CBA00D877CB /* PlayerViewModel.swift */,
 			);
 			path = ViewModel;
@@ -341,8 +341,8 @@
 			isa = PBXGroup;
 			children = (
 				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
-				6B46835C28217A630048E20B /* RecentWorkoutsWidgets.swift */,
-				6B4434BC28258E58006CBA12 /* RowDetailsView.swift */,
+				6B46835C28217A630048E20B /* DashboardRowView.swift */,
+				6B4434BC28258E58006CBA12 /* DashboardDetailsView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -351,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				6B3402CD28205EF300C71216 /* ListenNowView.swift */,
-				6B305DAE28145B8500D877CB /* SoundView.swift */,
+				6B305DAE28145B8500D877CB /* PlayerView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -807,12 +807,12 @@
 				6B3402C7281F3B3F00C71216 /* Representables.swift in Sources */,
 				6B46836328217E1A0048E20B /* HKWorkout+extensions.swift in Sources */,
 				6B3402C2281EEC6400C71216 /* TriangleWaveModel.swift in Sources */,
-				6B46835D28217A630048E20B /* RecentWorkoutsWidgets.swift in Sources */,
+				6B46835D28217A630048E20B /* DashboardRowView.swift in Sources */,
 				6B305DC82815860E00D877CB /* Colors.swift in Sources */,
 				6B305DD22815E47900D877CB /* SessionDelegater.swift in Sources */,
-				6B4434BF28259144006CBA12 /* RowDetailsViewModel.swift in Sources */,
+				6B4434BF28259144006CBA12 /* DashboardDetailsViewModel.swift in Sources */,
 				6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */,
-				6B305DAF28145B8500D877CB /* SoundView.swift in Sources */,
+				6B305DAF28145B8500D877CB /* PlayerView.swift in Sources */,
 				6B3402D3282107E700C71216 /* DashboardViewModel.swift in Sources */,
 				6B305DB128145CBA00D877CB /* PlayerViewModel.swift in Sources */,
 				6B3402C0281EEBD400C71216 /* MetronomeModel.swift in Sources */,
@@ -821,7 +821,7 @@
 				6B3402CE28205EF300C71216 /* ListenNowView.swift in Sources */,
 				6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */,
 				6B3402B1281DD1A100C71216 /* Styles.swift in Sources */,
-				6B4434BD28258E58006CBA12 /* RowDetailsView.swift in Sources */,
+				6B4434BD28258E58006CBA12 /* DashboardDetailsView.swift in Sources */,
 				6B3402AD281DA24000C71216 /* PickerView.swift in Sources */,
 				6B3402CC281FE40200C71216 /* View+extensions.swift in Sources */,
 				6B46836128217DCB0048E20B /* HKWorkoutActivityType+extensions.swift in Sources */,

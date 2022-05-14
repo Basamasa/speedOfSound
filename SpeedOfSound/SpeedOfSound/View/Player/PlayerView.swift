@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 import UIKit
 
-struct SoundView: View {
+struct PlayerView: View {
     @EnvironmentObject var soundViewModel: PlayerViewModel
     let namespace: Namespace.ID
 

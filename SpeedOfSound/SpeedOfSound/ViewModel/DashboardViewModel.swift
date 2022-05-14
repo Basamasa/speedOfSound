@@ -93,9 +93,7 @@ class DashboardViewModel: ObservableObject {
             self.runningWorkouts = samplesRunning as! [HKWorkout]
         }
     }
-    
-    
-    
+  
     func readWalkingWorkouts() async {
         let walkingWorkouts = HKQuery.predicateForWorkouts(with: .walking)
         

@@ -14,9 +14,9 @@ struct DashboardView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                RecentWorkoutsWidgets(workouts: dashboardViewModel.runningWorkouts, type: .running)
+                DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running)
                     .padding(.bottom)
-                RecentWorkoutsWidgets(workouts: dashboardViewModel.walkingWorkouts, type: .walking)
+                DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking)
                 Rectangle()
                     .frame(height: 50)
                     .foregroundColor(.black)
