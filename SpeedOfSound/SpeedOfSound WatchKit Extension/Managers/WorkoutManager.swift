@@ -59,7 +59,10 @@ class WorkoutManager: NSObject, ObservableObject {
             return
         }
 
-        let metadata : NSDictionary = [HKMetadataKeyIndoorWorkout: locationType]
+        let metadata : NSDictionary = [
+            HKMetadataKeyIndoorWorkout: locationType,
+            HKMetadataKeyWorkoutBrandName: "",
+        ]
         
         builder?.addMetadata(metadata as! [String : HKWorkoutSessionLocationType]) { (success, error) in
             

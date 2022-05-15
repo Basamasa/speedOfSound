@@ -23,13 +23,13 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-//        DispatchQueue.main.async {
-//            if let count = message["count"] as? Int {
-//                self.countSubject.send(count)
-//            } else {
-//                print("There was an error")
-//            }
-//            
-//        }
+        DispatchQueue.main.async {
+            if let count = message["count"] as? Int {
+                self.countSubject.send(count)
+            } else {
+                print("There was an error")
+            }
+            
+        }
     }
 }

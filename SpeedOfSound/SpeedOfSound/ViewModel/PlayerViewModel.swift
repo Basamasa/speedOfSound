@@ -25,7 +25,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published var showPickerView: Bool = false
     
     // Heart rate session
-    var session: WCSession
+    var wcSession: WCSession
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
     let subject2 = PassthroughSubject<Int, Never>()
@@ -39,9 +39,9 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     
     init(session: WCSession = .default) {
         self.delegate = SessionDelegater(countSubject: subject1, sessionWorkoutSubject: subject2)
-        self.session = session
-        self.session.delegate = self.delegate
-        self.session.activate()
+        self.wcSession = session
+        self.wcSession.delegate = self.delegate
+        self.wcSession.activate()
            
         myMetronome = MetronomeModel(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
 
@@ -62,6 +62,16 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     
     // Delegate function
     func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
+    }
+    
+    private func sendMessage(_ message: String, count: Int? = nil, session: Int? = nil) {
+        wcSession.sendMessage([message: count ?? session!], replyHandler: nil) { error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    func savedWorktout() {
+        sendMessage("")
     }
     
     func start() {

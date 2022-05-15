@@ -18,7 +18,7 @@ class WorktoutDetailsModel {
     }
     var metaData: String {
         let type = workout.metadata?[HKMetadataKeyIndoorWorkout]
-        return type as! Int == 1 ? "Indoor" : "Outdoor"
+        return type as! Int == 1 ? "Indoor " : "Outdoor "
     }
     
     var activityName: String {

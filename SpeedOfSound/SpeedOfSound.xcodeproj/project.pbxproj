@@ -399,6 +399,7 @@
 				6B4D30A12816D09C0078FEA3 /* WorkoutManager.swift */,
 				6B4D30AC2816D8FE0078FEA3 /* SesssionManager.swift */,
 				6B305DD32815E6D500D877CB /* SessionDelegater.swift */,
+				6BE4A05028107A58004CB806 /* ComplicationController.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -489,7 +490,6 @@
 				6BFE6A5D28108376008FE74E /* SpeedOfSound WatchKit Extension.entitlements */,
 				6B4D30AE2816DD840078FEA3 /* Managers */,
 				6B4D30A92816D34A0078FEA3 /* Views */,
-				6BE4A05028107A58004CB806 /* ComplicationController.swift */,
 				6B305DCE2815D95900D877CB /* Notification */,
 				6BE4A05228107A59004CB806 /* Assets.xcassets */,
 				6BE4A05728107A59004CB806 /* Info.plist */,
