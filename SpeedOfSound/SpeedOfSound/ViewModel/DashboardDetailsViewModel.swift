@@ -27,7 +27,7 @@ class DashboardDetailsViewModel: ObservableObject {
     }
     
     private func getPercentageValue(upNumber: Double, downNumber: Double) -> String {
-        let x = upNumber / Double(downNumber)
+        let x = upNumber &/ Double(downNumber)
         let y = Double(round(1000 * x) / 1000)
         return "\(y * 100)"
     }

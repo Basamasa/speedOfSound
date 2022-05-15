@@ -10,6 +10,11 @@ import Combine
 import WatchConnectivity
 import CoreMotion
 
+enum FeedbackType: Int {
+    case notification = 0
+    case sound = 1
+}
+
 class PlayerViewModel: ObservableObject, MetronomeDelegate {
     // BPM metronome
     @Published var mode:isMetroRunning = .stopped
@@ -22,8 +27,13 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     // Popups
     @Published var showGif: Bool = false
     @Published var showPlayer: Bool = false
-    @Published var showPickerView: Bool = false
+    @Published var showNotificationPickerView: Bool = false
+    @Published var showSoundPickerView: Bool = false
     
+    @Published var lowBPM: Int = 120
+    @Published var highBPM: Int = 140
+    var timer = Timer()
+
     // Heart rate session
     var wcSession: WCSession
     let delegate: WCSessionDelegate
@@ -64,14 +74,26 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
     }
     
-    private func sendMessage(_ message: String, count: Int? = nil, session: Int? = nil) {
-        wcSession.sendMessage([message: count ?? session!], replyHandler: nil) { error in
-            print(error.localizedDescription)
+    func sendWorkoutToWatch() {
+        var feedbackMessage: String?
+
+        if showSoundPickerView && !showNotificationPickerView {
+            feedbackMessage = "1"
+        } else if !showSoundPickerView && showNotificationPickerView {
+            feedbackMessage = "0"
         }
-    }
-    
-    func savedWorktout() {
-        sendMessage("")
+        guard let firstMessage = feedbackMessage else {return }
+
+        let message = firstMessage + "\(lowBPM)" + "\(highBPM)" + "\(Int(cadence))"
+        while !wcSession.isReachable {
+            print("why")
+        }
+        if wcSession.isReachable {
+            timer.invalidate()
+            wcSession.sendMessage(["workoutMessage": message], replyHandler: nil) { error in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func start() {
@@ -191,16 +213,19 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     
     func tapOnNotificationFeedbackButton() {
         showGif = false
-        showPickerView.toggle()
+        showNotificationPickerView.toggle()
     }
     
     func tapOnSoundFeedbackButton() {
         showGif = false
-        showPickerView.toggle()
+        showSoundPickerView.toggle()
     }
     
     func tapOnStartSessionButton() {
-        showPickerView = false
+//        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+//            self.sendWorkoutToWatch()
+//        })
+        self.sendWorkoutToWatch()
         showGif.toggle()
     }
     

@@ -10,8 +10,6 @@ import SwiftUIGIF
 import HalfASheet
 
 struct PickerView: View {
-    @State private var lowBPM: Int = 120
-    @State private var highBPM = 140
     private let heartRange = [40, 60, 80, 100, 120, 140, 160, 180, 200]
     @EnvironmentObject var playerViewModel: PlayerViewModel
 
@@ -22,7 +20,8 @@ struct PickerView: View {
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
                     withAnimation {
-                        playerViewModel.showPickerView = false
+                        playerViewModel.showSoundPickerView = false
+                        playerViewModel.showNotificationPickerView = false
                     }
                 }
         ZStack {
@@ -38,7 +37,7 @@ struct PickerView: View {
                 .padding([.leading, .trailing])
 //                .offset(y: -30)
                 HStack {
-                    Picker("", selection: $lowBPM) {
+                    Picker("", selection: $playerViewModel.lowBPM) {
                         ForEach(heartRange, id: \.self) {
                             Text("\($0)")
                                 .foregroundColor(.black)
@@ -60,7 +59,7 @@ struct PickerView: View {
                         .font(.title)
                         .frame(width: 100)
                     Spacer()
-                    Picker("", selection: $highBPM) {
+                    Picker("", selection: $playerViewModel.highBPM) {
                         ForEach(heartRange, id: \.self) {
                             Text("\($0)")
                                 .foregroundColor(.black)
@@ -130,11 +129,5 @@ struct PickerView: View {
             }
         }
         .ignoresSafeArea(.all)
-    }
-}
-
-struct NewWorkOutView_Previews: PreviewProvider {
-    static var previews: some View {
-        PickerView()
     }
 }

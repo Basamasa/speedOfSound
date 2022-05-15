@@ -16,9 +16,16 @@ class WorktoutDetailsModel {
     init (workout: HKWorkout) {
         self.workout = workout
     }
-    var metaData: String {
+    
+    var indoorWorktoutMeta: String {
         let type = workout.metadata?[HKMetadataKeyIndoorWorkout]
         return type as! Int == 1 ? "Indoor " : "Outdoor "
+    }
+    
+    var nameMeta: String {
+        let type = workout.metadata?[HKMetadataKeyWorkoutBrandName]
+        guard type != nil else {return ""}
+        return type as! String
     }
     
     var activityName: String {

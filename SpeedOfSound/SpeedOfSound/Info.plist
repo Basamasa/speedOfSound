@@ -8,6 +8,8 @@
 	<string>SoundOfSpeed required to use your health share usage</string>
 	<key>NSMotionUsageDescription</key>
 	<string>SoundOfSpeed required to use you motion usage</string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>

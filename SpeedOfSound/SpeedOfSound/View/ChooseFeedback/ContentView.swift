@@ -36,7 +36,7 @@ struct ContentView: View {
                                 .foregroundColor(Color.white)
                             Button {
                                 withAnimation {
-                                    playerViewModel.showPickerView.toggle()
+                                    playerViewModel.showNotificationPickerView = true
                                 }
                             } label: {
                                 Label("Notification feedback", systemImage: "applewatch.radiowaves.left.and.right")
@@ -48,8 +48,9 @@ struct ContentView: View {
                             
                             Button {
                                 withAnimation {
-                                    playerViewModel.showPickerView.toggle()
-                                }                            } label: {
+                                    playerViewModel.showSoundPickerView = true
+                                }
+                            } label: {
                                 Label("Sound feedback", systemImage: "metronome.fill")
                                         .frame(width: 230, height: 60)
                                         .background(.white)
@@ -100,9 +101,9 @@ struct ContentView: View {
             .height(.proportional(0.4))
         }
 
-        if playerViewModel.showPickerView {
-            PickerView()
-        }
+            if playerViewModel.showNotificationPickerView || playerViewModel.showSoundPickerView {
+                PickerView()
+            }
     }
         .preferredColorScheme(.dark)
         .environmentObject(playerViewModel)

@@ -92,10 +92,11 @@ struct WorkoutRowView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
             VStack(alignment: .leading, spacing: -3)  {
-                Text(workout.metaData)
+                Text(workout.indoorWorktoutMeta)
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray)) +
                 Text(workout.activityName)
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
+                + Text(workout.nameMeta)
                 HStack(spacing: 10) {
                     VStack(alignment: .leading, spacing: 5) {
                         Text("\(workout.getDuration().0)")

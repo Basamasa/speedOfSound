@@ -11,9 +11,11 @@ import Combine
 
 class SessionDelegater: NSObject, WCSessionDelegate {
     let countSubject: PassthroughSubject<Int, Never>
-    
-    init(countSubject: PassthroughSubject<Int, Never>) {
+    let workoutSubject: PassthroughSubject<String, Never>
+
+    init(countSubject: PassthroughSubject<Int, Never>, workoutSubject: PassthroughSubject<String, Never>) {
         self.countSubject = countSubject
+        self.workoutSubject = workoutSubject
         super.init()
     }
     
@@ -24,8 +26,8 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         DispatchQueue.main.async {
-            if let count = message["count"] as? Int {
-                self.countSubject.send(count)
+            if let count = message["workoutMessage"] as? String {
+                self.workoutSubject.send(count)
             } else {
                 print("There was an error")
             }
