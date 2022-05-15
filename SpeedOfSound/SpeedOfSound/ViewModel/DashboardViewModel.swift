@@ -82,6 +82,10 @@ class DashboardViewModel: ObservableObject {
         let samplesRunning = await runQuery(predicate: runningWorkouts)
         DispatchQueue.main.async {
             self.runningWorkouts = samplesRunning as! [HKWorkout]
+//            let workout = self.runningWorkouts[0]
+//            self.store.add([MySample()], to: workout) { finished, error in
+//                print(finished)
+//            }
         }
     }
     

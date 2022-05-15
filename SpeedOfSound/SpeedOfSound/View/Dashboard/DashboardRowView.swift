@@ -92,6 +92,8 @@ struct WorkoutRowView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
             VStack(alignment: .leading, spacing: -3)  {
+                Text(workout.metaData)
+                    .font(.caption).bold().foregroundColor(Color(UIColor.systemGray)) +
                 Text(workout.activityName)
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
                 HStack(spacing: 10) {

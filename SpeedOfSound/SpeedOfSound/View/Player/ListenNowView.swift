@@ -19,7 +19,7 @@ struct NowPlayingBar<Content: View>: View {
 }
 
 struct ListenNowView: View {
-    @EnvironmentObject var soundViewModel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     @Binding var showPlayer: Bool
     @Namespace var namespace
 
@@ -35,14 +35,14 @@ struct ListenNowView: View {
 
                     HStack {
                         HStack {
-                            Text("\(Int(soundViewModel.BPM))")
+                            Text("\(Int(playerViewModel.BPM))")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
 
                             Text("BPM")
                                 .font(.footnote)
-                                .foregroundColor(.white)
+                                .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
                         }
                         .foregroundColor(Color("ButtonAccent"))
                         .matchedGeometryEffect(id: "BPM", in: namespace)
@@ -51,12 +51,12 @@ struct ListenNowView: View {
                         Spacer()
                         
                         Button(action: {
-                            soundViewModel.tapOnStartButton()
+                            playerViewModel.tapOnStartButton()
                         }, label: {
-                            Image(systemName: soundViewModel.mode == .stopped ? "play.fill" : "pause.fill")
+                            Image(systemName: playerViewModel.mode == .stopped ? "play.fill" : "pause.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(.white)
+                                .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
                                 .font(.largeTitle)
                         })
                         .padding()
@@ -64,7 +64,11 @@ struct ListenNowView: View {
                     }
                 }
                 .zIndex(1)
-                .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color.gray), alignment: .top)
+                .overlay(Rectangle()
+                    .frame(width: nil, height: 1, alignment: .top)
+                    .foregroundColor(Color.gray)
+                    .matchedGeometryEffect(id: "Rectangle", in: namespace),
+                         alignment: .top)
                 .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .frame(height: showPlayer == true ? 500 : 65)
@@ -92,19 +96,25 @@ struct ListenNowView: View {
                         .matchedGeometryEffect(id: "NowPlayer", in: namespace)
                 }
                 .zIndex(2)
-                .overlay(Rectangle().frame(width: nil, height: 1, alignment: .top).foregroundColor(Color.gray), alignment: .top)
+                .overlay(Rectangle()
+                    .frame(width: nil, height: 1, alignment: .top)
+                    .foregroundColor(Color.gray)
+                    .matchedGeometryEffect(id: "Rectangle", in: namespace),
+                         alignment: .top)
                 .background(.black)
                 .cornerRadius(10, corners: [.topLeft, .topRight])
                 .transition(.backslide2)
                 .modifier(DraggableModifier(showPlayer: $showPlayer, direction: .bottom))
             }
         }
-        .onChange(of: soundViewModel.sessionWorkout, perform: { newValue in
-            soundViewModel.start()
-            soundViewModel.stop()
+        .onChange(of: playerViewModel.sessionWorkout, perform: { newValue in
+            withAnimation {
+                playerViewModel.start()
+                playerViewModel.stop()
+            }
         })
         .onAppear() {
-            soundViewModel.soundViewAppear()
+            playerViewModel.soundViewAppear()
         }
     }
 }

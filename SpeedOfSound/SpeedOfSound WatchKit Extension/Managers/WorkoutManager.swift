@@ -59,6 +59,11 @@ class WorkoutManager: NSObject, ObservableObject {
             return
         }
 
+        let metadata : NSDictionary = [HKMetadataKeyIndoorWorkout: locationType]
+        
+        builder?.addMetadata(metadata as! [String : HKWorkoutSessionLocationType]) { (success, error) in
+            
+        }
         // Setup session and builder.
         session?.delegate = self
         builder?.delegate = self

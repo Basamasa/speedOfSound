@@ -23,7 +23,7 @@ struct DashboardView: View {
             }
         }
         .padding()
-        .JMAlert(showModal: $dashboardViewModel.isNotReady, for: [.health(categories: .init(readAndWrite: [HKSampleType.quantityType(forIdentifier: .heartRate)!]))], autoCheckAuthorization: false)
+        .JMAlert(showModal: $dashboardViewModel.isNotReady, for: [.health(categories: .init(read: [HKSampleType.quantityType(forIdentifier: .heartRate)!]))], autoCheckAuthorization: false)
         .task {
             await dashboardViewModel.checkPermission()
             await dashboardViewModel.loadWorkoutData() // ??

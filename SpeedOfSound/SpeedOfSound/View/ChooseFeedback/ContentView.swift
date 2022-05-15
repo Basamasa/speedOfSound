@@ -10,7 +10,7 @@ import HalfASheet
 import SwiftUIGIF
 
 struct ContentView: View {
-    @StateObject var metroViewModel = PlayerViewModel()
+    @StateObject var playerViewModel = PlayerViewModel()
     
     func buttonView(_ text: String) -> some View {
         Text(text)
@@ -36,37 +36,28 @@ struct ContentView: View {
                                 .foregroundColor(Color.white)
                             Button {
                                 withAnimation {
-                                    metroViewModel.showPickerView.toggle()
+                                    playerViewModel.showPickerView.toggle()
                                 }
                             } label: {
-                                Label("Notification", systemImage: "applewatch.radiowaves.left.and.right")
-                                        .frame(width: 190, height: 60)
-                                        .background(Color.white)
-                                        .foregroundColor(Color.black)
+                                Label("Notification feedback", systemImage: "applewatch.radiowaves.left.and.right")
+                                        .frame(width: 230, height: 60)
+                                        .background(.white)
+                                        .foregroundColor(.black)
                                         .cornerRadius(25)
                             }
                             
                             Button {
                                 withAnimation {
-                                    metroViewModel.showPickerView.toggle()
+                                    playerViewModel.showPickerView.toggle()
                                 }                            } label: {
-                                Label("Sound", systemImage: "metronome.fill")
-                                        .frame(width: 190, height: 60)
-                                        .background(Color.white)
-                                        .foregroundColor(Color.black)
+                                Label("Sound feedback", systemImage: "metronome.fill")
+                                        .frame(width: 230, height: 60)
+                                        .background(.white)
+                                        .foregroundColor(.black)
                                         .cornerRadius(25)
 
                             }
-
-//                            NavigationLink(destination: NewWorkOutView()) {
-//                                buttonView("Notification feedback")
-//                            }
-//                            NavigationLink(destination: NewWorkOutView()) {
-//                                buttonView("Sound feedback")
-//                            }
                         }
-                        .frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 500)
-                        .cornerRadius(25.0)
                     }
                     .navigationTitle("Sound of Speed")
                     .navigationBarTitleTextColor(.white)
@@ -76,7 +67,7 @@ struct ContentView: View {
                     VStack {
                         Image(systemName: "badge.plus.radiowaves.right")
                             .renderingMode(.template)
-                        Text("Add workout")
+                        Text("Feedback")
                     }
 
                 }
@@ -97,10 +88,10 @@ struct ContentView: View {
                 }
             }
             .accentColor(.white)
-            NowPlayingBar(content: ListenNowView(showPlayer: $metroViewModel.showPlayer))
+            NowPlayingBar(content: ListenNowView(showPlayer: $playerViewModel.showPlayer))
                 .tabItem {}
                 .offset(y: -50)
-            HalfASheet(isPresented: $metroViewModel.showGif) {
+            HalfASheet(isPresented: $playerViewModel.showGif) {
                 GIFImage(name: "appleWatchAnimation")
                     .frame(height: 250)
             }
@@ -109,13 +100,12 @@ struct ContentView: View {
             .height(.proportional(0.4))
         }
 
-        if metroViewModel.showPickerView {
+        if playerViewModel.showPickerView {
             PickerView()
-                .transition(.scale)
         }
     }
         .preferredColorScheme(.dark)
-        .environmentObject(metroViewModel)
+        .environmentObject(playerViewModel)
         .ignoresSafeArea(.keyboard)
     }
 }

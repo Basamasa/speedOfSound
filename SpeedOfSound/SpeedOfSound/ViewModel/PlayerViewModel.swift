@@ -5,10 +5,10 @@
 //  Created by Anzer Arkin on 23.04.22.
 //
 
-import Foundation
 import AVFoundation
 import Combine
 import WatchConnectivity
+import CoreMotion
 
 class PlayerViewModel: ObservableObject, MetronomeDelegate {
     // BPM metronome
@@ -17,9 +17,10 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published var effect = ["1","2","3","4","5","6","7","8"]
     @Published var BPM: Double = 120
     @Published var speedString = "Allegro"
-    
+    let myMetronome: MetronomeModel
+
     // Popups
-    @Published var showGif = false
+    @Published var showGif: Bool = false
     @Published var showPlayer: Bool = false
     @Published var showPickerView: Bool = false
     
@@ -31,8 +32,11 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published private(set) var count: Int = 0
     @Published private(set) var sessionWorkout: Int = 0
     
-    let myMetronome: MetronomeModel
-        
+    // Pedometer(Cadence)
+    let pedometer = CMPedometer()
+    var cadence: Double = 0
+    @Published var showCadenceView: Bool =  false
+    
     init(session: WCSession = .default) {
         self.delegate = SessionDelegater(countSubject: subject1, sessionWorkoutSubject: subject2)
         self.session = session
@@ -50,6 +54,12 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
             .assign(to: &$sessionWorkout)
     }
     
+    var isCadenceAvailable : Bool{
+        get{
+            return CMPedometer.isCadenceAvailable()
+        }
+    }
+    
     // Delegate function
     func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
     }
@@ -59,6 +69,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
             mode = .running
             try? myMetronome.start()
             showGif = false
+            showPlayer = true
         }
     }
     
@@ -66,6 +77,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         if sessionWorkout  == 0 {
             mode = .stopped
             myMetronome.stop()
+            showPlayer = false
         }
     }
     

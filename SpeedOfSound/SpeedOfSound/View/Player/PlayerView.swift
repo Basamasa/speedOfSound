@@ -10,48 +10,65 @@ import AVFoundation
 import UIKit
 
 struct PlayerView: View {
-    @EnvironmentObject var soundViewModel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     let namespace: Namespace.ID
+    @State private var animationAmount: CGFloat = 1
 
     var body: some View {
         VStack {
             HStack {
                 Image(systemName: "music.note")
-                Picker("Effect", selection: $soundViewModel.effectIndex) {
-                    ForEach(0 ..< soundViewModel.effect.count, id:\.self) { index in
-                            Text(soundViewModel.effect[index]).tag(index)
+                Picker("Effect", selection: $playerViewModel.effectIndex) {
+                    ForEach(0 ..< playerViewModel.effect.count, id:\.self) { index in
+                            Text(playerViewModel.effect[index]).tag(index)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .onChange(of: soundViewModel.effectIndex) { _ in
-                    soundViewModel.runRestart()
+                .onChange(of: playerViewModel.effectIndex) { _ in
+                    playerViewModel.runRestart()
                 }
             }
             .padding()
             
             Spacer()
             
+            Label(playerViewModel.speedString, systemImage: "metronome.fill")
+                .foregroundColor(playerViewModel.mode == .running ? Color("MainHighlight") : .white)
+            
             HStack {
                 Spacer()
-                Button(action: {
-                    soundViewModel.clickOnMinusButton()
-                }, label: {
-                    Image(systemName: "minus.circle")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
-                        .font(Font.title.weight(.light))
-                })
+                VStack {
+                    Button(action: {
+                        playerViewModel.clickOnPlusButton()
+                    }, label: {
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
+                            .font(Font.title.weight(.light))
+                    })
+                    Button(action: {
+                        playerViewModel.clickOnMinusButton()
+                    }, label: {
+                        Image(systemName: "minus.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
+                            .font(Font.title.weight(.light))
+                    })
+                }
                 
                 Button(action: {
-                    soundViewModel.clickOnBPM()
+                    playerViewModel.clickOnBPM()
                 }, label: {
                     VStack {
-                        Text("\(Int(soundViewModel.BPM))")
+                        Text("\(Int(playerViewModel.BPM))")
                             .font(.largeTitle)
+                            .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
                             .fontWeight(.bold)
                         Text("BPM")
                             .font(.footnote)
+                            .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
                     }
                     .foregroundColor(.white)
                 })
@@ -59,33 +76,47 @@ struct PlayerView: View {
 
                 Image(systemName: "poweron")
                     .font(.largeTitle)
+                    .foregroundColor(playerViewModel.mode == .running ? Color("MainHighlight") : .white)
                 VStack {
-                    Text("\(soundViewModel.count)")
+                    Text("\(playerViewModel.count)")
                         .font(.largeTitle)
+                        .foregroundColor(playerViewModel.mode == .running ? .red : .white)
                         .fontWeight(.bold)
                     Text("Heart rate")
                         .font(.footnote)
+                        .foregroundColor(playerViewModel.mode == .running ? .red : .white)
                 }
                 .foregroundColor(.white)
-                Button(action: {
-                    soundViewModel.clickOnPlusButton()
-                }, label: {
-                    Image(systemName: "plus.circle")
+                if playerViewModel.mode == .running {
+                    Image(systemName: "heart.fill")
                         .resizable()
                         .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
-                        .font(Font.title.weight(.light))
-                })
+                        .foregroundColor(.red)
+                        .scaleEffect(animationAmount)
+                        .animation(
+                            .linear(duration: 0.1)
+                                .delay(0.2)
+                                .repeatForever(autoreverses: true),
+                            value: animationAmount)
+                        .onAppear {
+                            animationAmount = 1.2
+                        }
+                } else {
+                    Image(systemName: "heart.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.red)
+                }
                 Spacer()
             }
             Spacer()
             Button(action: {
-                soundViewModel.tapOnStartButton()
+                playerViewModel.tapOnStartButton()
             }, label: {
-                Image(systemName: soundViewModel.mode == .stopped ? "play.circle.fill" : "pause.circle.fill")
+                Image(systemName: playerViewModel.mode == .stopped ? "play.circle.fill" : "pause.circle.fill")
                     .resizable()
                     .frame(width: 100, height: 100)
-                    .foregroundColor(.white)
+                    .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
                     .font(.largeTitle)
                     
             })
