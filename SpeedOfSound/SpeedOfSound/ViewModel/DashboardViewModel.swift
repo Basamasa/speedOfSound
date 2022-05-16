@@ -17,6 +17,11 @@ class DashboardViewModel: ObservableObject {
         
     var workouts: [HKWorkout]?
     
+    var getPermission: Set<HKSampleType> {
+        let write: Set<HKSampleType> = [.workoutType()]
+
+        return write
+    }
     func checkPermission() async {
         if !HKHealthStore.isHealthDataAvailable() {
             return
@@ -49,8 +54,9 @@ class DashboardViewModel: ObservableObject {
         
     func checkCurrentAuthorizationSetting() {
         // Request the current notification settings
-        let currentSettings = store.authorizationStatus(for: HKQuantityType.quantityType(forIdentifier: .heartRate)!)
-        if currentSettings == .sharingAuthorized {
+        let heartRatePermission = store.authorizationStatus(for: HKQuantityType.quantityType(forIdentifier: .heartRate)!)
+
+        if heartRatePermission == .sharingAuthorized {
             self.isNotReady = false
         } else {
             self.isNotReady = true

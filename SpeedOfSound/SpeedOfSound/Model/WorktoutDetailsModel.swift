@@ -19,13 +19,31 @@ class WorktoutDetailsModel {
     
     var indoorWorktoutMeta: String {
         let type = workout.metadata?[HKMetadataKeyIndoorWorkout]
+        guard type != nil else {return ""}
         return type as! Int == 1 ? "Indoor " : "Outdoor "
     }
     
-    var nameMeta: String {
-        let type = workout.metadata?[HKMetadataKeyWorkoutBrandName]
-        guard type != nil else {return ""}
-        return type as! String
+    var feedbackStyle: String {
+        return nameMeta.feedback == 0 ? "Notification" : "Sound"
+    }
+    
+    var lowBPM: Int {
+        return nameMeta.lowBPM
+    }
+    
+    var highBPM: Int {
+        return nameMeta.highBPM
+    }
+    
+    var cadence: Int {
+        return nameMeta.cadence
+    }
+    
+    private var nameMeta: WorkoutModel {
+        let workoutData = workout.metadata?[HKMetadataKeyWorkoutBrandName]
+        guard workoutData != nil else {return WorkoutModel.defaultValue}
+        
+        return WorkoutModel.parserData(data: workoutData as! String)
     }
     
     var activityName: String {
@@ -57,7 +75,6 @@ class WorktoutDetailsModel {
         let hours = (time / 3600)
 
         return (hours, minutes, seconds)
-
     }
     
     var energyBurned: String {

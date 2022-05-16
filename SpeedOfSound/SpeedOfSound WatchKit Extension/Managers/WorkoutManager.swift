@@ -9,9 +9,13 @@ import Foundation
 import HealthKit
 
 class WorkoutManager: NSObject, ObservableObject {
-    var wcsessionManager: SessionManager?
+    var wcsessionManager = SessionManager()
+
     var selectedWorkout: WorkoutType?
 
+    // The app's workout state.
+    @Published var running = false
+    
     @Published var showingSummaryView: Bool = false {
         didSet {
             if showingSummaryView == false {
@@ -19,7 +23,20 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
     }
-
+    
+    @Published var workoutModel = WorkoutModel()
+    let heartRange = [40, 60, 80, 100, 120, 140, 160, 180, 200]
+    
+    // Workout Metrics
+    @Published var averageHeartRate: Double = 0
+    @Published var heartRate: Double = 0
+    @Published var steps: Double = 0
+    @Published var averageSteps: Double = 0
+    @Published var activeEnergy: Double = 0
+    @Published var distance: Double = 0
+    @Published var workout: HKWorkout?
+    
+    
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
@@ -40,8 +57,7 @@ class WorkoutManager: NSObject, ObservableObject {
                 startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .indoor)
             }
         }
-        wcsessionManager = SessionManager()
-        wcsessionManager?.workSessionBegin()
+        wcsessionManager.workSessionBegin()
     }
     
     // Start the workout.
@@ -60,7 +76,7 @@ class WorkoutManager: NSObject, ObservableObject {
         }
 
         let metadata : NSDictionary = [
-            HKMetadataKeyWorkoutBrandName: "Hi",
+            HKMetadataKeyWorkoutBrandName: workoutModel.getData,
         ]
         
         builder?.addMetadata(metadata as! [String : String]) { (success, error) in
@@ -107,9 +123,6 @@ class WorkoutManager: NSObject, ObservableObject {
 
     // MARK: - Session State Control
 
-    // The app's workout state.
-    @Published var running = false
-
     func togglePause() {
         if running == true {
             self.pause()
@@ -129,17 +142,10 @@ class WorkoutManager: NSObject, ObservableObject {
     func endWorkout() {
         session?.end()
         showingSummaryView = true
-        wcsessionManager?.workSessionEnd()
+        wcsessionManager.workSessionEnd()
     }
 
     // MARK: - Workout Metrics
-    @Published var averageHeartRate: Double = 0
-    @Published var heartRate: Double = 0
-    @Published var steps: Double = 0
-    @Published var averageSteps: Double = 0
-    @Published var activeEnergy: Double = 0
-    @Published var distance: Double = 0
-    @Published var workout: HKWorkout?
 
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
@@ -149,7 +155,7 @@ class WorkoutManager: NSObject, ObservableObject {
             case HKQuantityType.quantityType(forIdentifier: .heartRate):
                 let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
                 self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
-                self.wcsessionManager?.bpmchanged(Int(self.heartRate))
+                self.wcsessionManager.bpmchanged(Int(self.heartRate))
                 self.averageHeartRate = statistics.averageQuantity()?.doubleValue(for: heartRateUnit) ?? 0
             case HKQuantityType.quantityType(forIdentifier: .stepCount):
                 let stepsUnit = HKUnit.count().unitDivided(by: HKUnit.minute())

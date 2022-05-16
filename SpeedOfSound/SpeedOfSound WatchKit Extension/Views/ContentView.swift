@@ -11,7 +11,7 @@ import HealthKit
 struct ContentView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var workoutTypes: [WorkoutType] = [.indoorRunning, .outdoorRunning, .indoorWalking, .outdoorWalking]
-    
+    var cadence: Int
     var body: some View {
         List(workoutTypes) { workoutType in
             NavigationLink(tag: workoutType, selection: $workoutManager.selectedWorkout) {
@@ -35,6 +35,7 @@ struct ContentView: View {
         .navigationBarTitle("Let's start 💪")
         .onAppear {
             workoutManager.requestAuthorization()
+            workoutManager.workoutModel.cadence = cadence
         }
     }
 }

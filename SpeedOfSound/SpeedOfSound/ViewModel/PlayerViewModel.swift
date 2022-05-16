@@ -85,9 +85,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         guard let firstMessage = feedbackMessage else {return }
 
         let message = firstMessage + "\(lowBPM)" + "\(highBPM)" + "\(Int(cadence))"
-        while !wcSession.isReachable {
-            print("why")
-        }
+        
         if wcSession.isReachable {
             timer.invalidate()
             wcSession.sendMessage(["workoutMessage": message], replyHandler: nil) { error in
@@ -222,10 +220,9 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     }
     
     func tapOnStartSessionButton() {
-//        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-//            self.sendWorkoutToWatch()
-//        })
         self.sendWorkoutToWatch()
+        showNotificationPickerView = false
+        showSoundPickerView = false
         showGif.toggle()
     }
     

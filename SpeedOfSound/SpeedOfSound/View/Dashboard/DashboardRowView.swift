@@ -96,7 +96,6 @@ struct WorkoutRowView: View {
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray)) +
                 Text(workout.activityName)
                     .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
-                + Text(workout.nameMeta)
                 HStack(spacing: 10) {
                     VStack(alignment: .leading, spacing: 5) {
                         Text("\(workout.getDuration().0)")

@@ -14,7 +14,7 @@ struct SpeedOfSoundApp: App {
     @SceneBuilder var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView()
+                ChooseFeedbackView()
             }
             .sheet(isPresented: $workoutManager.showingSummaryView) {
                 SummaryView()
