@@ -15,11 +15,11 @@ struct ChooseFeedbackView: View {
             NavigationLink(destination: ChooseRangeView(feedback: .notification)) {
                 HStack {
                     Image(systemName: "applewatch.radiowaves.left.and.right")
-//                        .foregroundColor(Color("Green"))
+                        .foregroundColor(Color("Green"))
                     Text("Notification")
                         .bold()
-//                        .font(.body)
-//                        .foregroundColor(Color("Green"))
+                        .font(.body)
+                        .foregroundColor(Color("Green"))
                 }
                 .tint(.red)
                 .font(.body)

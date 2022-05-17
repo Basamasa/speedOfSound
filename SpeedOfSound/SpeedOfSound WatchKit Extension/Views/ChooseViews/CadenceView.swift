@@ -9,13 +9,12 @@ import SwiftUI
 
 struct CadenceView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @State var selection: Int = 120
     private let range: [Int] = Array(60...200)
     
     var body: some View {
         VStack{
             HStack {
-                Picker("", selection: $selection) {
+                Picker("", selection: $workoutManager.selectedCadence) {
                     ForEach(range, id: \.self) {
                         Text("\($0)")
                             .tag($0)
@@ -25,8 +24,6 @@ struct CadenceView: View {
                 .pickerStyle(.wheel)
                 .frame(height: 90)
                 Spacer()
-                VStack {
-                    Text("\(workoutManager.biggestCadence)")
                 Button {
                     workoutManager.showCadenceSheet = true
                     if workoutManager.isCadenceAvailable {
@@ -38,9 +35,8 @@ struct CadenceView: View {
                         .bold()
                         .foregroundColor(Color("Green"))
                 }
-                }
             }
-            NavigationLink(destination: ContentView(cadence: selection)) {
+            NavigationLink(destination: ContentView(cadence: workoutManager.selectedCadence)) {
                 Text("Finish")
                     .bold()
                     .foregroundColor(Color("Main"))

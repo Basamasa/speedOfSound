@@ -30,11 +30,15 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
-    @Published var biggestCadence: Double = 0
-    @Published var avereageCadence: Double = 0
+    @Published var selectedCadence: Int = 120
+    @Published var selectedCadenceStyle: CadenceStyle = .average
+
+    @Published var currentCadence: Int = 0
+    @Published var averageCadence: Int = 0
+    @Published var highestCadence: Int = 0
     @Published var showCadenceView: Bool =  false
     @Published var showCadenceSheet: Bool = false
-    var cadenceList: [Double] = []
+    var cadenceList: [Int] = []
     
     // Workout Metrics
     @Published var averageHeartRate: Double = 0
@@ -49,9 +53,8 @@ class WorkoutManager: NSObject, ObservableObject {
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
     
-    
     // MARK: - Cadence calculation
-    var isCadenceAvailable : Bool{
+    var isCadenceAvailable : Bool {
         get{
             return CMPedometer.isCadenceAvailable()
         }
@@ -63,10 +66,10 @@ class WorkoutManager: NSObject, ObservableObject {
         pedometer.startUpdates(from: Date(), withHandler:
                  { (pedometerData, error) in
             if let pedData = pedometerData {
-                let currentCadence = Double(truncating: pedData.currentCadence ?? 0)
+                let currentCadence = Int(truncating: pedData.currentCadence ?? 0) * 60
                 self.cadenceList.append(currentCadence)
-                if currentCadence > self.biggestCadence {
-                    self.biggestCadence = currentCadence
+                if currentCadence > self.highestCadence {
+                    self.highestCadence = currentCadence
                 }
             }
         })
@@ -78,32 +81,37 @@ class WorkoutManager: NSObject, ObservableObject {
 
         do {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
-            builder = session?.associatedWorkoutBuilder()
         } catch {
             return
         }
         
         session?.delegate = self
-        builder?.delegate = self
-
-        builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
-                                                     workoutConfiguration: configuration)
 
         let startDate = Date()
         session?.startActivity(with: startDate)
-        builder?.beginCollection(withStart: startDate) { (success, error) in
-        }
     }
     
-    private func checkAuthorizationStatus() -> Bool{
-        var pedoMeterAuthorized = false
-        switch CMPedometer.authorizationStatus() {
-            case .denied:
-                pedoMeterAuthorized = false
-            case .authorized: pedoMeterAuthorized = true
-            default: break
-         }
-         return pedoMeterAuthorized
+    func endCadenceWorkout() {
+        if !cadenceList.isEmpty {
+            var sum = 0
+            for cadence in cadenceList {
+                sum += cadence
+            }
+            averageCadence = Int(sum / cadenceList.count)
+        }
+        
+        session?.end()
+        pedometer.stopUpdates()
+    }
+    
+    func cadenceWorkoutSelected() {
+        if selectedCadenceStyle == .average {
+            selectedCadence = averageCadence
+        } else if selectedCadenceStyle == .highest {
+            selectedCadence = highestCadence
+        }
+        
+        showCadenceSheet = false
     }
     
     // MARK: - Workout
@@ -193,11 +201,6 @@ class WorkoutManager: NSObject, ObservableObject {
 
     func resume() {
         session?.resume()
-    }
-    
-    func endCadenceWorkout() {
-        showCadenceSheet = false
-        session?.end()
     }
 
     func endWorkout() {

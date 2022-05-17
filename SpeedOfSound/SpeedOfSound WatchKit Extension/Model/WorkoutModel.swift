@@ -22,3 +22,9 @@ enum Feedbackstyle: Int {
     case notification = 0
     case sound = 1
 }
+
+enum CadenceStyle: String {
+    case average
+    case highest
+    case current
+}
