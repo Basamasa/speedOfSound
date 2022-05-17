@@ -26,9 +26,6 @@ struct CadenceView: View {
                 Spacer()
                 Button {
                     workoutManager.showCadenceSheet = true
-                    if workoutManager.isCadenceAvailable {
-                        workoutManager.startTrackingSteps()
-                    }
                 } label: {
                     Text("Test")
                         .font(.footnote)

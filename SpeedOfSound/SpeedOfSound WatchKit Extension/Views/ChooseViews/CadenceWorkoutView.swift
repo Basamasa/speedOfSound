@@ -9,8 +9,10 @@ import SwiftUI
 
 struct CadenceWorkoutView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    @State private var timeRemaining = 3
+    @State private var timeRemaining = countDownTime
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    static let countDownTime: Int = 60
     
     var body: some View {
         ScrollView {
@@ -104,6 +106,11 @@ struct CadenceWorkoutView: View {
             .onReceive(timer) { time in
                 if timeRemaining > 0 {
                     timeRemaining -= 1
+                    if timeRemaining == CadenceWorkoutView.countDownTime - 8 {
+                        if workoutManager.isCadenceAvailable {
+                            workoutManager.startTrackingSteps()
+                        }
+                    }
                 } else if timeRemaining == 0 {
                     workoutManager.endCadenceWorkout()
                 }
