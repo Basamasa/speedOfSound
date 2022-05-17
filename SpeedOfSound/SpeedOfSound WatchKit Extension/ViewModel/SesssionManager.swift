@@ -15,22 +15,12 @@ class SessionManager: ObservableObject {
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
     let subject2 = PassthroughSubject<String, Never>()
-    @Published private(set) var count: Int = 0
-    @Published private(set) var workout: String = ""
     
     init(session: WCSession = .default) {
         self.delegate = SessionDelegater(countSubject: subject1, workoutSubject: subject2)
         self.wcSession = session
         self.wcSession.delegate = self.delegate
         self.wcSession.activate()
-           
-        subject1
-            .receive(on: DispatchQueue.main)
-            .assign(to: &$count)
-        
-        subject2
-            .receive(on: DispatchQueue.main)
-            .assign(to: &$workout)
     }
     
     private func sendMessage(_ message: String, count: Int? = nil, session: Int? = nil) {
@@ -43,11 +33,12 @@ class SessionManager: ObservableObject {
         sendMessage("count", count: count)
     }
     
-    func workSessionBegin() {
-        while (!wcSession.isReachable) {
+    func workSessionBegin(isSoundFeedback: Bool) {
+        if isSoundFeedback {
+            while (!wcSession.isReachable) {
+            }
+            sendMessage("workSessionBegin", session: 1)
         }
-        sendMessage("workSessionBegin", session: 1)
-
     }
     
     func workSessionEnd() {

@@ -47,16 +47,13 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var averageHeartRate: Double = 0
     @Published var heartRate: Double = 0 {
         didSet {
-            if heartRate > 90 {
-                showFeedback = true
-                WKInterfaceDevice.current().play(.notification)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    self.showFeedback = false
-                }
-            }
+            giveNotificationFeedback()
         }
     }
-    @Published var showFeedback: Bool = false
+    
+    // Feedback
+    @Published var showTooHighFeedback: Bool = false
+    @Published var showTooLowFeedback: Bool = false
 
     @Published var steps: Double = 0
     @Published var averageSteps: Double = 0
@@ -133,6 +130,24 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // MARK: - Workout
     
+    func giveNotificationFeedback() {
+        guard workoutModel.feedback == .notification else {return}
+        
+        if Int(heartRate) > workoutModel.highBPM {
+            showTooHighFeedback = true
+            WKInterfaceDevice.current().play(.directionUp)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.showTooHighFeedback = false
+            }
+        } else if Int(heartRate) < workoutModel.lowBPM {
+            showTooLowFeedback = true
+            WKInterfaceDevice.current().play(.directionDown)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.showTooLowFeedback = false
+            }
+        }
+    }
+    
     func selectedOneWorkout(workoutType: WorkoutType) {
         selectedWorkout = workoutType
         if workoutType == .outdoorWalking || workoutType == .outdoorRunning {
@@ -148,7 +163,7 @@ class WorkoutManager: NSObject, ObservableObject {
                 startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .indoor)
             }
         }
-        wcsessionManager.workSessionBegin()
+        wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound)
     }
     
     // Start the workout.

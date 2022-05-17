@@ -33,8 +33,11 @@ struct SessionPagingView: View {
         .onChange(of: isLuminanceReduced) { _ in
             displayMetricsView()
         }
-        .sheet(isPresented: $workoutManager.showFeedback, content: {
-            Text("Slow down man")
+        .sheet(isPresented: $workoutManager.showTooHighFeedback, content: {
+            NotificationView(message: "Slow down!")
+        })
+        .sheet(isPresented: $workoutManager.showTooLowFeedback, content: {
+            NotificationView(message: "Let's speed up!")
         })
     }
 
