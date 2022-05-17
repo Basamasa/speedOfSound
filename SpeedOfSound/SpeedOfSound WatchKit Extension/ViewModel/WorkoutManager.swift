@@ -7,13 +7,13 @@
 
 import Foundation
 import HealthKit
+import CoreMotion
 
 class WorkoutManager: NSObject, ObservableObject {
     var wcsessionManager = SessionManager()
-
     var selectedWorkout: WorkoutType?
 
-    // The app's workout state.
+    // Workout state
     @Published var running = false
     
     @Published var showingSummaryView: Bool = false {
@@ -24,8 +24,17 @@ class WorkoutManager: NSObject, ObservableObject {
         }
     }
     
+    // Workout data
     @Published var workoutModel = WorkoutModel()
-    let heartRange = [40, 60, 80, 100, 120, 140, 160, 180, 200]
+    let heartRange = Array(stride(from: 40, to: 200, by: 5))
+    
+    // Pedometer(Cadence)
+    let pedometer = CMPedometer()
+    @Published var biggestCadence: Double = 0
+    @Published var avereageCadence: Double = 0
+    @Published var showCadenceView: Bool =  false
+    @Published var showCadenceSheet: Bool = false
+    var cadenceList: [Double] = []
     
     // Workout Metrics
     @Published var averageHeartRate: Double = 0
@@ -36,13 +45,70 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
     
-    
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
     
+    
+    // MARK: - Cadence calculation
+    var isCadenceAvailable : Bool{
+        get{
+            return CMPedometer.isCadenceAvailable()
+        }
+    }
+    
+    func startTrackingSteps() {
+        startCadenceWorkout()
+        
+        pedometer.startUpdates(from: Date(), withHandler:
+                 { (pedometerData, error) in
+            if let pedData = pedometerData {
+                let currentCadence = Double(truncating: pedData.currentCadence ?? 0)
+                self.cadenceList.append(currentCadence)
+                if currentCadence > self.biggestCadence {
+                    self.biggestCadence = currentCadence
+                }
+            }
+        })
+    }
+    
+    func startCadenceWorkout() {
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .running
+
+        do {
+            session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
+            builder = session?.associatedWorkoutBuilder()
+        } catch {
+            return
+        }
+        
+        session?.delegate = self
+        builder?.delegate = self
+
+        builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
+                                                     workoutConfiguration: configuration)
+
+        let startDate = Date()
+        session?.startActivity(with: startDate)
+        builder?.beginCollection(withStart: startDate) { (success, error) in
+        }
+    }
+    
+    private func checkAuthorizationStatus() -> Bool{
+        var pedoMeterAuthorized = false
+        switch CMPedometer.authorizationStatus() {
+            case .denied:
+                pedoMeterAuthorized = false
+            case .authorized: pedoMeterAuthorized = true
+            default: break
+         }
+         return pedoMeterAuthorized
+    }
+    
+    // MARK: - Workout
+    
     func selectedOneWorkout(workoutType: WorkoutType) {
-//        guard let selectedWorkout = selectedWorkout else { return }
         selectedWorkout = workoutType
         if workoutType == .outdoorWalking || workoutType == .outdoorRunning {
             if workoutType == .outdoorRunning {
@@ -66,12 +132,10 @@ class WorkoutManager: NSObject, ObservableObject {
         configuration.activityType = workoutType
         configuration.locationType = locationType
 
-        // Create the session and obtain the workout builder.
         do {
             session = try HKWorkoutSession(healthStore: healthStore, configuration: configuration)
             builder = session?.associatedWorkoutBuilder()
         } catch {
-            // Handle any exceptions.
             return
         }
 
@@ -82,30 +146,23 @@ class WorkoutManager: NSObject, ObservableObject {
         builder?.addMetadata(metadata as! [String : String]) { (success, error) in
 
         }
-        // Setup session and builder.
         session?.delegate = self
         builder?.delegate = self
 
-        // Set the workout builder's data source.
         builder?.dataSource = HKLiveWorkoutDataSource(healthStore: healthStore,
                                                      workoutConfiguration: configuration)
 
-        // Start the workout session and begin data collection.
         let startDate = Date()
         session?.startActivity(with: startDate)
         builder?.beginCollection(withStart: startDate) { (success, error) in
-            // The workout has started.
         }
     }
 
-    // Request authorization to access HealthKit.
     func requestAuthorization() {
-        // The quantity type to write to the health store.
         let typesToShare: Set = [
             HKQuantityType.workoutType(),
         ]
 
-        // The quantity types to read from the health store.
         let typesToRead: Set = [
             HKQuantityType.quantityType(forIdentifier: .heartRate)!,
             HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
@@ -115,7 +172,6 @@ class WorkoutManager: NSObject, ObservableObject {
             HKObjectType.activitySummaryType()
         ]
 
-        // Request authorization for those quantity types.
         healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead) { (success, error) in
             // Handle error.
         }
@@ -137,6 +193,11 @@ class WorkoutManager: NSObject, ObservableObject {
 
     func resume() {
         session?.resume()
+    }
+    
+    func endCadenceWorkout() {
+        showCadenceSheet = false
+        session?.end()
     }
 
     func endWorkout() {

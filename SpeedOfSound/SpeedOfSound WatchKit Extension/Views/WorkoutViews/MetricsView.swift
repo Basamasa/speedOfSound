@@ -71,7 +71,7 @@ class ElapsedTimeFormatter: Formatter {
     }
 }
 
-private struct MetricsTimelineSchedule: TimelineSchedule {
+struct MetricsTimelineSchedule: TimelineSchedule {
     var startDate: Date
 
     init(from startDate: Date) {

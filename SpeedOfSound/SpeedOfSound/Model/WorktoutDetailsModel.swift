@@ -7,11 +7,13 @@
 
 import HealthKit
 import Foundation
+import CoreMotion
 
 class WorktoutDetailsModel {
     let workout: HKWorkout
     let store = HKHealthStore()
     var runningWorkoutsHeartRate: [Double] = []
+    let pedometer: CMPedometer = CMPedometer()
     
     init (workout: HKWorkout) {
         self.workout = workout
@@ -114,6 +116,17 @@ class WorktoutDetailsModel {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
         return dateFormatter.string(from: endDate)
+    }
+    
+    func getStepsFromPedome(completion: @escaping ((Double) -> Void)) {
+        if CMPedometer.isPedometerEventTrackingAvailable() &&
+            CMPedometer.isDistanceAvailable() &&
+            CMPedometer.isStepCountingAvailable() {
+            pedometer.queryPedometerData(from: startDate, to: endDate) { data, error in
+                guard let data = data, error == nil else {return}
+                completion(data.numberOfSteps.doubleValue)
+            }
+        }
     }
     
     func getSteps(completion: @escaping ((Double) -> Void)) {

@@ -9,20 +9,14 @@ import SwiftUICharts
 
 class DashboardDetailsViewModel: ObservableObject {
     let store = HKHealthStore()
-
-    let lowRange: Double
-    let highRange: Double
     @Published var heartRatePoints: [DataPoint] = []
     var heartRatePercetages: [DataPoint] = []
     var heartRateValues: [Double] = []
     let detailsModel: WorktoutDetailsModel
     
-    
     @Published var steps: Int = 0
     
     init(workout: HKWorkout) {
-        self.lowRange = 110
-        self.highRange = 140
         self.detailsModel = WorktoutDetailsModel(workout: workout)
     }
     
@@ -40,11 +34,11 @@ class DashboardDetailsViewModel: ObservableObject {
         var highHeartRatePercentage: Double = 0
         
         for value in results {
-            if value < lowRange {
+            if value < Double(detailsModel.lowBPM) {
                 let outsideRange = Legend(color: .yellow, label: "Below range", order: 1)
                 helperPoints.append(.init(value: value, label: "", legend: outsideRange))
                 lowHeartRatePercentage += 1
-            } else if value > highRange {
+            } else if value > Double(detailsModel.highBPM) {
                 let outsideRange = Legend(color: .red, label: "Higher range", order: 2)
                 helperPoints.append(.init(value: value, label: "", legend: outsideRange))
                 highHeartRatePercentage += 1
@@ -83,7 +77,7 @@ class DashboardDetailsViewModel: ObservableObject {
     }
     
     func getSteps() {
-        detailsModel.getSteps { results in
+        detailsModel.getStepsFromPedome { results in
             DispatchQueue.main.async {
                 self.steps = Int(results)
             }

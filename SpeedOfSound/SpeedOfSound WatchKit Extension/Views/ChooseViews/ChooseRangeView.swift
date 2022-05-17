@@ -18,6 +18,7 @@ struct ChooseRangeView: View {
                 ForEach(workoutManager.heartRange, id: \.self) {
                     Text("\($0)")
                         .tag($0)
+                        .foregroundColor(Color("MainHighlight"))
                 }
             }
             .pickerStyle(.wheel)
@@ -27,6 +28,7 @@ struct ChooseRangeView: View {
             Picker("", selection: $workoutManager.workoutModel.highBPM) {
                 ForEach(workoutManager.heartRange, id: \.self) {
                     Text("\($0)")
+                        .foregroundColor(Color("MainHighlight"))
                 }
             }
             .pickerStyle(.wheel)
@@ -37,16 +39,14 @@ struct ChooseRangeView: View {
                 HStack {
                     Text("Next")
                         .bold()
-                        .background(Color.black)
-                        .foregroundColor(Color.white)
-                        .cornerRadius(25)
+                        .foregroundColor(Color("Green"))
                 }
             }
         }
         .padding([.leading, .trailing])
         .navigationBarTitle("Heart rate range")
         .onAppear() {
-            workoutManager.workoutModel.feedback = feedback.rawValue
+            workoutManager.workoutModel.feedback = feedback
         }
     }
 }

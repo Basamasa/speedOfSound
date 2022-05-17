@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum Feedbackstyle: Int {
-    case notification = 0
-    case sound = 1
-}
-
 struct ChooseFeedbackView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     
@@ -20,19 +15,25 @@ struct ChooseFeedbackView: View {
             NavigationLink(destination: ChooseRangeView(feedback: .notification)) {
                 HStack {
                     Image(systemName: "applewatch.radiowaves.left.and.right")
+//                        .foregroundColor(Color("Green"))
                     Text("Notification")
                         .bold()
-                        .font(.body)
+//                        .font(.body)
+//                        .foregroundColor(Color("Green"))
                 }
+                .tint(.red)
+                .font(.body)
                 .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
             }
             
             NavigationLink(destination:  ChooseRangeView(feedback: .sound)) {
                 HStack {
                     Image(systemName: "metronome.fill")
+                        .foregroundColor(Color("Green"))
                     Text("Sound")
                         .bold()
                         .font(.body)
+                        .foregroundColor(Color("Green"))
                 }
                 .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
             }

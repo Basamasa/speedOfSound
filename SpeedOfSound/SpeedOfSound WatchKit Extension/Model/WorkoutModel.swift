@@ -8,12 +8,17 @@
 import Foundation
 
 struct WorkoutModel {
-    var feedback: Int = 0
+    var feedback: Feedbackstyle = .notification
     var lowBPM: Int = 120
     var highBPM: Int = 140
     var cadence: Int = 120
     
     var getData: String {
-        return "\(feedback)" + "-\(lowBPM)" + "-\(highBPM)" + "-\(cadence)"
+        return "\(feedback.rawValue)" + "-\(lowBPM)" + "-\(highBPM)" + "-\(cadence)"
     }
+}
+
+enum Feedbackstyle: Int {
+    case notification = 0
+    case sound = 1
 }

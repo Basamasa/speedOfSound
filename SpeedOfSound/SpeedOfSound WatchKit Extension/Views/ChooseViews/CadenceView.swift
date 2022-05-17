@@ -19,29 +19,42 @@ struct CadenceView: View {
                     ForEach(range, id: \.self) {
                         Text("\($0)")
                             .tag($0)
+                            .foregroundColor(Color("MainHighlight"))
                     }
                 }
                 .pickerStyle(.wheel)
-                .compositingGroup()
-                .clipped(antialiased: true)
+                .frame(height: 90)
+                Spacer()
+                VStack {
+                    Text("\(workoutManager.biggestCadence)")
                 Button {
-                    
+                    workoutManager.showCadenceSheet = true
+                    if workoutManager.isCadenceAvailable {
+                        workoutManager.startTrackingSteps()
+                    }
                 } label: {
                     Text("Test")
                         .font(.footnote)
                         .bold()
-                        .cornerRadius(25)
+                        .foregroundColor(Color("Green"))
+                }
                 }
             }
             NavigationLink(destination: ContentView(cadence: selection)) {
                 Text("Finish")
                     .bold()
-                    .cornerRadius(25)
+                    .foregroundColor(Color("Main"))
                     .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
             }
         }
         .padding([.leading, .trailing])
         .navigationBarTitle("Cadence")
+        .sheet(isPresented: $workoutManager.showCadenceSheet) {
+            print("Dismiss cadence workout view")
+        } content: {
+            CadenceWorkoutView()
+        }
+
     }
 }
 
