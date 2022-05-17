@@ -10,7 +10,6 @@ import SwiftUI
 struct CadenceWorkoutView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @State private var timeRemaining = countDownTime
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     static let countDownTime: Int = 60
     
@@ -36,16 +35,19 @@ struct CadenceWorkoutView: View {
                         Spacer()
                     }
                 }
-                VStack {
+                VStack(alignment: .leading) {
                     if timeRemaining == 0 {
                         Button {
                             workoutManager.selectedCadenceStyle = .average
                         } label: {
                             VStack(alignment: .leading) {
-                                Text("Average cadence:")
+                                Text("Average:")
                                     .font(.footnote)
                                 Text("\(workoutManager.averageCadence)")
-                                    .font(.title3)
+                                    .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps()) +
+                                Text("SPM")
+                                    .font(.body)
+                                    .foregroundColor(.gray)
                             }
                             .tag(CadenceStyle.average)
                         }
@@ -57,10 +59,13 @@ struct CadenceWorkoutView: View {
                             workoutManager.selectedCadenceStyle = .highest
                         } label: {
                             VStack(alignment: .leading) {
-                                Text("Highest cadence:")
+                                Text("Highest:")
                                     .font(.footnote)
                                 Text("\(workoutManager.highestCadence)")
-                                    .font(.title3)
+                                    .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                + Text("SPM")
+                                        .font(.body)
+                                        .foregroundColor(.gray)
                             }
                             .tag(CadenceStyle.highest)
                         }
@@ -74,10 +79,11 @@ struct CadenceWorkoutView: View {
                             workoutManager.selectedCadenceStyle = .current
                         } label: {
                             VStack(alignment: .leading) {
-                                Text("Current cadence:")
-                                    .font(.footnote)
                                 Text("\(workoutManager.currentCadence)")
-                                    .font(.title3)
+                                    .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
+                                + Text("SPM")
+                                        .font(.body)
+                                        .foregroundColor(.gray)
                             }
                             .tag(CadenceStyle.current)
                         }
@@ -103,7 +109,7 @@ struct CadenceWorkoutView: View {
             .ignoresSafeArea(edges: .bottom)
             .navigationBarHidden(true)
             .scenePadding()
-            .onReceive(timer) { time in
+            .onReceive(workoutManager.timer) { time in
                 if timeRemaining > 0 {
                     timeRemaining -= 1
                     if timeRemaining == CadenceWorkoutView.countDownTime - 8 {

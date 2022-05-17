@@ -64,14 +64,12 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
             .assign(to: &$sessionWorkout)
     }
     
+    // MARK: - Cadence
+    
     var isCadenceAvailable : Bool{
         get{
             return CMPedometer.isCadenceAvailable()
         }
-    }
-    
-    // Delegate function
-    func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
     }
     
     func sendWorkoutToWatch() {
@@ -92,6 +90,12 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    // MARK: - Metronome
+    
+    // Delegate function
+    func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
     }
     
     func start() {
@@ -195,6 +199,8 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     
     func runRestart() {
     }
+    
+    // MARK: - App state
     
     func soundViewAppear() {
         // Activate Audio Playback in Background

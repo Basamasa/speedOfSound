@@ -8,6 +8,8 @@
 import Foundation
 import HealthKit
 import CoreMotion
+import WatchKit
+import UserNotifications
 
 class WorkoutManager: NSObject, ObservableObject {
     var wcsessionManager = SessionManager()
@@ -30,6 +32,7 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published var selectedCadence: Int = 120
     @Published var selectedCadenceStyle: CadenceStyle = .average
 
@@ -42,7 +45,19 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Workout Metrics
     @Published var averageHeartRate: Double = 0
-    @Published var heartRate: Double = 0
+    @Published var heartRate: Double = 0 {
+        didSet {
+            if heartRate > 90 {
+                showFeedback = true
+                WKInterfaceDevice.current().play(.notification)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    self.showFeedback = false
+                }
+            }
+        }
+    }
+    @Published var showFeedback: Bool = false
+
     @Published var steps: Double = 0
     @Published var averageSteps: Double = 0
     @Published var activeEnergy: Double = 0
@@ -62,11 +77,11 @@ class WorkoutManager: NSObject, ObservableObject {
     
     func startTrackingSteps() {
         startCadenceWorkout()
-        
         pedometer.startUpdates(from: Date(), withHandler:
                  { (pedometerData, error) in
             if let pedData = pedometerData {
                 let currentCadence = Int(truncating: pedData.currentCadence ?? 0) * 60
+                self.currentCadence = currentCadence
                 self.cadenceList.append(currentCadence)
                 if currentCadence > self.highestCadence {
                     self.highestCadence = currentCadence
@@ -102,6 +117,8 @@ class WorkoutManager: NSObject, ObservableObject {
         
         session?.end()
         pedometer.stopUpdates()
+        WKInterfaceDevice.current().play(.success)
+        timer.upstream.connect().cancel()
     }
     
     func cadenceWorkoutSelected() {

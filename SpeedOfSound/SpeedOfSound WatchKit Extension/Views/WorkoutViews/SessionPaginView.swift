@@ -12,7 +12,7 @@ struct SessionPagingView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     @Environment(\.isLuminanceReduced) var isLuminanceReduced
     @State private var selection: Tab = .metrics
-
+    
     enum Tab {
         case controls, metrics, nowPlaying
     }
@@ -33,6 +33,9 @@ struct SessionPagingView: View {
         .onChange(of: isLuminanceReduced) { _ in
             displayMetricsView()
         }
+        .sheet(isPresented: $workoutManager.showFeedback, content: {
+            Text("Slow down man")
+        })
     }
 
     private func displayMetricsView() {
