@@ -12,10 +12,12 @@ import Combine
 class SessionDelegater: NSObject, WCSessionDelegate {
     let countSubject: PassthroughSubject<Int, Never>
     let workoutSubject: PassthroughSubject<String, Never>
-
-    init(countSubject: PassthroughSubject<Int, Never>, workoutSubject: PassthroughSubject<String, Never>) {
+    let cadenceSubject: PassthroughSubject<Int, Never>
+    
+    init(countSubject: PassthroughSubject<Int, Never>, workoutSubject: PassthroughSubject<String, Never>, cadenceSubject: PassthroughSubject<Int, Never>) {
         self.countSubject = countSubject
         self.workoutSubject = workoutSubject
+        self.cadenceSubject = cadenceSubject
         super.init()
     }
     

@@ -35,7 +35,7 @@ class TriangleWaveModel: NSObject {
     }
     
     func render(_ buffer: AVAudioPCMBuffer) {
-        print("Buffer: \(buffer.format.description) \(buffer.description)\n")
+//        print("Buffer: \(buffer.format.description) \(buffer.description)\n")
         
         let nFrames = buffer.frameLength
         let nChannels = buffer.format.channelCount

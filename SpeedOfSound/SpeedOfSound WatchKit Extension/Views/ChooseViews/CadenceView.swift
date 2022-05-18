@@ -10,7 +10,7 @@ import SwiftUI
 struct CadenceView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     private let range: [Int] = Array(60...200)
-    
+    @State var showCadenceSheet: Bool = false
     var body: some View {
         VStack{
             HStack {
@@ -25,7 +25,7 @@ struct CadenceView: View {
                 .frame(height: 90)
                 Spacer()
                 Button {
-                    workoutManager.showCadenceSheet = true
+                    showCadenceSheet = true
                 } label: {
                     Text("Test")
                         .font(.footnote)
@@ -42,7 +42,7 @@ struct CadenceView: View {
         }
         .padding([.leading, .trailing])
         .navigationBarTitle("Cadence")
-        .sheet(isPresented: $workoutManager.showCadenceSheet) {
+        .sheet(isPresented: $showCadenceSheet) {
             print("Dismiss cadence workout view")
         } content: {
             CadenceWorkoutView()

@@ -23,15 +23,15 @@ class MetronomeModel {
         static let kDivisions = [2, 4, 8, 16]
     }
     
-    struct MeterConfig{
+    struct MeterConfig {
         static let min = 2
         static let `default` = 4
         static let max = 8
     }
     
-    struct TempoConfig{
+    struct TempoConfig {
         static let min = 40
-        static let `default` = 120
+        static let `default` = 160
         static let max = 208
     }
     

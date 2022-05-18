@@ -20,11 +20,11 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
     @Published var effect = ["1","2","3","4","5","6","7","8"]
-    @Published var BPM: Double = 120
+    @Published var BPM: Int = 160
     @Published var speedString = "Allegro"
     let myMetronome: MetronomeModel
 
-    // Popups
+    // Picker view Popups
     @Published var showGif: Bool = false
     @Published var showPlayer: Bool = false
     @Published var showNotificationPickerView: Bool = false
@@ -32,15 +32,17 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     
     @Published var lowBPM: Int = 120
     @Published var highBPM: Int = 140
-    var timer = Timer()
 
     // Heart rate session
     var wcSession: WCSession
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()
     let subject2 = PassthroughSubject<Int, Never>()
-    @Published private(set) var count: Int = 0
+    let subject3 = PassthroughSubject<Int, Never>()
+    let subject4 = PassthroughSubject<WorkoutModel, Never>()
+    @Published var count: Int = 0
     @Published private(set) var sessionWorkout: Int = 0
+    @Published var workoutModel = WorkoutModel.defaultValue
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
@@ -48,13 +50,13 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published var showCadenceView: Bool =  false
     
     init(session: WCSession = .default) {
-        self.delegate = SessionDelegater(countSubject: subject1, sessionWorkoutSubject: subject2)
+        self.delegate = SessionDelegater(countSubject: subject1, sessionWorkoutSubject: subject2, cadenceSubject: subject3, workoutModelSubject: subject4)
         self.wcSession = session
         self.wcSession.delegate = self.delegate
         self.wcSession.activate()
            
         myMetronome = MetronomeModel(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
-
+        
         subject1
             .receive(on: DispatchQueue.main)
             .assign(to: &$count)
@@ -62,6 +64,14 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         subject2
             .receive(on: DispatchQueue.main)
             .assign(to: &$sessionWorkout)
+        
+        subject3
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$BPM)
+        
+        subject4
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$workoutModel)
     }
     
     // MARK: - Cadence
@@ -85,7 +95,6 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         let message = firstMessage + "\(lowBPM)" + "\(highBPM)" + "\(Int(cadence))"
         
         if wcSession.isReachable {
-            timer.invalidate()
             wcSession.sendMessage(["workoutMessage": message], replyHandler: nil) { error in
                 print(error.localizedDescription)
             }
@@ -96,6 +105,30 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     
     // Delegate function
     func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
+    }
+    
+    func changeMetronomeBPM(newHearRateBPM: Int) {
+//        if newHearRateBPM > workoutModel.highBPM { // Hihger than the zone
+//            if maxBounds >= 2 {
+//                showTooHighFeedback = true
+//                WKInterfaceDevice.current().play(.directionUp)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+//                    self.showTooHighFeedback = false
+//                }
+//                maxBounds = 0
+//            }
+//            maxBounds += 1
+//        } else if newHearRateBPM < workoutModel.lowBPM { // Lower than the zone
+//            if minBounds >= 2 {
+//                showTooLowFeedback = true
+//                WKInterfaceDevice.current().play(.directionDown)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+//                    self.showTooLowFeedback = false
+//                }
+//                minBounds = 0
+//            }
+//            minBounds += 1
+//        }
     }
     
     func start() {
@@ -128,7 +161,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     }
     
     private func updateBpm() {
-        BPM = Double(myMetronome.tempoBPM)
+        BPM = myMetronome.tempoBPM
     }
     
     func bpmChange() {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WorkoutModel {
+struct WorkoutModel: Equatable {
     var feedback: Int
     var lowBPM: Int
     var highBPM: Int

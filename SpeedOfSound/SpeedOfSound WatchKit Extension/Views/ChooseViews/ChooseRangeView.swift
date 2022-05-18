@@ -10,12 +10,13 @@ import SwiftUI
 struct ChooseRangeView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var feedback: Feedbackstyle
-    
+    let heartRange = Array(stride(from: 40, to: 200, by: 5))
+
     var body: some View {
         VStack{
         HStack {
             Picker("", selection: $workoutManager.workoutModel.lowBPM) {
-                ForEach(workoutManager.heartRange, id: \.self) {
+                ForEach(heartRange, id: \.self) {
                     Text("\($0)")
                         .tag($0)
                         .foregroundColor(Color("MainHighlight"))
@@ -26,7 +27,7 @@ struct ChooseRangeView: View {
             .clipped(antialiased: true)
 
             Picker("", selection: $workoutManager.workoutModel.highBPM) {
-                ForEach(workoutManager.heartRange, id: \.self) {
+                ForEach(heartRange, id: \.self) {
                     Text("\($0)")
                         .foregroundColor(Color("MainHighlight"))
                 }
@@ -44,7 +45,7 @@ struct ChooseRangeView: View {
             }
         }
         .padding([.leading, .trailing])
-        .navigationBarTitle("Heart rate range")
+        .navigationBarTitle("Heart rate zone")
         .onAppear() {
             workoutManager.workoutModel.feedback = feedback
         }

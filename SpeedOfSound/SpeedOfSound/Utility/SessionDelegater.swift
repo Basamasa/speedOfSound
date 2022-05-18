@@ -11,10 +11,17 @@ import WatchConnectivity
 class SessionDelegater: NSObject, WCSessionDelegate {
     let countSubject: PassthroughSubject<Int, Never>
     let sessionWorkoutSubject: PassthroughSubject<Int, Never>
+    let cadenceSubject: PassthroughSubject<Int, Never>
+    let workoutModelSubject: PassthroughSubject<WorkoutModel, Never>
     
-    init(countSubject: PassthroughSubject<Int, Never>, sessionWorkoutSubject: PassthroughSubject<Int, Never>) {
+    init(countSubject: PassthroughSubject<Int, Never>,
+         sessionWorkoutSubject: PassthroughSubject<Int, Never>,
+         cadenceSubject: PassthroughSubject<Int, Never>,
+         workoutModelSubject: PassthroughSubject<WorkoutModel, Never>) {
         self.countSubject = countSubject
         self.sessionWorkoutSubject = sessionWorkoutSubject
+        self.cadenceSubject = cadenceSubject
+        self.workoutModelSubject = workoutModelSubject
         super.init()
     }
     
@@ -29,6 +36,10 @@ class SessionDelegater: NSObject, WCSessionDelegate {
                 self.countSubject.send(count)
             } else if let session = message["workSessionBegin"] as? Int {
                 self.sessionWorkoutSubject.send(session)
+            } else if let cadence = message["cadence"] as? Int {
+                self.cadenceSubject.send(cadence)
+            } else if let modelMessage = message["workoutModel"] as? String {
+                self.workoutModelSubject.send(WorkoutModel.parserData(data: modelMessage))
             } else {
                 print("There was an error")
             }

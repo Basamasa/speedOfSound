@@ -10,6 +10,7 @@ import HealthKit
 import CoreMotion
 import WatchKit
 import UserNotifications
+import SwiftUI
 
 class WorkoutManager: NSObject, ObservableObject {
     var wcsessionManager = SessionManager()
@@ -28,7 +29,6 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Workout data
     @Published var workoutModel = WorkoutModel()
-    let heartRange = Array(stride(from: 40, to: 200, by: 5))
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
@@ -39,9 +39,14 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var currentCadence: Int = 0
     @Published var averageCadence: Int = 0
     @Published var highestCadence: Int = 0
-    @Published var showCadenceView: Bool =  false
     @Published var showCadenceSheet: Bool = false
     var cadenceList: [Int] = []
+    
+    // Feedback
+    @Published var showTooHighFeedback: Bool = false
+    @Published var showTooLowFeedback: Bool = false
+    private var maxBounds: Int = 0
+    private var minBounds: Int = 0
     
     // Workout Metrics
     @Published var averageHeartRate: Double = 0
@@ -50,10 +55,6 @@ class WorkoutManager: NSObject, ObservableObject {
             giveNotificationFeedback()
         }
     }
-    
-    // Feedback
-    @Published var showTooHighFeedback: Bool = false
-    @Published var showTooLowFeedback: Bool = false
 
     @Published var steps: Double = 0
     @Published var averageSteps: Double = 0
@@ -133,18 +134,26 @@ class WorkoutManager: NSObject, ObservableObject {
     func giveNotificationFeedback() {
         guard workoutModel.feedback == .notification else {return}
         
-        if Int(heartRate) > workoutModel.highBPM {
-            showTooHighFeedback = true
-            WKInterfaceDevice.current().play(.directionUp)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.showTooHighFeedback = false
+        if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
+            if maxBounds >= 2 {
+                showTooHighFeedback = true
+                WKInterfaceDevice.current().play(.directionUp)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    self.showTooHighFeedback = false
+                }
+                maxBounds = 0
             }
-        } else if Int(heartRate) < workoutModel.lowBPM {
-            showTooLowFeedback = true
-            WKInterfaceDevice.current().play(.directionDown)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.showTooLowFeedback = false
+            maxBounds += 1
+        } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
+            if minBounds >= 2 {
+                showTooLowFeedback = true
+                WKInterfaceDevice.current().play(.directionDown)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    self.showTooLowFeedback = false
+                }
+                minBounds = 0
             }
+            minBounds += 1
         }
     }
     
@@ -164,6 +173,8 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
         wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound)
+        wcsessionManager.sendWorkOutModel(workoutModel.getData)
+        wcsessionManager.sendCadence(selectedCadence)
     }
     
     // Start the workout.
