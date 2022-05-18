@@ -68,9 +68,9 @@
 		6BE4A02928107A57004CB806 /* SpeedOfSoundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A02828107A57004CB806 /* SpeedOfSoundTests.swift */; };
 		6BE4A03328107A57004CB806 /* SpeedOfSoundUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A03228107A57004CB806 /* SpeedOfSoundUITests.swift */; };
 		6BE4A03528107A57004CB806 /* SpeedOfSoundUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A03428107A57004CB806 /* SpeedOfSoundUITestsLaunchTests.swift */; };
-		6BE4A03928107A57004CB806 /* SpeedOfSound WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6BE4A03828107A57004CB806 /* SpeedOfSound WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6BE4A03928107A57004CB806 /* MetronomeZones WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6BE4A03828107A57004CB806 /* MetronomeZones WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6BE4A03E28107A58004CB806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BE4A03D28107A58004CB806 /* Assets.xcassets */; };
-		6BE4A04428107A58004CB806 /* SpeedOfSound WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6BE4A04328107A58004CB806 /* SpeedOfSound WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6BE4A04428107A58004CB806 /* MetronomeZones WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6BE4A04328107A58004CB806 /* MetronomeZones WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6BE4A04928107A58004CB806 /* SpeedOfSoundApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A04828107A58004CB806 /* SpeedOfSoundApp.swift */; };
 		6BE4A04B28107A58004CB806 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A04A28107A58004CB806 /* ContentView.swift */; };
 		6BE4A04D28107A58004CB806 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A04C28107A58004CB806 /* NotificationController.swift */; };
@@ -136,7 +136,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				6BE4A04428107A58004CB806 /* SpeedOfSound WatchKit Extension.appex in Embed App Extensions */,
+				6BE4A04428107A58004CB806 /* MetronomeZones WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,7 +147,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				6BE4A03928107A57004CB806 /* SpeedOfSound WatchKit App.app in Embed Watch Content */,
+				6BE4A03928107A57004CB806 /* MetronomeZones WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,19 +206,19 @@
 		6B5D828D28328E7400988547 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		6B5D828F28328EC300988547 /* HeartRateRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateRangeView.swift; sourceTree = "<group>"; };
 		6B5D82922832DEC500988547 /* CadenceWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CadenceWorkoutView.swift; sourceTree = "<group>"; };
-		6BE4A01428107A54004CB806 /* SpeedOfSound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedOfSound.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A01428107A54004CB806 /* MetronomeZones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetronomeZones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSoundApp.swift; sourceTree = "<group>"; };
 		6BE4A01928107A54004CB806 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6BE4A01B28107A57004CB806 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BE4A01E28107A57004CB806 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6BE4A02428107A57004CB806 /* SpeedOfSoundTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedOfSoundTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A02428107A57004CB806 /* MetronomeZonesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetronomeZonesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A02828107A57004CB806 /* SpeedOfSoundTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSoundTests.swift; sourceTree = "<group>"; };
-		6BE4A02E28107A57004CB806 /* SpeedOfSoundUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedOfSoundUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A02E28107A57004CB806 /* MetronomeZonesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetronomeZonesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A03228107A57004CB806 /* SpeedOfSoundUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSoundUITests.swift; sourceTree = "<group>"; };
 		6BE4A03428107A57004CB806 /* SpeedOfSoundUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSoundUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		6BE4A03828107A57004CB806 /* SpeedOfSound WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpeedOfSound WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A03828107A57004CB806 /* MetronomeZones WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MetronomeZones WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A03D28107A58004CB806 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6BE4A04328107A58004CB806 /* SpeedOfSound WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SpeedOfSound WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A04328107A58004CB806 /* MetronomeZones WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MetronomeZones WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A04828107A58004CB806 /* SpeedOfSoundApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSoundApp.swift; sourceTree = "<group>"; };
 		6BE4A04A28107A58004CB806 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6BE4A04C28107A58004CB806 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
@@ -228,9 +228,9 @@
 		6BE4A05528107A59004CB806 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6BE4A05728107A59004CB806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6BE4A05828107A59004CB806 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		6BE4A05D28107A59004CB806 /* SpeedOfSound WatchKit AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SpeedOfSound WatchKit AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A05D28107A59004CB806 /* MetronomeZones WatchKit AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MetronomeZones WatchKit AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A06128107A59004CB806 /* SpeedOfSound_WatchKit_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSound_WatchKit_AppTests.swift; sourceTree = "<group>"; };
-		6BE4A06728107A59004CB806 /* SpeedOfSound WatchKit AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SpeedOfSound WatchKit AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BE4A06728107A59004CB806 /* MetronomeZones WatchKit AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MetronomeZones WatchKit AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A06B28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSound_WatchKit_AppUITests.swift; sourceTree = "<group>"; };
 		6BE4A06D28107A59004CB806 /* SpeedOfSound_WatchKit_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSound_WatchKit_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6BFE6A5B28108294008FE74E /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS8.5.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -480,13 +480,13 @@
 		6BE4A01528107A54004CB806 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6BE4A01428107A54004CB806 /* SpeedOfSound.app */,
-				6BE4A02428107A57004CB806 /* SpeedOfSoundTests.xctest */,
-				6BE4A02E28107A57004CB806 /* SpeedOfSoundUITests.xctest */,
-				6BE4A03828107A57004CB806 /* SpeedOfSound WatchKit App.app */,
-				6BE4A04328107A58004CB806 /* SpeedOfSound WatchKit Extension.appex */,
-				6BE4A05D28107A59004CB806 /* SpeedOfSound WatchKit AppTests.xctest */,
-				6BE4A06728107A59004CB806 /* SpeedOfSound WatchKit AppUITests.xctest */,
+				6BE4A01428107A54004CB806 /* MetronomeZones.app */,
+				6BE4A02428107A57004CB806 /* MetronomeZonesTests.xctest */,
+				6BE4A02E28107A57004CB806 /* MetronomeZonesUITests.xctest */,
+				6BE4A03828107A57004CB806 /* MetronomeZones WatchKit App.app */,
+				6BE4A04328107A58004CB806 /* MetronomeZones WatchKit Extension.appex */,
+				6BE4A05D28107A59004CB806 /* MetronomeZones WatchKit AppTests.xctest */,
+				6BE4A06728107A59004CB806 /* MetronomeZones WatchKit AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -595,9 +595,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6BE4A01328107A54004CB806 /* SpeedOfSound */ = {
+		6BE4A01328107A54004CB806 /* MetronomeZones */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A07928107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound" */;
+			buildConfigurationList = 6BE4A07928107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones" */;
 			buildPhases = (
 				6BE4A01028107A54004CB806 /* Sources */,
 				6BE4A01128107A54004CB806 /* Frameworks */,
@@ -609,7 +609,7 @@
 			dependencies = (
 				6BE4A03B28107A57004CB806 /* PBXTargetDependency */,
 			);
-			name = SpeedOfSound;
+			name = MetronomeZones;
 			packageProductDependencies = (
 				6B3402B6281ED71400C71216 /* SwiftUIGIF */,
 				6B3402C4281F376600C71216 /* HalfASheet */,
@@ -618,12 +618,12 @@
 				6BC3409A2825CFA90078E363 /* SwiftUICharts */,
 			);
 			productName = SpeedOfSound;
-			productReference = 6BE4A01428107A54004CB806 /* SpeedOfSound.app */;
+			productReference = 6BE4A01428107A54004CB806 /* MetronomeZones.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6BE4A02328107A57004CB806 /* SpeedOfSoundTests */ = {
+		6BE4A02328107A57004CB806 /* MetronomeZonesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A07C28107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSoundTests" */;
+			buildConfigurationList = 6BE4A07C28107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZonesTests" */;
 			buildPhases = (
 				6BE4A02028107A57004CB806 /* Sources */,
 				6BE4A02128107A57004CB806 /* Frameworks */,
@@ -634,14 +634,14 @@
 			dependencies = (
 				6BE4A02628107A57004CB806 /* PBXTargetDependency */,
 			);
-			name = SpeedOfSoundTests;
+			name = MetronomeZonesTests;
 			productName = SpeedOfSoundTests;
-			productReference = 6BE4A02428107A57004CB806 /* SpeedOfSoundTests.xctest */;
+			productReference = 6BE4A02428107A57004CB806 /* MetronomeZonesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6BE4A02D28107A57004CB806 /* SpeedOfSoundUITests */ = {
+		6BE4A02D28107A57004CB806 /* MetronomeZonesUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A07F28107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSoundUITests" */;
+			buildConfigurationList = 6BE4A07F28107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZonesUITests" */;
 			buildPhases = (
 				6BE4A02A28107A57004CB806 /* Sources */,
 				6BE4A02B28107A57004CB806 /* Frameworks */,
@@ -652,14 +652,14 @@
 			dependencies = (
 				6BE4A03028107A57004CB806 /* PBXTargetDependency */,
 			);
-			name = SpeedOfSoundUITests;
+			name = MetronomeZonesUITests;
 			productName = SpeedOfSoundUITests;
-			productReference = 6BE4A02E28107A57004CB806 /* SpeedOfSoundUITests.xctest */;
+			productReference = 6BE4A02E28107A57004CB806 /* MetronomeZonesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		6BE4A03728107A57004CB806 /* SpeedOfSound WatchKit App */ = {
+		6BE4A03728107A57004CB806 /* MetronomeZones WatchKit App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A07528107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit App" */;
+			buildConfigurationList = 6BE4A07528107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit App" */;
 			buildPhases = (
 				6BE4A03628107A57004CB806 /* Resources */,
 				6BE4A07428107A59004CB806 /* Embed App Extensions */,
@@ -669,14 +669,14 @@
 			dependencies = (
 				6BE4A04628107A58004CB806 /* PBXTargetDependency */,
 			);
-			name = "SpeedOfSound WatchKit App";
+			name = "MetronomeZones WatchKit App";
 			productName = "SpeedOfSound WatchKit App";
-			productReference = 6BE4A03828107A57004CB806 /* SpeedOfSound WatchKit App.app */;
+			productReference = 6BE4A03828107A57004CB806 /* MetronomeZones WatchKit App.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		6BE4A04228107A58004CB806 /* SpeedOfSound WatchKit Extension */ = {
+		6BE4A04228107A58004CB806 /* MetronomeZones WatchKit Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A07128107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit Extension" */;
+			buildConfigurationList = 6BE4A07128107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit Extension" */;
 			buildPhases = (
 				6BE4A03F28107A58004CB806 /* Sources */,
 				6BE4A04028107A58004CB806 /* Frameworks */,
@@ -686,14 +686,14 @@
 			);
 			dependencies = (
 			);
-			name = "SpeedOfSound WatchKit Extension";
+			name = "MetronomeZones WatchKit Extension";
 			productName = "SpeedOfSound WatchKit Extension";
-			productReference = 6BE4A04328107A58004CB806 /* SpeedOfSound WatchKit Extension.appex */;
+			productReference = 6BE4A04328107A58004CB806 /* MetronomeZones WatchKit Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
-		6BE4A05C28107A59004CB806 /* SpeedOfSound WatchKit AppTests */ = {
+		6BE4A05C28107A59004CB806 /* MetronomeZones WatchKit AppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A08228107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit AppTests" */;
+			buildConfigurationList = 6BE4A08228107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit AppTests" */;
 			buildPhases = (
 				6BE4A05928107A59004CB806 /* Sources */,
 				6BE4A05A28107A59004CB806 /* Frameworks */,
@@ -704,14 +704,14 @@
 			dependencies = (
 				6BE4A05F28107A59004CB806 /* PBXTargetDependency */,
 			);
-			name = "SpeedOfSound WatchKit AppTests";
+			name = "MetronomeZones WatchKit AppTests";
 			productName = "SpeedOfSound WatchKit AppTests";
-			productReference = 6BE4A05D28107A59004CB806 /* SpeedOfSound WatchKit AppTests.xctest */;
+			productReference = 6BE4A05D28107A59004CB806 /* MetronomeZones WatchKit AppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6BE4A06628107A59004CB806 /* SpeedOfSound WatchKit AppUITests */ = {
+		6BE4A06628107A59004CB806 /* MetronomeZones WatchKit AppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6BE4A08528107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit AppUITests" */;
+			buildConfigurationList = 6BE4A08528107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit AppUITests" */;
 			buildPhases = (
 				6BE4A06328107A59004CB806 /* Sources */,
 				6BE4A06428107A59004CB806 /* Frameworks */,
@@ -722,9 +722,9 @@
 			dependencies = (
 				6BE4A06928107A59004CB806 /* PBXTargetDependency */,
 			);
-			name = "SpeedOfSound WatchKit AppUITests";
+			name = "MetronomeZones WatchKit AppUITests";
 			productName = "SpeedOfSound WatchKit AppUITests";
-			productReference = 6BE4A06728107A59004CB806 /* SpeedOfSound WatchKit AppUITests.xctest */;
+			productReference = 6BE4A06728107A59004CB806 /* MetronomeZones WatchKit AppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -764,7 +764,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6BE4A00F28107A54004CB806 /* Build configuration list for PBXProject "SpeedOfSound" */;
+			buildConfigurationList = 6BE4A00F28107A54004CB806 /* Build configuration list for PBXProject "MetronomeZones" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -783,13 +783,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6BE4A01328107A54004CB806 /* SpeedOfSound */,
-				6BE4A02328107A57004CB806 /* SpeedOfSoundTests */,
-				6BE4A02D28107A57004CB806 /* SpeedOfSoundUITests */,
-				6BE4A03728107A57004CB806 /* SpeedOfSound WatchKit App */,
-				6BE4A04228107A58004CB806 /* SpeedOfSound WatchKit Extension */,
-				6BE4A05C28107A59004CB806 /* SpeedOfSound WatchKit AppTests */,
-				6BE4A06628107A59004CB806 /* SpeedOfSound WatchKit AppUITests */,
+				6BE4A01328107A54004CB806 /* MetronomeZones */,
+				6BE4A02328107A57004CB806 /* MetronomeZonesTests */,
+				6BE4A02D28107A57004CB806 /* MetronomeZonesUITests */,
+				6BE4A03728107A57004CB806 /* MetronomeZones WatchKit App */,
+				6BE4A04228107A58004CB806 /* MetronomeZones WatchKit Extension */,
+				6BE4A05C28107A59004CB806 /* MetronomeZones WatchKit AppTests */,
+				6BE4A06628107A59004CB806 /* MetronomeZones WatchKit AppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -960,32 +960,32 @@
 /* Begin PBXTargetDependency section */
 		6BE4A02628107A57004CB806 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6BE4A01328107A54004CB806 /* SpeedOfSound */;
+			target = 6BE4A01328107A54004CB806 /* MetronomeZones */;
 			targetProxy = 6BE4A02528107A57004CB806 /* PBXContainerItemProxy */;
 		};
 		6BE4A03028107A57004CB806 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6BE4A01328107A54004CB806 /* SpeedOfSound */;
+			target = 6BE4A01328107A54004CB806 /* MetronomeZones */;
 			targetProxy = 6BE4A02F28107A57004CB806 /* PBXContainerItemProxy */;
 		};
 		6BE4A03B28107A57004CB806 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6BE4A03728107A57004CB806 /* SpeedOfSound WatchKit App */;
+			target = 6BE4A03728107A57004CB806 /* MetronomeZones WatchKit App */;
 			targetProxy = 6BE4A03A28107A57004CB806 /* PBXContainerItemProxy */;
 		};
 		6BE4A04628107A58004CB806 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6BE4A04228107A58004CB806 /* SpeedOfSound WatchKit Extension */;
+			target = 6BE4A04228107A58004CB806 /* MetronomeZones WatchKit Extension */;
 			targetProxy = 6BE4A04528107A58004CB806 /* PBXContainerItemProxy */;
 		};
 		6BE4A05F28107A59004CB806 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6BE4A04228107A58004CB806 /* SpeedOfSound WatchKit Extension */;
+			target = 6BE4A04228107A58004CB806 /* MetronomeZones WatchKit Extension */;
 			targetProxy = 6BE4A05E28107A59004CB806 /* PBXContainerItemProxy */;
 		};
 		6BE4A06928107A59004CB806 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6BE4A03728107A57004CB806 /* SpeedOfSound WatchKit App */;
+			target = 6BE4A03728107A57004CB806 /* MetronomeZones WatchKit App */;
 			targetProxy = 6BE4A06828107A59004CB806 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1122,6 +1122,7 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Health share usage allowed?";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health update usage allowed?";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMotionUsageDescription = "SoundOfSpeed required to use you motion usage";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1158,6 +1159,7 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Health share usage allowed?";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health update usage allowed?";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMotionUsageDescription = "SoundOfSpeed required to use you motion usage";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1320,7 +1322,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedOfSound.app/SpeedOfSound";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetronomeZones.app/MetronomeZones";
 			};
 			name = Debug;
 		};
@@ -1341,7 +1343,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedOfSound.app/SpeedOfSound";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetronomeZones.app/MetronomeZones";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1403,7 +1405,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedOfSound WatchKit Extension.appex/SpeedOfSound WatchKit Extension";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetronomeZones WatchKit Extension.appex/MetronomeZones WatchKit Extension";
 				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
 			name = Debug;
@@ -1424,7 +1426,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedOfSound WatchKit Extension.appex/SpeedOfSound WatchKit Extension";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MetronomeZones WatchKit Extension.appex/MetronomeZones WatchKit Extension";
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 8.5;
 			};
@@ -1472,7 +1474,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6BE4A00F28107A54004CB806 /* Build configuration list for PBXProject "SpeedOfSound" */ = {
+		6BE4A00F28107A54004CB806 /* Build configuration list for PBXProject "MetronomeZones" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A06F28107A59004CB806 /* Debug */,
@@ -1481,7 +1483,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A07128107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit Extension" */ = {
+		6BE4A07128107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A07228107A59004CB806 /* Debug */,
@@ -1490,7 +1492,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A07528107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit App" */ = {
+		6BE4A07528107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A07628107A59004CB806 /* Debug */,
@@ -1499,7 +1501,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A07928107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound" */ = {
+		6BE4A07928107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A07A28107A59004CB806 /* Debug */,
@@ -1508,7 +1510,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A07C28107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSoundTests" */ = {
+		6BE4A07C28107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZonesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A07D28107A59004CB806 /* Debug */,
@@ -1517,7 +1519,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A07F28107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSoundUITests" */ = {
+		6BE4A07F28107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZonesUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A08028107A59004CB806 /* Debug */,
@@ -1526,7 +1528,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A08228107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit AppTests" */ = {
+		6BE4A08228107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit AppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A08328107A59004CB806 /* Debug */,
@@ -1535,7 +1537,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6BE4A08528107A59004CB806 /* Build configuration list for PBXNativeTarget "SpeedOfSound WatchKit AppUITests" */ = {
+		6BE4A08528107A59004CB806 /* Build configuration list for PBXNativeTarget "MetronomeZones WatchKit AppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6BE4A08628107A59004CB806 /* Debug */,
