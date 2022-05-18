@@ -43,6 +43,8 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     @Published var count: Int = 0
     @Published private(set) var sessionWorkout: Int = 0
     @Published var workoutModel = WorkoutModel.defaultValue
+    private var maxBounds: Int = 0
+    private var minBounds: Int = 0
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
@@ -108,27 +110,19 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     }
     
     func changeMetronomeBPM(newHearRateBPM: Int) {
-//        if newHearRateBPM > workoutModel.highBPM { // Hihger than the zone
-//            if maxBounds >= 2 {
-//                showTooHighFeedback = true
-//                WKInterfaceDevice.current().play(.directionUp)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-//                    self.showTooHighFeedback = false
-//                }
-//                maxBounds = 0
-//            }
-//            maxBounds += 1
-//        } else if newHearRateBPM < workoutModel.lowBPM { // Lower than the zone
-//            if minBounds >= 2 {
-//                showTooLowFeedback = true
-//                WKInterfaceDevice.current().play(.directionDown)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-//                    self.showTooLowFeedback = false
-//                }
-//                minBounds = 0
-//            }
-//            minBounds += 1
-//        }
+        if newHearRateBPM > workoutModel.highBPM { // Hihger than the zone
+            if maxBounds >= 2 {
+                decreaseByTen()
+                maxBounds = 0
+            }
+            maxBounds += 1
+        } else if newHearRateBPM < workoutModel.lowBPM { // Lower than the zone
+            if minBounds >= 2 {
+                increaseByTen()
+                minBounds = 0
+            }
+            minBounds += 1
+        }
     }
     
     func start() {

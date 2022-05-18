@@ -36,7 +36,8 @@ struct ContentView: View {
                                     .foregroundColor(Color.white)
                                 Button {
                                     withAnimation {
-                                        playerViewModel.showNotificationPickerView = true
+//                                        playerViewModel.showNotificationPickerView = true
+                                        playerViewModel.showGif = true
                                     }
                                 } label: {
                                     Label("Notification feedback", systemImage: "applewatch.radiowaves.left.and.right")
@@ -48,7 +49,8 @@ struct ContentView: View {
                                 
                                 Button {
                                     withAnimation {
-                                        playerViewModel.showSoundPickerView = true
+//                                        playerViewModel.showSoundPickerView = true
+                                        playerViewModel.showGif = true
                                     }
                                 } label: {
                                     Label("Sound feedback", systemImage: "metronome.fill")
@@ -93,8 +95,22 @@ struct ContentView: View {
                     .tabItem {}
                     .offset(y: -50)
                 HalfASheet(isPresented: $playerViewModel.showGif) {
-                    GIFImage(name: "appleWatchAnimation")
-                        .frame(height: 250)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Image(systemName: "applewatch.side.right")
+                                .foregroundColor(.black)
+                            Text("Use our")
+                                .foregroundColor(.black)
+                            + Text(" Apple Watch ")
+                                .bold()
+                                .foregroundColor(Color("Main"))
+                            + Text("app")
+                                .foregroundColor(.black)
+                        }
+
+                        GIFImage(name: "appleWatchAnimation")
+                            .frame(height: 250)
+                    }
                 }
                 .backgroundColor(.white)
                 .closeButtonColor(.white)
@@ -109,7 +125,7 @@ struct ContentView: View {
             playerViewModel.changeMetronomeBPM(newHearRateBPM: newValue)
         }
         .onChange(of: playerViewModel.workoutModel) { newValue in
-            print(newValue)
+            playerViewModel.myMetronome.setTempo(to: newValue.cadence)
         }
         .preferredColorScheme(.dark)
         .environmentObject(playerViewModel)
