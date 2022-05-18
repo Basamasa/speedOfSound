@@ -21,4 +21,24 @@ extension Text {
         self
             .font(.title3).bold().foregroundColor(Color("Green"))
     }
+    
+    func workoutTitleYellow() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(.yellow)
+    }
+    
+    func workoutTitlBlue() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(.blue)
+    }
+    
+    func workoutTitlCyan() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(.cyan)
+    }
+    
+    func workoutTitleStyleRed() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(Color("Main"))
+    }
 }

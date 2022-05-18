@@ -361,10 +361,9 @@
 		6B3402CF282105CE00C71216 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				6B5D828C28328E5100988547 /* SummaryViews */,
+				6B5D828C28328E5100988547 /* DashboardDetails */,
 				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
 				6B46835C28217A630048E20B /* DashboardRowView.swift */,
-				6B4434BC28258E58006CBA12 /* DashboardDetailsView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -430,13 +429,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		6B5D828C28328E5100988547 /* SummaryViews */ = {
+		6B5D828C28328E5100988547 /* DashboardDetails */ = {
 			isa = PBXGroup;
 			children = (
+				6B4434BC28258E58006CBA12 /* DashboardDetailsView.swift */,
 				6B5D828D28328E7400988547 /* SummaryView.swift */,
 				6B5D828F28328EC300988547 /* HeartRateRangeView.swift */,
 			);
-			path = SummaryViews;
+			path = DashboardDetails;
 			sourceTree = "<group>";
 		};
 		6B5D82912832DE9F00988547 /* ChooseViews */ = {
