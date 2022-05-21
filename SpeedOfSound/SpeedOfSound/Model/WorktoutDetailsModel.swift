@@ -13,7 +13,6 @@ class WorktoutDetailsModel {
     let workout: HKWorkout
     let store = HKHealthStore()
     var runningWorkoutsHeartRate: [Double] = []
-    let pedometer: CMPedometer = CMPedometer()
     
     init (workout: HKWorkout) {
         self.workout = workout
@@ -118,41 +117,14 @@ class WorktoutDetailsModel {
         return dateFormatter.string(from: endDate)
     }
     
-    func getStepsFromPedome(completion: @escaping ((Double) -> Void)) {
-        if CMPedometer.isPedometerEventTrackingAvailable() &&
-            CMPedometer.isDistanceAvailable() &&
-            CMPedometer.isStepCountingAvailable() {
-            pedometer.queryPedometerData(from: startDate, to: endDate) { data, error in
-                guard let data = data, error == nil else {return}
-                completion(data.numberOfSteps.doubleValue)
-            }
-        }
-    }
-    
     func getSteps(completion: @escaping ((Double) -> Void)) {
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             return
         }
         
-        let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictEndDate)
 
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-//        let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
-//            guard error == nil else {
-//                return
-//            }
-//
-//            let unit = HKUnit(from: "")
-//            var results: [Double] = []
-//            guard let realResult = result else {return}
-//            for singleResult in realResult {
-//                let data = singleResult as! HKQuantitySample
-//                let latestHr = data.quantity.doubleValue(for: HKUnit.count())
-//                print(latestHr)
-//                results.append(latestHr)
-//            }
-//            completion(results)
-//        }
         
         let query = HKStatisticsQuery(quantityType: sampleType, quantitySamplePredicate: predicate, options: .cumulativeSum) { (_, result, error) in
             var resultCount = 0.0
@@ -162,7 +134,7 @@ class WorktoutDetailsModel {
                 completion(resultCount)
                 return
             }
-
+            
             if let sum = result.sumQuantity() {
                 resultCount = sum.doubleValue(for: HKUnit.count())
             }
@@ -180,7 +152,8 @@ class WorktoutDetailsModel {
                 
         let predicate = HKQuery.predicateForSamples(withStart:startDate, end: endDate, options: .strictEndDate)
         
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+        
         let query = HKSampleQuery(sampleType: sampleType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { sample, result, error in
             guard error == nil else {
                 return

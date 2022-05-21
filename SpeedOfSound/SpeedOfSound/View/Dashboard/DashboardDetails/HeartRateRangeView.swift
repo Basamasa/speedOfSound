@@ -47,6 +47,6 @@ struct HeartRateRangeView: View {
         }
         .frame(height: 400)
 //        .frame(maxHeight: Constants.widgetLargeHeight)
-        .padding([.leading, .trailing])
+        .padding([.leading, .trailing, .top])
     }
 }

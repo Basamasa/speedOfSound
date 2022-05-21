@@ -10,10 +10,10 @@ import SwiftUI
 
 class DashboardDetailsViewModel: ObservableObject {
     let store = HKHealthStore()
-    @Published var heartRateData: LineChartData = LineChartData(dataSets: LineDataSet(dataPoints: []))
-    
-//    @Published var heartRatePoints: [DataPoint] = []
-//    var heartRatePercetages: [DataPoint] = []
+    @Published var heartRateData: LineChartData = LineChartData(dataSets: LineDataSet(dataPoints: []))    
+    var heartRatePercetages = DoughnutChartData(dataSets:
+                                                    PieDataSet(dataPoints:
+                                                                [PieChartDataPoint(value: 1, description: "No data"  , colour: .red  , label: .label(text: "No data"  , rFactor: 0.8))], legendTitle: "A"), metadata: ChartMetadata(title: "Doughnut", subtitle: "mmm doughnuts"), chartStyle: DoughnutChartStyle(infoBoxPlacement: .header), noDataText: Text("No data"))
     var heartRateValues: [Double] = []
     let detailsModel: WorktoutDetailsModel
     
@@ -23,10 +23,13 @@ class DashboardDetailsViewModel: ObservableObject {
         self.detailsModel = WorktoutDetailsModel(workout: workout)
     }
     
-    private func getPercentageValue(upNumber: Double, downNumber: Double) -> String {
+    private func getPercentageValue(upNumber: Double, downNumber: Double) -> Double {
+        if downNumber == 0 {
+            return 0
+        }
         let x = upNumber &/ Double(downNumber)
         let y = Double(round(1000 * x) / 1000)
-        return "\(y * 100)"
+        return y * 100
     }
     
     private func heartRatesChanged(results: [Double]) {
@@ -102,51 +105,28 @@ class DashboardDetailsViewModel: ObservableObject {
                                         globalAnimation     : .easeOut(duration: 1))
         DispatchQueue.main.async {
             self.heartRateData = LineChartData(dataSets: data, metadata: metadata, chartStyle: chartStyle)
+            self.heartRatePercetages = self.makeData(low: lowHeartRatePercentage, high: highHeartRatePercentage, inside: insideHeartRatePercentage, heartRateCount: Double(results.count))
         }
     }
-        
-    private func heartRatesChanged1(results: [Double]) {
-//        var helperPoints: [DataPoint] = []
-//        var percentagePoints: [DataPoint] = []
-//        var lowHeartRatePercentage: Double = 0
-//        var insideHeartRatePercentage: Double = 0
-//        var highHeartRatePercentage: Double = 0
-//        
-//        for value in results {
-//            if value < Double(detailsModel.lowBPM) {
-//                let outsideRange = Legend(color: .yellow, label: "Below range", order: 1)
-//                helperPoints.append(.init(value: value, label: "", legend: outsideRange))
-//                lowHeartRatePercentage += 1
-//            } else if value > Double(detailsModel.highBPM) {
-//                let outsideRange = Legend(color: .red, label: "Higher range", order: 2)
-//                helperPoints.append(.init(value: value, label: "", legend: outsideRange))
-//                highHeartRatePercentage += 1
-//            } else {
-//                let outsideRange = Legend(color: .green, label: "Inside range", order: 0)
-//                helperPoints.append(.init(value: value, label: "", legend: outsideRange))
-//                insideHeartRatePercentage += 1
-//            }
-//        }
-//        let heartRateCount = Double(results.count)
-//        
-//        let lowPercentage = getPercentageValue(upNumber: lowHeartRatePercentage, downNumber: heartRateCount)
-//        let insidePercentage = getPercentageValue(upNumber: insideHeartRatePercentage, downNumber: heartRateCount)
-//        let highPercentage = getPercentageValue(upNumber: highHeartRatePercentage, downNumber: heartRateCount)
-//        
-//        let belowRange = Legend(color: .yellow, label: "Below range \(lowPercentage) %", order: 1)
-//        percentagePoints.append(.init(value: Double(getPercentageValue(upNumber: lowHeartRatePercentage, downNumber: heartRateCount)) ?? 0, label: "", legend: belowRange))
-//        
-//        let highRange = Legend(color: .red, label: "Higher range \(highPercentage) %", order: 0)
-//        percentagePoints.append(.init(value: Double(getPercentageValue(upNumber: highHeartRatePercentage, downNumber: heartRateCount)) ?? 0, label: "", legend: highRange))
-//        
-//        let insideRange = Legend(color: .green, label: "Inside range \(insidePercentage) %", order: 2)
-//        percentagePoints.append(.init(value: Double(getPercentageValue(upNumber: insideHeartRatePercentage, downNumber: heartRateCount)) ?? 0, label: "", legend: insideRange))
-//        
-//        DispatchQueue.main.async {
-//            self.heartRatePoints = helperPoints
-//            self.heartRatePercetages = percentagePoints
-//        }
-        
+    
+    func makeData(low: Double, high: Double, inside: Double, heartRateCount: Double) -> DoughnutChartData {
+        let lowPercentage = getPercentageValue(upNumber: low, downNumber: heartRateCount)
+        let insidePercentage = getPercentageValue(upNumber: inside, downNumber: heartRateCount)
+        let highPercentage = getPercentageValue(upNumber: high, downNumber: heartRateCount)
+        if heartRateCount == 0 {
+            return heartRatePercetages
+        }
+        let data = PieDataSet(
+            dataPoints: [
+                PieChartDataPoint(value: lowPercentage, description: "Lower \(lowPercentage)%"  , colour: .yellow  , label: .label(text: "Lower"  , rFactor: 0.8)),
+                PieChartDataPoint(value: insidePercentage, description: "Inside \(insidePercentage)%"  , colour: .green   , label: .label(text: "Inside"  , rFactor: 0.8)),
+                PieChartDataPoint(value: highPercentage, description: "Higher \(highPercentage)%", colour: .red, label: .label(text: "Higher", rFactor: 0.8))],
+            legendTitle: "Data")
+
+        return DoughnutChartData(dataSets: data,
+                                 metadata: ChartMetadata(title: "Doughnut", subtitle: "mmm doughnuts"),
+                                 chartStyle: DoughnutChartStyle(infoBoxPlacement: .header),
+                                 noDataText: Text("hello"))
     }
     
     func getHeartRates() {
@@ -156,7 +136,7 @@ class DashboardDetailsViewModel: ObservableObject {
     }
     
     func getSteps() {
-        detailsModel.getStepsFromPedome { results in
+        detailsModel.getSteps() { results in
             DispatchQueue.main.async {
                 self.steps = Int(results)
             }

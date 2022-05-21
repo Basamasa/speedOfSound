@@ -30,18 +30,27 @@ struct SummaryView: View {
             Divider()
                 .background(Color(UIColor.systemGray2))
             
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 25) {
                 Text("Heart Rate Summary")
                     .bold()
-                
+                VStack {
+                    DoughnutChart(chartData: rowDetailsViewModel.heartRatePercetages)
+                        .touchOverlay(chartData: rowDetailsViewModel.heartRatePercetages)
+//                        .headerBox(chartData: rowDetailsViewModel.heartRatePercetages)
+                        .legends(chartData: rowDetailsViewModel.heartRatePercetages, columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())])
+                        .frame(minWidth: 150, maxWidth: 900, minHeight: 150, idealHeight: 500, maxHeight: 600, alignment: .center)
+                        .id(rowDetailsViewModel.heartRatePercetages.id)
+                        .padding(.vertical)
+                }
+                .frame(height: 150)
+//                .offset(y: 20)
 //                HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePercetages)
 //                    .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
             }
         }
         .cardStyle()
-        .frame(maxHeight: Constants.widgetLargeHeight)
         .padding([.leading, .trailing])
-        .offset(y: -50)
+        .offset(y: -80)
     }
 }
 
@@ -51,8 +60,6 @@ struct DurationEneryView: View {
     var duration: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Duration")
-//                .bold()
-//                .foregroundColor(Color("Main"))
             Text("\(rowDetailsViewModel.detailsModel.getDuration().0)")
                 .workoutTitleYellow()
             + Text(" hr ")
@@ -128,11 +135,11 @@ struct RangeCadenceView: View {
         VStack(alignment: .trailing, spacing: 5) {
             Text("Heart rate zone")
             Text("\(rowDetailsViewModel.detailsModel.lowBPM)")
-                .workoutTitleStyleRed()
+                .workoutTitleLowZone()
             + Text(" -- ")
                 .workoutSubheadlineStyle()
             + Text("\(rowDetailsViewModel.detailsModel.highBPM)")
-                .workoutTitleStyleRed()
+                .workoutTitleHighZone()
             + Text(" BPM")
                 .workoutSubheadlineStyle()
         }
@@ -155,7 +162,7 @@ struct FeedbackView: View {
                 Text("Chosen Feedback")
                     .bold()
                 Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
-                    .workoutTitleHighLight()
+                    .workoutTitleRed()
             }
             Spacer()
         }

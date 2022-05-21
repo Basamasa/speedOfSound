@@ -47,8 +47,18 @@ extension Text {
             .font(.title3).bold().foregroundColor(.cyan)
     }
     
-    func workoutTitleStyleRed() -> Text {
+    func workoutTitleRed() -> Text {
         self
             .font(.title3).bold().foregroundColor(Color("Main"))
+    }
+    
+    func workoutTitleHighZone() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(Color(red: 1.0, green: 0.75, blue: 0.25))
+    }
+    
+    func workoutTitleLowZone() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(Color(red: 0.25, green: 0.75, blue: 1.0))
     }
 }

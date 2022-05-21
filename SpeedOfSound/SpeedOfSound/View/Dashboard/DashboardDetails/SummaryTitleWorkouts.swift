@@ -21,9 +21,11 @@ struct SummaryTitleWorkouts: View {
             VStack(alignment: .leading) {
                 Text(detailsModel.indoorWorktoutMeta)
                     .bold()
+                    .font(.title2)
                     .foregroundColor(Color("Main")) +
                 Text(type.name)
                     .bold()
+                    .font(.title2)
                     .foregroundColor(Color("Main"))
                 HStack(alignment: .center, spacing: 5) {
                     Text(detailsModel.startTime)
