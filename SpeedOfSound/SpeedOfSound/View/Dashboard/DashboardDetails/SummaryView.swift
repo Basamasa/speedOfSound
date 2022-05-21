@@ -14,7 +14,6 @@ struct SummaryView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            SummaryTitleWorkouts(type: rowDetailsViewModel.detailsModel.type, detailsModel: rowDetailsViewModel.detailsModel)
             FeedbackView(rowDetailsViewModel: rowDetailsViewModel)
             Divider()
                 .background(Color(UIColor.systemGray2))
@@ -34,45 +33,15 @@ struct SummaryView: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text("Heart Rate Summary")
                     .bold()
-                HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePercetages)
-                    .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
+                
+//                HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePercetages)
+//                    .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
             }
         }
         .cardStyle()
         .frame(maxHeight: Constants.widgetLargeHeight)
-        .padding()
-    }
-}
-
-struct SummaryTitleWorkouts: View {
-    let type: HKWorkoutActivityType
-    var detailsModel: WorktoutDetailsModel
-
-    var body: some View {
-        HStack(spacing: 3) {
-            Image(type.associatedImageName)
-                .resizable()
-                .foregroundColor(Color(UIColor.systemGray))
-                .frame(width: 80, height: 80, alignment: .center)
-            VStack(alignment: .leading) {
-                Text(detailsModel.indoorWorktoutMeta)
-                    .bold()
-                    .foregroundColor(Color("Main")) +
-                Text(type.name)
-                    .bold()
-                    .foregroundColor(Color("Main"))
-                HStack(alignment: .center, spacing: 5) {
-                    Text(detailsModel.startTime)
-                        .workoutSubheadlineStyle()
-                    Text("-")
-                        .workoutSubheadlineStyle()
-                    Text(detailsModel.endTime)
-                        .workoutSubheadlineStyle()
-                }
-            }
-            .padding()
-        }
-        .font(Font.body.bold())
+        .padding([.leading, .trailing])
+        .offset(y: -50)
     }
 }
 
@@ -183,11 +152,10 @@ struct FeedbackView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text("Choosed Feedback")
+                Text("Chosen Feedback")
                     .bold()
-//                    .foregroundColor(Color("Main"))
                 Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
-                    .workoutTitleStyle()
+                    .workoutTitleHighLight()
             }
             Spacer()
         }

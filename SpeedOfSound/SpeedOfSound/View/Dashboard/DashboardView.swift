@@ -8,9 +8,11 @@
 import SwiftUI
 import HealthKit
 import PermissionsSwiftUIHealth
+import SwiftUICharts
 
 struct DashboardView: View {
     @StateObject var dashboardViewModel = DashboardViewModel()
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {

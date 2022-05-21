@@ -12,6 +12,11 @@ extension Text {
             .font(.subheadline).bold().foregroundColor(Color(UIColor.systemGray))
     }
     
+    func workoutSubheadlineGreen() -> Text {
+        self
+            .font(.subheadline).bold().foregroundColor(Color("Green"))
+    }
+    
     func workoutDateStyle() -> Text {
         self
             .font(.footnote).bold().foregroundColor(Color(UIColor.systemGray))
@@ -20,6 +25,11 @@ extension Text {
     func workoutTitleStyle() -> Text {
         self
             .font(.title3).bold().foregroundColor(Color("Green"))
+    }
+    
+    func workoutTitleHighLight() -> Text {
+        self
+            .font(.title3).bold().foregroundColor(Color("MainHighlight"))
     }
     
     func workoutTitleYellow() -> Text {

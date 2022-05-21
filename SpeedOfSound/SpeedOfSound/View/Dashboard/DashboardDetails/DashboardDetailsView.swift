@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HealthKit
+import SwiftUICharts
 
 struct DashboardDetailsView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
@@ -14,13 +15,14 @@ struct DashboardDetailsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 50) {
-                SummaryView(rowDetailsViewModel: rowDetailsViewModel)
                 HeartRateRangeView(rowDetailsViewModel: rowDetailsViewModel)
+                SummaryView(rowDetailsViewModel: rowDetailsViewModel)
                 Rectangle()
                     .frame(height: 50)
                     .foregroundColor(.black)
             }
         }
+        .navigationTitle("Workout details")
         .onAppear() {
             rowDetailsViewModel.getHeartRates()
             rowDetailsViewModel.getSteps()

@@ -93,29 +93,30 @@ struct WorkoutRowView: View {
         HStack(alignment: .center, spacing: 20) {
             VStack(alignment: .leading, spacing: -3)  {
                 Text(workout.indoorWorktoutMeta)
-                    .font(.caption).bold().foregroundColor(Color(UIColor.systemGray)) +
+                    .font(.caption).bold().foregroundColor(Color("Main")) +
                 Text(workout.activityName)
-                    .font(.caption).bold().foregroundColor(Color(UIColor.systemGray))
+                    .font(.caption).bold().foregroundColor(Color("Main"))
                 HStack(spacing: 10) {
                     VStack(alignment: .leading, spacing: 5) {
                         Text("\(workout.getDuration().0)")
-                            .workoutTitleStyle()
+                            .workoutTitleYellow()
                         + Text(" hr ")
                             .workoutSubheadlineStyle()
                             + Text("\(workout.getDuration().1)")
-                            .workoutTitleStyle()
+                            .workoutTitleYellow()
                         + Text(" min")
                             .workoutSubheadlineStyle()
                             + Text(" \(workout.getDuration().2)")
-                            .workoutTitleStyle()
+                            .workoutTitleYellow()
                         + Text(" sec")
                             .workoutSubheadlineStyle()
                     }
 
                     VStack {
                         Text(workout.date)
-                            .workoutDateStyle()
+                            .workoutSubheadlineGreen()
                     }
+                    .offset(y: 1)
                     Divider()
                         .background(Color(UIColor.systemGray2))
                 }

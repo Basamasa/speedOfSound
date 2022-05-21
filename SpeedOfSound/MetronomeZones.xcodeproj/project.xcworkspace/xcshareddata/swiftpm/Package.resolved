@@ -37,12 +37,12 @@
       }
     },
     {
-      "identity" : "swiftuicharts",
+      "identity" : "swiftuicharts#line-chart",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mecid/SwiftUICharts",
+      "location" : "https://github.com/willdale/SwiftUICharts#Line-Chart",
       "state" : {
         "branch" : "main",
-        "revision" : "6eae7beae629fb834ea1900b17aaa0032abbeee4"
+        "revision" : "9177c49ffc574a212e1604d2a268ddfda423a449"
       }
     }
   ],
