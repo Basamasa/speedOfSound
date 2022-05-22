@@ -13,14 +13,14 @@ struct HeartRateRangeView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            SummaryTitleWorkouts(type: rowDetailsViewModel.detailsModel.type, detailsModel: rowDetailsViewModel.detailsModel)
+            Spacer()
             LineChart(chartData: rowDetailsViewModel.heartRateData)
                 .touchOverlay(chartData: rowDetailsViewModel.heartRateData, specifier: "%.0f")
                 .yAxisPOI(chartData: rowDetailsViewModel.heartRateData,
                           markerName: "Higher heart rate",
                           markerValue: Double(rowDetailsViewModel.detailsModel.highBPM),
                           labelPosition: .center(specifier: "%.0f"),
-                          labelColour: Color.black,
+                          labelColour: .black,
                           labelBackground: Color(red: 1.0, green: 0.75, blue: 0.25),
                           lineColour: Color(red: 1.0, green: 0.75, blue: 0.25),
                           strokeStyle: StrokeStyle(lineWidth: 3, dash: [5,10]))
@@ -28,9 +28,9 @@ struct HeartRateRangeView: View {
                           markerName: "Lower heart rate",
                           markerValue: Double(rowDetailsViewModel.detailsModel.lowBPM),
                           labelPosition: .center(specifier: "%.0f"),
-                          labelColour: Color.white,
-                          labelBackground: Color(red: 0.25, green: 0.75, blue: 1.0),
-                          lineColour: Color(red: 0.25, green: 0.75, blue: 1.0),
+                          labelColour: .black,
+                          labelBackground: Color(red: 1.0, green: 0.75, blue: 0.25),
+                          lineColour: Color(red: 1.0, green: 0.75, blue: 0.25),
                           strokeStyle: StrokeStyle(lineWidth: 3, dash: [5,10]))
                 .averageLine(chartData: rowDetailsViewModel.heartRateData,
                              strokeStyle: StrokeStyle(lineWidth: 3, dash: [5,10]))

@@ -65,7 +65,7 @@ class DashboardViewModel: ObservableObject {
     
     private func runQuery(predicate: NSPredicate) async -> [HKSample] {
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 10,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
+            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 20,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
                 if let hasError = error {
                     continuation.resume(throwing: hasError)
                     return

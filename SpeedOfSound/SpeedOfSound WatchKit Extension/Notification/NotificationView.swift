@@ -11,7 +11,21 @@ struct NotificationView: View {
     var message: String
     
     var body: some View {
-        Text(message)
+        if message == "Slow" {
+            VStack {
+                Image(systemName: "tortoise.fill")
+                    .foregroundColor(.yellow)
+                Text("Let's speed up!")
+                    .foregroundColor(.yellow)
+            }
+        } else {
+            VStack {
+                Image(systemName: "hare")
+                    .foregroundColor(.red)
+                Text("Slow down!")
+                    .foregroundColor(.red)
+            }
+        }
     }
 }
 

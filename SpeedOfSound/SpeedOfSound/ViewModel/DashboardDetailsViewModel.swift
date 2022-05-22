@@ -11,13 +11,16 @@ import SwiftUI
 class DashboardDetailsViewModel: ObservableObject {
     let store = HKHealthStore()
     @Published var heartRateData: LineChartData = LineChartData(dataSets: LineDataSet(dataPoints: []))    
-    var heartRatePercetages = DoughnutChartData(dataSets:
+    var hearRatePercentageData = DoughnutChartData(dataSets:
                                                     PieDataSet(dataPoints:
                                                                 [PieChartDataPoint(value: 1, description: "No data"  , colour: .red  , label: .label(text: "No data"  , rFactor: 0.8))], legendTitle: "A"), metadata: ChartMetadata(title: "Doughnut", subtitle: "mmm doughnuts"), chartStyle: DoughnutChartStyle(infoBoxPlacement: .header), noDataText: Text("No data"))
-    var heartRateValues: [Double] = []
+    @Published var multiLinChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []))
     let detailsModel: WorktoutDetailsModel
-    
     @Published var steps: Int = 0
+    
+    var averageCadence: Int {
+        steps / Int(detailsModel.workout.duration) * 60
+    }
     
     init(workout: HKWorkout) {
         self.detailsModel = WorktoutDetailsModel(workout: workout)
@@ -27,11 +30,11 @@ class DashboardDetailsViewModel: ObservableObject {
         if downNumber == 0 {
             return 0
         }
-        let x = upNumber &/ Double(downNumber)
-        let y = Double(round(1000 * x) / 1000)
-        return y * 100
+        let x = upNumber / downNumber * 100
+        return x.round(to: 1)
     }
     
+    // MARK: - Heart rate
     private func heartRatesChanged(results: [Double]) {
         var dataPoints: [LineChartDataPoint] = []
         var lowHeartRatePercentage: Double = 0
@@ -105,16 +108,17 @@ class DashboardDetailsViewModel: ObservableObject {
                                         globalAnimation     : .easeOut(duration: 1))
         DispatchQueue.main.async {
             self.heartRateData = LineChartData(dataSets: data, metadata: metadata, chartStyle: chartStyle)
-            self.heartRatePercetages = self.makeData(low: lowHeartRatePercentage, high: highHeartRatePercentage, inside: insideHeartRatePercentage, heartRateCount: Double(results.count))
+            self.hearRatePercentageData = self.makePercentageGraph(low: lowHeartRatePercentage, high: highHeartRatePercentage, inside: insideHeartRatePercentage, heartRateCount: Double(results.count))
         }
     }
     
-    func makeData(low: Double, high: Double, inside: Double, heartRateCount: Double) -> DoughnutChartData {
+    // MARK: - Pie graph
+    private func makePercentageGraph(low: Double, high: Double, inside: Double, heartRateCount: Double) -> DoughnutChartData {
         let lowPercentage = getPercentageValue(upNumber: low, downNumber: heartRateCount)
         let insidePercentage = getPercentageValue(upNumber: inside, downNumber: heartRateCount)
         let highPercentage = getPercentageValue(upNumber: high, downNumber: heartRateCount)
         if heartRateCount == 0 {
-            return heartRatePercetages
+            return hearRatePercentageData
         }
         let data = PieDataSet(
             dataPoints: [
@@ -129,9 +133,87 @@ class DashboardDetailsViewModel: ObservableObject {
                                  noDataText: Text("hello"))
     }
     
+    func createSoundFeedbackData(feedbackData: [Double]) -> [Double] {
+        var data: [Double] = []
+        var maxBounds: Int = 0
+        var minBounds: Int = 0
+        var startCadence = Double(detailsModel.cadence)
+        
+        for value in feedbackData {
+            if value > Double(detailsModel.highBPM) { // Hihger than the zone
+                if maxBounds >= 2 {
+                    startCadence -= 10
+                    maxBounds = 0
+                }
+                maxBounds += 1
+            } else if value < Double(detailsModel.lowBPM) { // Lower than the zone
+                if minBounds >= 2 {
+                    startCadence += 10
+                    minBounds = 0
+                }
+                minBounds += 1
+            }
+            if startCadence > 208 {
+                startCadence = 208
+            }
+            if startCadence < 40 {
+                startCadence = 40
+            }
+            data.append(startCadence)
+        }
+        
+        return data
+    }
+    
+    // MARK: - Multi graph
+    private func makeMultiGraph(results: [Double]) {
+        var dataPoints: [LineChartDataPoint] = []
+        var feedbackDataPoints: [LineChartDataPoint] = []
+        var feedbackDatas = createSoundFeedbackData(feedbackData: results)
+        
+        for (index, value) in results.enumerated() {
+            var feedbackData: Double = 0
+            if feedbackDatas.count == results.count {
+                feedbackData = feedbackDatas[index]
+            }
+            if index == results.count - 1 {
+                dataPoints.append(LineChartDataPoint(value: value, xAxisLabel: "Last", description: ""))
+                feedbackDataPoints.append(LineChartDataPoint(value: feedbackData, xAxisLabel: "Last", description: ""))
+            } else {
+                dataPoints.append(LineChartDataPoint(value: value, xAxisLabel: "", description: ""))
+                feedbackDataPoints.append(LineChartDataPoint(value: feedbackData, xAxisLabel: "", description: ""))
+            }
+        }
+        
+        let data = MultiLineDataSet(dataSets: [
+            LineDataSet(dataPoints: dataPoints,
+                        legendTitle: "Heart rate",
+                       pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
+                       style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .line)),
+            LineDataSet(dataPoints: feedbackDataPoints,
+                        legendTitle: "Sound feedback BPM",
+                       pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
+                        style: LineStyle(lineColour: ColourStyle(colour: .yellow), lineType: .line))])
+        DispatchQueue.main.async {
+            self.multiLinChartData = MultiLineChartData(dataSets: data,
+                                                        metadata: ChartMetadata(title: "Feedback with heart rate", subtitle: "Difference"),
+                                                        xAxisLabels: ["January", "December"],
+                                                        chartStyle: LineChartStyle(infoBoxPlacement: .floating,
+                                                                                   markerType: .full(attachment: .line(dot: .style(DotStyle()))),
+                                                                                   xAxisGridStyle: GridStyle(numberOfLines: 12),
+                                                                                   xAxisTitle: "Time",
+                                                                                   yAxisGridStyle: GridStyle(numberOfLines: 5),
+                                                                                   yAxisNumberOfLabels: 5,
+                                                                                   yAxisTitle: "BPM",
+                                                                                   baseline: .minimumValue,
+                                                                                   topLine: .maximumValue))
+        }
+    }
+    
     func getHeartRates() {
         detailsModel.getHeartRates() { results in
             self.heartRatesChanged(results: results)
+            self.makeMultiGraph(results: results)
         }
     }
     

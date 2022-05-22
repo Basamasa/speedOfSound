@@ -34,10 +34,10 @@ struct SessionPagingView: View {
             displayMetricsView()
         }
         .sheet(isPresented: $workoutManager.showTooHighFeedback, content: {
-            NotificationView(message: "Slow down!")
+            NotificationView(message: "Quick")
         })
         .sheet(isPresented: $workoutManager.showTooLowFeedback, content: {
-            NotificationView(message: "Let's speed up!")
+            NotificationView(message: "Slow")
         })
     }
 

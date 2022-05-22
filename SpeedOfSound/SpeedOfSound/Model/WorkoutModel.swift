@@ -14,7 +14,7 @@ struct WorkoutModel: Equatable {
     var cadence: Int
     
     static var defaultValue: WorkoutModel {
-        WorkoutModel(feedback: 0, lowBPM: 120, highBPM: 140, cadence: 160)
+        WorkoutModel(feedback: 1, lowBPM: 120, highBPM: 140, cadence: 160)
     }
     
     static func parserData(data: String) -> WorkoutModel {

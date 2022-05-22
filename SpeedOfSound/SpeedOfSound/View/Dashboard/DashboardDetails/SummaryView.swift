@@ -34,23 +34,51 @@ struct SummaryView: View {
                 Text("Heart Rate Summary")
                     .bold()
                 VStack {
-                    DoughnutChart(chartData: rowDetailsViewModel.heartRatePercetages)
-                        .touchOverlay(chartData: rowDetailsViewModel.heartRatePercetages)
+                    DoughnutChart(chartData: rowDetailsViewModel.hearRatePercentageData)
+                        .touchOverlay(chartData: rowDetailsViewModel.hearRatePercentageData)
 //                        .headerBox(chartData: rowDetailsViewModel.heartRatePercetages)
-                        .legends(chartData: rowDetailsViewModel.heartRatePercetages, columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())])
+                        .legends(chartData: rowDetailsViewModel.hearRatePercentageData, columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())])
                         .frame(minWidth: 150, maxWidth: 900, minHeight: 150, idealHeight: 500, maxHeight: 600, alignment: .center)
-                        .id(rowDetailsViewModel.heartRatePercetages.id)
+                        .id(rowDetailsViewModel.hearRatePercentageData.id)
                         .padding(.vertical)
                 }
                 .frame(height: 150)
-//                .offset(y: 20)
-//                HorizontalBarChartView(dataPoints: rowDetailsViewModel.heartRatePercetages)
-//                    .frame(maxWidth: UIScreen.main.bounds.maxX - 50)
             }
         }
         .cardStyle()
         .padding([.leading, .trailing])
         .offset(y: -80)
+    }
+}
+
+struct FeedbackView: View {
+    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Chosen Feedback")
+                    .bold()
+                HStack {
+                    Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
+                        .workoutTitlBlue()
+                    NavigationLink(destination:  FeedbackDetailView(rowDetailsViewModel: rowDetailsViewModel)) {
+                        HStack {
+                            Text("Details")
+                                .bold()
+                                .font(.body)
+                                .foregroundColor(.white)
+                            Image(systemName: "chart.xyaxis.line")
+                                .foregroundColor(.white)
+                        }
+                        .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
+                        .background(.blue)
+                        .cornerRadius(45)
+                    }
+                }
+            }
+            Spacer()
+        }
     }
 }
 
@@ -60,18 +88,24 @@ struct DurationEneryView: View {
     var duration: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Duration")
-            Text("\(rowDetailsViewModel.detailsModel.getDuration().0)")
-                .workoutTitleYellow()
-            + Text(" hr ")
-                .workoutSubheadlineStyle()
-            + Text("\(rowDetailsViewModel.detailsModel.getDuration().1)")
-                .workoutTitleYellow()
-            + Text(" min")
-                .workoutSubheadlineStyle()
-            + Text(" \(rowDetailsViewModel.detailsModel.getDuration().2)")
-                .workoutTitleYellow()
-            + Text(" sec")
-                .workoutSubheadlineStyle()
+            HStack(spacing: 1) {
+                if rowDetailsViewModel.detailsModel.getDuration().0 != 0 {
+                    Text("\(rowDetailsViewModel.detailsModel.getDuration().0)")
+                        .workoutTitleYellow()
+                    Text(" hr ")
+                        .workoutSubheadlineStyle()
+                }
+                if rowDetailsViewModel.detailsModel.getDuration().1 != 0 {
+                    Text("\(rowDetailsViewModel.detailsModel.getDuration().1)")
+                        .workoutTitleYellow()
+                    Text(" min")
+                        .workoutSubheadlineStyle()
+                }
+                Text(" \(rowDetailsViewModel.detailsModel.getDuration().2)")
+                    .workoutTitleYellow()
+                Text(" sec")
+                    .workoutSubheadlineStyle()
+            }
         }
     }
     
@@ -79,7 +113,7 @@ struct DurationEneryView: View {
         VStack(alignment: .trailing, spacing: 5) {
             Text("Enery Burned")
             Text(rowDetailsViewModel.detailsModel.energyBurned)
-                .workoutTitlBlue()
+                .workoutTitleRed()
             + Text(" kcal")
                     .workoutSubheadlineStyle()
         }
@@ -97,43 +131,9 @@ struct DurationEneryView: View {
 struct DistanceStepsView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
 
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Distance")
-                Text(rowDetailsViewModel.detailsModel.distance)
-                    .workoutTitlCyan()
-                + Text(" km")
-                    .workoutSubheadlineStyle()
-            }
-            Spacer()
-            VStack(alignment: .trailing, spacing: 5) {
-                Text("Steps")
-                Text("\(rowDetailsViewModel.steps)")
-                    .workoutTitleStyle()
-                + Text(" steps")
-                    .workoutSubheadlineStyle()
-            }
-        }
-    }
-}
-
-struct RangeCadenceView: View {
-    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
-
-    var cadence: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text("Start Cadence")
-            Text("\(rowDetailsViewModel.detailsModel.cadence)")
-                .workoutTitleStyle()
-            + Text(" SPM")
-                .workoutSubheadlineStyle()
-        }
-    }
-    
     var range: some View {
         VStack(alignment: .trailing, spacing: 5) {
-            Text("Heart rate zone")
+            Text("Heart Rate Zone")
             Text("\(rowDetailsViewModel.detailsModel.lowBPM)")
                 .workoutTitleLowZone()
             + Text(" -- ")
@@ -144,27 +144,53 @@ struct RangeCadenceView: View {
                 .workoutSubheadlineStyle()
         }
     }
+    
+    var distance: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Distance")
+            Text(rowDetailsViewModel.detailsModel.distance)
+                .workoutTitlCyan()
+            + Text(" km")
+                .workoutSubheadlineStyle()
+        }
+    }
+    
     var body: some View {
         HStack {
-            cadence
+            distance
             Spacer()
             range
         }
     }
 }
 
-struct FeedbackView: View {
+struct RangeCadenceView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
 
+    var cadence: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Sound(Start) Cadence")
+            Text("\(rowDetailsViewModel.detailsModel.cadence)")
+                .workoutTitleStyle()
+            + Text(" BPM")
+                .workoutSubheadlineStyle()
+        }
+    }
+    
+    var steps: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("Average Cadence")
+            Text("\(rowDetailsViewModel.averageCadence)")
+                .workoutTitleStyle()
+            + Text(" SPM")
+                .workoutSubheadlineStyle()
+        }
+    }
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Chosen Feedback")
-                    .bold()
-                Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
-                    .workoutTitleRed()
-            }
+            cadence
             Spacer()
+            steps
         }
     }
 }

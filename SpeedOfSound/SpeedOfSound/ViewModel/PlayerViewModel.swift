@@ -109,6 +109,19 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int) {
     }
     
+    private func startWorkout() {
+        mode = .running
+        try? myMetronome.start()
+        showGif = false
+        showPlayer = true
+    }
+    
+    private func stopWorkout() {
+        mode = .stopped
+        myMetronome.stop()
+        showPlayer = false
+    }
+    
     func changeMetronomeBPM(newHearRateBPM: Int) {
         if newHearRateBPM > workoutModel.highBPM { // Hihger than the zone
             if maxBounds >= 2 {
@@ -122,23 +135,20 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
                 minBounds = 0
             }
             minBounds += 1
+        } else {
+            stop()
         }
     }
     
     func start() {
         if sessionWorkout == 1 {
-            mode = .running
-            try? myMetronome.start()
-            showGif = false
-            showPlayer = true
+            startWorkout()
         }
     }
     
     func stop() {
         if sessionWorkout  == 0 {
-            mode = .stopped
-            myMetronome.stop()
-            showPlayer = false
+            stop()
         }
     }
     

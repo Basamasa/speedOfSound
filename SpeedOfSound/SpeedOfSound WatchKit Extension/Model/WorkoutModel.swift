@@ -21,6 +21,7 @@ struct WorkoutModel {
 enum Feedbackstyle: Int {
     case notification = 0
     case sound = 1
+    case sound2 = 2
 }
 
 enum CadenceStyle: String {

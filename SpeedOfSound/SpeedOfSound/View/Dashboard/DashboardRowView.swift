@@ -28,7 +28,7 @@ struct DashboardRowView: View {
                 .background(Color(UIColor.systemGray2))
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 20) {
-                    ForEach(workouts.batched(into: 3), id: \.self) { items in
+                    ForEach(workouts.batched(into: 4), id: \.self) { items in
                         ThreeRowWorkouts(workouts: items)
                     }
                 }
@@ -91,32 +91,47 @@ struct WorkoutRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 20) {
-            VStack(alignment: .leading, spacing: -3)  {
-                Text(workout.indoorWorktoutMeta)
-                    .font(.caption).bold().foregroundColor(Color("Main")) +
-                Text(workout.activityName)
-                    .font(.caption).bold().foregroundColor(Color("Main"))
-                HStack(spacing: 10) {
+            VStack(alignment: .leading, spacing: -2)  {
+                if workout.indoorWorktoutMeta == "Indoor " {
+                    Text(workout.indoorWorktoutMeta)
+                        .font(.caption).bold().foregroundColor(Color("Main")) +
+                    Text(workout.activityName)
+                        .font(.caption).bold().foregroundColor(Color("Main"))
+                } else {
+                    Text(workout.indoorWorktoutMeta)
+                        .font(.caption).bold().foregroundColor(Color("MainHighlight")) +
+                    Text(workout.activityName)
+                        .font(.caption).bold().foregroundColor(Color("MainHighlight"))
+                }
+                HStack() {
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("\(workout.getDuration().0)")
-                            .workoutTitleYellow()
-                        + Text(" hr ")
-                            .workoutSubheadlineStyle()
-                            + Text("\(workout.getDuration().1)")
-                            .workoutTitleYellow()
-                        + Text(" min")
-                            .workoutSubheadlineStyle()
-                            + Text(" \(workout.getDuration().2)")
-                            .workoutTitleYellow()
-                        + Text(" sec")
-                            .workoutSubheadlineStyle()
+                        HStack(spacing: 1) {
+                            if workout.getDuration().0 != 0 {
+                                Text("\(workout.getDuration().0)")
+                                    .workoutTitleYellow()
+                                Text(" hr ")
+                                    .workoutSubheadlineStyle()
+                            }
+                            if workout.getDuration().1 != 0 {
+                                Text("\(workout.getDuration().1)")
+                                    .workoutTitleYellow()
+                                Text(" min")
+                                    .workoutSubheadlineStyle()
+                            }
+                            Text(" \(workout.getDuration().2)")
+                                .workoutTitleYellow()
+                            Text(" sec")
+                                .workoutSubheadlineStyle()
+                        }
                     }
-
+                    Spacer()
+                    Text(workout.feedbackStyle)
+                        .workoutTitlBlue()
                     VStack {
                         Text(workout.date)
                             .workoutSubheadlineGreen()
                     }
-                    .offset(y: 1)
+//                    .offset(y: 1)
                     Divider()
                         .background(Color(UIColor.systemGray2))
                 }
