@@ -21,12 +21,12 @@ struct SessionPagingView: View {
         TabView(selection: $selection) {
             ControlsView().tag(Tab.controls)
             MetricsView().tag(Tab.metrics)
+//            MapView().tag(Tab.map)
 //            NowPlayingView().tag(Tab.nowPlaying)
-            MapView().tag(Tab.map)
         }
         .navigationTitle(workoutManager.selectedWorkout?.name ?? "")
         .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(selection == .nowPlaying)
+        .navigationBarHidden(selection == .nowPlaying || selection == .map)
         .onChange(of: workoutManager.running) { _ in
             displayMetricsView()
         }
