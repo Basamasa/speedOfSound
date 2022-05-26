@@ -123,20 +123,23 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     }
     
     func changeMetronomeBPM(newHearRateBPM: Int) {
+        guard workoutModel.feedback == 2 else {
+            return
+        }
         if newHearRateBPM > workoutModel.highBPM { // Hihger than the zone
             if maxBounds >= 2 {
-                decreaseByTen()
+                decreaseTempo()
                 maxBounds = 0
             }
             maxBounds += 1
         } else if newHearRateBPM < workoutModel.lowBPM { // Lower than the zone
             if minBounds >= 2 {
-                increaseByTen()
+                increaseTempo()
                 minBounds = 0
             }
             minBounds += 1
         } else {
-            stop()
+            changeBackToStartBPM()
         }
     }
     
@@ -147,8 +150,8 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     }
     
     func stop() {
-        if sessionWorkout  == 0 {
-            stop()
+        if sessionWorkout == 0 {
+            stopWorkout()
         }
     }
     
@@ -214,6 +217,11 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         }
     }
     
+    func changeBackToStartBPM() {
+        myMetronome.setTempo(to: workoutModel.cadence)
+        updateBpm()
+    }
+    
     func clickOnMinusButton() {
         myMetronome.incrementTempo(by: -1)
         updateBpm()
@@ -224,13 +232,13 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         updateBpm()
     }
     
-    func increaseByTen() {
-        myMetronome.incrementTempo(by: 10)
+    func increaseTempo() {
+        myMetronome.setTempo(to: workoutModel.cadence + 20)
         updateBpm()
     }
     
-    func decreaseByTen() {
-        myMetronome.incrementTempo(by: -10)
+    func decreaseTempo() {
+        myMetronome.setTempo(to: workoutModel.cadence - 20)
         updateBpm()
     }
     

@@ -14,14 +14,15 @@ struct SessionPagingView: View {
     @State private var selection: Tab = .metrics
     
     enum Tab {
-        case controls, metrics, nowPlaying
+        case controls, metrics, nowPlaying, map
     }
 
     var body: some View {
         TabView(selection: $selection) {
             ControlsView().tag(Tab.controls)
             MetricsView().tag(Tab.metrics)
-            NowPlayingView().tag(Tab.nowPlaying)
+//            NowPlayingView().tag(Tab.nowPlaying)
+            MapView().tag(Tab.map)
         }
         .navigationTitle(workoutManager.selectedWorkout?.name ?? "")
         .navigationBarBackButtonHidden(true)

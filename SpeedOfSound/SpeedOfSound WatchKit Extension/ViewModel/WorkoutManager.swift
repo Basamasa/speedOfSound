@@ -12,10 +12,17 @@ import WatchKit
 import UserNotifications
 import SwiftUI
 
+enum WorkoutState {
+    case running
+    case paused
+    case ended
+}
+
 class WorkoutManager: NSObject, ObservableObject {
     var wcsessionManager = SessionManager()
     var selectedWorkout: WorkoutType?
-
+    var workoutState: WorkoutState = .ended
+    
     // Workout state
     @Published var running = false
     
@@ -311,6 +318,29 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
                     }
                 }
             }
+            DispatchQueue.main.async {
+                self.workoutState = .ended
+            }
+        } else if toState == .running {
+            DispatchQueue.main.async {
+                self.workoutState = .running
+            }
+        } else if toState == .paused {
+            DispatchQueue.main.async {
+                self.workoutState = .paused
+            }
+        }
+    }
+    
+    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) {
+        switch event.type {
+        case .motionPaused:
+            WKInterfaceDevice.current().play(.stop)
+            pause()
+        case .motionResumed:
+            WKInterfaceDevice.current().play(.start)
+            resume()
+        default: break
         }
     }
 
@@ -334,7 +364,9 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             let statistics = workoutBuilder.statistics(for: quantityType)
 
             // Update the published values.
-            updateForStatistics(statistics)
+            if workoutState == .running {
+                updateForStatistics(statistics)
+            }
         }
     }
 }
