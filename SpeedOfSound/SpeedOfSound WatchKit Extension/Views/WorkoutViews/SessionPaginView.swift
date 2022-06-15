@@ -21,7 +21,7 @@ struct SessionPagingView: View {
         TabView(selection: $selection) {
             ControlsView().tag(Tab.controls)
             MetricsView().tag(Tab.metrics)
-//            MapView().tag(Tab.map)
+            MapView().tag(Tab.map)
 //            NowPlayingView().tag(Tab.nowPlaying)
         }
         .navigationTitle(workoutManager.selectedWorkout?.name ?? "")

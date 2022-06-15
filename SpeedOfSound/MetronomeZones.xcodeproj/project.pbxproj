@@ -371,9 +371,9 @@
 		6B3402CF282105CE00C71216 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				6B5D828C28328E5100988547 /* DashboardDetails */,
 				6B3402AE281DA46A00C71216 /* DashboardView.swift */,
 				6B46835C28217A630048E20B /* DashboardRowView.swift */,
+				6B5D828C28328E5100988547 /* DashboardDetails */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";

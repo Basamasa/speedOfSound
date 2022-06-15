@@ -12,13 +12,20 @@ import SwiftUICharts
 
 struct DashboardView: View {
     @StateObject var dashboardViewModel = DashboardViewModel()
+    @State private var heartRateMode = true
 
+    func adjustOrder() { }
+    func rename() { }
+    func delay() { }
+    func cancelOrder() { }
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
                 DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running)
                     .padding(.bottom)
                 DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking)
+                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
                 Rectangle()
                     .frame(height: 50)
                     .foregroundColor(.black)
@@ -33,9 +40,22 @@ struct DashboardView: View {
         .onAppear() {
             dashboardViewModel.checkCurrentAuthorizationSetting()
         }
-        .navigationTitle("Dashboard")
+        .navigationTitle("Sound of Speed")
         .navigationBarTitleTextColor(.white)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.automatic)
+        .toolbar {
+            Menu("Options") {
+                Toggle("Heart rate mode ❤️", isOn: $heartRateMode)
+                Button("Adjust Order", action: adjustOrder)
+                Menu("Advanced") {
+                    Button("Rename", action: rename)
+                    Button("Delay", action: delay)
+                }
+                Button("Cancel", action: cancelOrder)
+            }
+            .font(.title3)
+            
+        }
     }
 }
 

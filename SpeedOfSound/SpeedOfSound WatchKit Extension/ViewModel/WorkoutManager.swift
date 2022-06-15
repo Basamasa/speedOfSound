@@ -179,7 +179,7 @@ class WorkoutManager: NSObject, ObservableObject {
                 startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .indoor)
             }
         }
-        wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound)
+        wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound || workoutModel.feedback == .sound2)
         wcsessionManager.sendWorkOutModel(workoutModel.getData)
         wcsessionManager.sendCadence(selectedCadence)
     }

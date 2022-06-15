@@ -142,22 +142,16 @@ class DashboardDetailsViewModel: ObservableObject {
         for value in feedbackData {
             if value > Double(detailsModel.highBPM) { // Hihger than the zone
                 if maxBounds >= 2 {
-                    startCadence -= 10
+                    startCadence = Double(detailsModel.cadence) - 20
                     maxBounds = 0
                 }
                 maxBounds += 1
             } else if value < Double(detailsModel.lowBPM) { // Lower than the zone
                 if minBounds >= 2 {
-                    startCadence += 10
+                    startCadence = Double(detailsModel.cadence) + 20
                     minBounds = 0
                 }
                 minBounds += 1
-            }
-            if startCadence > 208 {
-                startCadence = 208
-            }
-            if startCadence < 40 {
-                startCadence = 40
             }
             data.append(startCadence)
         }
