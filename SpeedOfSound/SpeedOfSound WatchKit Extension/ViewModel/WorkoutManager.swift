@@ -37,6 +37,19 @@ class WorkoutManager: NSObject, ObservableObject {
     // Workout data
     @Published var workoutModel = WorkoutModel()
     
+    // Calculate heart rate zone
+    @Published var ageOfUser: Int = 20 {
+        didSet {
+            calculateHeartRateZone()
+        }
+    }
+    
+    @Published var restingHeartRate: Int = 80 {
+        didSet {
+            calculateHeartRateZone()
+        }
+    }
+    
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -68,11 +81,20 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
     @Published var timesGotLookedAt: Int = 0
-    @Published var numberOfNotifications: Int = 0
     
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
+    
+    // MARK: - Zone calculation
+    func calculateHeartRateZone() {
+        let MHR = 220 - ageOfUser
+        let lowBPM = Int((Double(MHR - restingHeartRate) * 0.6) + Double(restingHeartRate))
+        let highBPM = Int((Double(MHR - restingHeartRate) * 0.7) + Double(restingHeartRate))
+        
+        workoutModel.lowBPM = lowBPM
+        workoutModel.highBPM = highBPM
+    }
     
     // MARK: - Cadence calculation
     var isCadenceAvailable : Bool {
@@ -301,7 +323,6 @@ class WorkoutManager: NSObject, ObservableObject {
         heartRate = 0
         distance = 0
         timesGotLookedAt = 0
-        numberOfNotifications = 0
     }
 }
 

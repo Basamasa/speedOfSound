@@ -36,7 +36,7 @@ struct CadenceView: View {
             NavigationLink(destination: ContentView(cadence: workoutManager.selectedCadence)) {
                 Text("Finish")
                     .bold()
-                    .foregroundColor(Color("Main"))
+                    .foregroundColor(Color("Green"))
                     .padding(EdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5))
             }
         }

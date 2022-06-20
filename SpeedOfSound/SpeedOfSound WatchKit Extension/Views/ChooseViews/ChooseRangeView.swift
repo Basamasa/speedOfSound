@@ -10,42 +10,81 @@ import SwiftUI
 struct ChooseRangeView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     var feedback: Feedbackstyle
-    let heartRange = Array(stride(from: 40, to: 200, by: 5))
-
+    let heartRange = Array(stride(from: 40, to: 200, by: 1))
+    let ageRange = Array(stride(from: 18, to: 80, by: 1))
+    
     var body: some View {
-        VStack{
-        HStack {
-            Picker("", selection: $workoutManager.workoutModel.lowBPM) {
-                ForEach(heartRange, id: \.self) {
-                    Text("\($0)")
-                        .tag($0)
-                        .foregroundColor(Color("MainHighlight"))
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text("Age:")
+                    Picker("", selection: $workoutManager.ageOfUser) {
+                        ForEach(ageRange, id: \.self) {
+                            Text("\($0)")
+                                .tag($0)
+                                .foregroundColor(Color("MainHighlight"))
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .compositingGroup()
+                    .frame(height: 60)
+                    .clipped(antialiased: true)
+                    .offset(y: -10)
                 }
-            }
-            .pickerStyle(.wheel)
-            .compositingGroup()
-            .clipped(antialiased: true)
+                VStack(alignment: .leading) {
+                    Text("Rest heart rate:")
+                    Picker("", selection: $workoutManager.restingHeartRate) {
+                        ForEach(heartRange, id: \.self) {
+                            Text("\($0)")
+                                .tag($0)
+                                .foregroundColor(Color("MainHighlight"))
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .compositingGroup()
+                    .frame(height: 60)
+                    .clipped(antialiased: true)
+                    .offset(y: -10)
+                }
+                VStack(alignment: .leading) {
+                    Text("Heart rate zone:")
+                    HStack {
+                        Picker("", selection: $workoutManager.workoutModel.lowBPM) {
+                            ForEach(heartRange, id: \.self) {
+                                Text("\($0)")
+                                    .tag($0)
+                                    .foregroundColor(Color("MainHighlight"))
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .compositingGroup()
+                        .frame(height: 60)
+                        .clipped(antialiased: true)
 
-            Picker("", selection: $workoutManager.workoutModel.highBPM) {
-                ForEach(heartRange, id: \.self) {
-                    Text("\($0)")
-                        .foregroundColor(Color("MainHighlight"))
+                        Picker("", selection: $workoutManager.workoutModel.highBPM) {
+                            ForEach(heartRange, id: \.self) {
+                                Text("\($0)")
+                                    .foregroundColor(Color("MainHighlight"))
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .compositingGroup()
+                        .frame(height: 60)
+                        .clipped(antialiased: true)
+                    }
+                    .offset(y: -10)
                 }
-            }
-            .pickerStyle(.wheel)
-            .compositingGroup()
-            .clipped(antialiased: true)
-        }
-            NavigationLink(destination: CadenceView()) {
-                HStack {
-                    Text("Next")
-                        .bold()
-                        .foregroundColor(Color("Green"))
+                NavigationLink(destination: CadenceView()) {
+                    HStack {
+                        Text("Next")
+                            .bold()
+                            .foregroundColor(Color("Green"))
+                    }
                 }
             }
         }
         .padding([.leading, .trailing])
-        .navigationBarTitle("Heart rate zone")
+        .navigationBarTitle("Calculate zone❤️")
         .onAppear() {
             workoutManager.workoutModel.feedback = feedback
         }
