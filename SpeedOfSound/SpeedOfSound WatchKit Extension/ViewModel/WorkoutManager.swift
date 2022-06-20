@@ -42,7 +42,6 @@ class WorkoutManager: NSObject, ObservableObject {
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published var selectedCadence: Int = 120
     @Published var selectedCadenceStyle: CadenceStyle = .average
-
     @Published var currentCadence: Int = 0
     @Published var averageCadence: Int = 0
     @Published var highestCadence: Int = 0
@@ -68,6 +67,8 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var activeEnergy: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
+    @Published var timesGotLookedAt: Int = 0
+    @Published var numberOfNotifications: Int = 0
     
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
@@ -139,7 +140,7 @@ class WorkoutManager: NSObject, ObservableObject {
     // MARK: - Workout
     
     func giveNotificationFeedback() {
-        guard workoutModel.feedback == .notification else {return}
+//        guard workoutModel.feedback == .notification else {return}
         
         if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
             if maxBounds >= 2 {
@@ -179,9 +180,8 @@ class WorkoutManager: NSObject, ObservableObject {
                 startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .indoor)
             }
         }
-        wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound || workoutModel.feedback == .sound2)
+        wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound)
         wcsessionManager.sendWorkOutModel(workoutModel.getData)
-        wcsessionManager.sendCadence(selectedCadence)
     }
     
     // Start the workout.
@@ -247,10 +247,12 @@ class WorkoutManager: NSObject, ObservableObject {
 
     func pause() {
         session?.pause()
+        wcsessionManager.workSessionEnd()
     }
 
     func resume() {
         session?.resume()
+        wcsessionManager.workSessionBegin(isSoundFeedback: workoutModel.feedback == .sound)
     }
 
     func endWorkout() {
@@ -298,6 +300,8 @@ class WorkoutManager: NSObject, ObservableObject {
         averageHeartRate = 0
         heartRate = 0
         distance = 0
+        timesGotLookedAt = 0
+        numberOfNotifications = 0
     }
 }
 

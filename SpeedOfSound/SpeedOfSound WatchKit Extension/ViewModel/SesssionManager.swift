@@ -30,12 +30,6 @@ class SessionManager: ObservableObject {
         }
     }
     
-    func sendCadence(_ cadence: Int) {
-        wcSession.sendMessage(["cadence": cadence], replyHandler: nil) { error in
-            print(error.localizedDescription)
-        }
-    }
-    
     func sendWorkOutModel(_ workoutModel: String) {
         wcSession.sendMessage(["workoutModel": workoutModel], replyHandler: nil) { error in
             print(error.localizedDescription)
@@ -56,6 +50,5 @@ class SessionManager: ObservableObject {
     
     func workSessionEnd() {
         sendMessage("workSessionBegin", session: 0)
-
     }
 }

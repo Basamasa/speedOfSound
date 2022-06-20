@@ -131,8 +131,8 @@ struct ContentView: View {
                 PickerView()
             }
         }
-        .onChange(of: playerViewModel.count) { newValue in
-            playerViewModel.changeMetronomeBPM(newHearRateBPM: newValue)
+        .onChange(of: playerViewModel.heartRate) { newValue in
+//            playerViewModel.changeMetronomeBPM(newHearRateBPM: newValue)
         }
         .onChange(of: playerViewModel.workoutModel) { newValue in
             playerViewModel.myMetronome.setTempo(to: newValue.cadence)

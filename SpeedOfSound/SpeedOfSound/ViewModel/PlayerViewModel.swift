@@ -40,7 +40,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     let subject2 = PassthroughSubject<Int, Never>()
     let subject3 = PassthroughSubject<Int, Never>()
     let subject4 = PassthroughSubject<WorkoutModel, Never>()
-    @Published var count: Int = 0
+    @Published var heartRate: Int = 0
     @Published private(set) var sessionWorkout: Int = 0
     @Published var workoutModel = WorkoutModel.defaultValue
     private var maxBounds: Int = 0
@@ -61,7 +61,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         
         subject1
             .receive(on: DispatchQueue.main)
-            .assign(to: &$count)
+            .assign(to: &$heartRate)
         
         subject2
             .receive(on: DispatchQueue.main)

@@ -91,7 +91,7 @@ struct PlayerView: View {
                     .font(.largeTitle)
                     .foregroundColor(playerViewModel.mode == .running ? Color("MainHighlight") : .white)
                 VStack {
-                    Text("\(playerViewModel.count)")
+                    Text("\(playerViewModel.heartRate)")
                         .font(.largeTitle)
                         .foregroundColor(playerViewModel.mode == .running ? Color("Main") : .white)
                         .fontWeight(.bold)

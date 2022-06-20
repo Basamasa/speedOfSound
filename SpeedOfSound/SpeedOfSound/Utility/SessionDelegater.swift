@@ -36,10 +36,9 @@ class SessionDelegater: NSObject, WCSessionDelegate {
                 self.countSubject.send(count)
             } else if let session = message["workSessionBegin"] as? Int {
                 self.sessionWorkoutSubject.send(session)
-            } else if let cadence = message["cadence"] as? Int {
-                self.cadenceSubject.send(cadence)
             } else if let modelMessage = message["workoutModel"] as? String {
                 self.workoutModelSubject.send(WorkoutModel.parserData(data: modelMessage))
+                self.cadenceSubject.send(WorkoutModel.parserData(data: modelMessage).cadence)
             } else {
                 print("There was an error")
             }

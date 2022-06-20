@@ -23,7 +23,7 @@ struct ChooseFeedbackView: View {
                     Image(systemName: "applewatch.radiowaves.left.and.right")
                         .imageScale(.large)
                         .foregroundColor(Color("Green"))
-                    Text("Notification")
+                    Text("Only Notification")
                         .bold()
                         .font(.body)
                         .foregroundColor(Color("Green"))
@@ -51,20 +51,20 @@ struct ChooseFeedbackView: View {
             .padding(EdgeInsets(top: 20, leading: 5, bottom: 20, trailing: 5))
 
             
-            NavigationLink(destination:  ChooseRangeView(feedback: .sound2)) {
-                HStack {
-                    Image(systemName: "metronome.fill")
-                        .imageScale(.large)
-                        .foregroundColor(Color("Green"))
-                    Text("Adaptive Sound")
-                        .bold()
-                        .font(.body)
-                        .foregroundColor(Color("Green"))
-                    Spacer()
-
-                }
-            }
-            .padding(EdgeInsets(top: 20, leading: 5, bottom: 20, trailing: 5))
+//            NavigationLink(destination:  ChooseRangeView(feedback: .sound2)) {
+//                HStack {
+//                    Image(systemName: "metronome.fill")
+//                        .imageScale(.large)
+//                        .foregroundColor(Color("Green"))
+//                    Text("Adaptive Sound")
+//                        .bold()
+//                        .font(.body)
+//                        .foregroundColor(Color("Green"))
+//                    Spacer()
+//
+//                }
+//            }
+//            .padding(EdgeInsets(top: 20, leading: 5, bottom: 20, trailing: 5))
         }
         .listStyle(.carousel)
         .navigationBarTitle("Feedback")
