@@ -19,7 +19,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
     // BPM metronome
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0
-    @Published var effect = ["1","2","3","4","5","6","7","8"]
+    @Published var effect = ["1","2","3"]
     @Published var BPM: Int = 160
     @Published var speedString = "Allegro"
     let myMetronome: MetronomeModel

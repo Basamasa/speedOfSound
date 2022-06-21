@@ -80,7 +80,6 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var activeEnergy: Double = 0
     @Published var distance: Double = 0
     @Published var workout: HKWorkout?
-    @Published var timesGotLookedAt: Int = 0
     
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
@@ -219,13 +218,12 @@ class WorkoutManager: NSObject, ObservableObject {
             return
         }
 
-        let metadata : NSDictionary = [
-            HKMetadataKeyWorkoutBrandName: workoutModel.getData,
-        ]
-        
-        builder?.addMetadata(metadata as! [String : String]) { (success, error) in
-
-        }
+//        let metadata : NSDictionary = [
+//            HKMetadataKeyWorkoutBrandName: workoutModel.getData,
+//        ]
+//
+//        builder?.addMetadata(metadata as! [String : String]) { (success, error) in
+//        }
         session?.delegate = self
         builder?.delegate = self
 
@@ -322,7 +320,6 @@ class WorkoutManager: NSObject, ObservableObject {
         averageHeartRate = 0
         heartRate = 0
         distance = 0
-        timesGotLookedAt = 0
     }
 }
 
@@ -336,6 +333,12 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
 
         // Wait for the session to transition states before ending the builder.
         if toState == .ended {
+            let metadata : NSDictionary = [
+                HKMetadataKeyWorkoutBrandName: workoutModel.getData,
+            ]
+            
+            builder?.addMetadata(metadata as! [String : String]) { (success, error) in
+            }
             builder?.endCollection(withEnd: date) { (success, error) in
                 self.builder?.finishWorkout { (workout, error) in
                     DispatchQueue.main.async {
@@ -357,17 +360,17 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
         }
     }
     
-    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) {
-        switch event.type {
-        case .motionPaused:
-            WKInterfaceDevice.current().play(.stop)
-            pause()
-        case .motionResumed:
-            WKInterfaceDevice.current().play(.start)
-            resume()
-        default: break
-        }
-    }
+//    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) {
+//        switch event.type {
+//        case .motionPaused:
+//            WKInterfaceDevice.current().play(.stop)
+//            pause()
+//        case .motionResumed:
+//            WKInterfaceDevice.current().play(.start)
+//            resume()
+//        default: break
+//        }
+//    }
 
     func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
 

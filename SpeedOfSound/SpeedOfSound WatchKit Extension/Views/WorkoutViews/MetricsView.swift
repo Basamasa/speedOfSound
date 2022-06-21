@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MetricsView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
-    
+    @Environment(\.scenePhase) private var scenePhase
+
     var body: some View {
         TimelineView(MetricsTimelineSchedule(from: workoutManager.builder?.startDate ?? Date())) { context in
             VStack(alignment: .leading) {
@@ -25,6 +26,11 @@ struct MetricsView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .ignoresSafeArea(edges: .bottom)
             .scenePadding()
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .active {
+                workoutManager.workoutModel.numberOfGotLooked += 1
+            }
         }
     }
 }

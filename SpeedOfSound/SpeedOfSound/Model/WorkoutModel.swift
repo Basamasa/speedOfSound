@@ -12,9 +12,10 @@ struct WorkoutModel: Equatable {
     var lowBPM: Int
     var highBPM: Int
     var cadence: Int
+    var numberOfGotLooked: Int
     
     static var defaultValue: WorkoutModel {
-        WorkoutModel(feedback: 1, lowBPM: 120, highBPM: 140, cadence: 160)
+        WorkoutModel(feedback: 1, lowBPM: 120, highBPM: 140, cadence: 160, numberOfGotLooked: 0)
     }
     
     static func parserData(data: String) -> WorkoutModel {
@@ -22,9 +23,9 @@ struct WorkoutModel: Equatable {
             return WorkoutModel.defaultValue
         }
         let arr = data.components(separatedBy: "-")
-        if arr.count != 4 {
+        if arr.count != 5 {
             return WorkoutModel.defaultValue
         }
-        return WorkoutModel(feedback: Int(arr[0]) ?? defaultValue.feedback, lowBPM: Int(arr[1]) ?? defaultValue.lowBPM, highBPM: Int(arr[2]) ?? defaultValue.highBPM, cadence: Int(arr[3]) ?? defaultValue.cadence)
+        return WorkoutModel(feedback: Int(arr[0]) ?? defaultValue.feedback, lowBPM: Int(arr[1]) ?? defaultValue.lowBPM, highBPM: Int(arr[2]) ?? defaultValue.highBPM, cadence: Int(arr[3]) ?? defaultValue.cadence, numberOfGotLooked: Int(arr[4]) ?? defaultValue.numberOfGotLooked)
     }
 }

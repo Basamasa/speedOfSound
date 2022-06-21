@@ -54,30 +54,50 @@ struct SummaryView: View {
 struct FeedbackView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
 
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 5) {
-                Text("Chosen Feedback")
-                    .bold()
-                HStack {
-                    Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
-                        .workoutTitlBlue()
-                    NavigationLink(destination:  FeedbackDetailView(rowDetailsViewModel: rowDetailsViewModel)) {
-                        HStack {
-                            Text("Details")
-                                .bold()
-                                .font(.body)
-                                .foregroundColor(.white)
-                            Image(systemName: "chart.xyaxis.line")
-                                .foregroundColor(.white)
-                        }
-                        .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
-                        .background(.blue)
-                        .cornerRadius(45)
+    var cadence: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            if rowDetailsViewModel.detailsModel.feedbackStyle == "Sound" {
+                Text("Sound frequency")
+            } else {
+                Text("Start Cadence")
+            }
+            Text("\(rowDetailsViewModel.detailsModel.cadence)")
+                .workoutTitleStyle()
+            + Text(" BPM")
+                .workoutSubheadlineStyle()
+        }
+    }
+    
+    var feedback: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Chosen Feedback")
+                .bold()
+            HStack {
+//                Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
+//                    .workoutTitlBlue()
+                NavigationLink(destination: FeedbackDetailView(rowDetailsViewModel: rowDetailsViewModel)) {
+                    HStack {
+                        Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
+                            .bold()
+                            .font(.body)
+                            .foregroundColor(.white)
+                        Image(systemName: "chart.xyaxis.line")
+                            .foregroundColor(.white)
                     }
+                    .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
+                    .background(.blue)
+                    .cornerRadius(45)
+//                    .frame(width: 100, height: 49)
                 }
             }
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            feedback
             Spacer()
+            cadence
         }
     }
 }
@@ -109,12 +129,12 @@ struct DurationEneryView: View {
         }
     }
     
-    var energyBurned: some View {
+    var numberOfTimes: some View {
         VStack(alignment: .trailing, spacing: 5) {
-            Text("Enery Burned")
-            Text(rowDetailsViewModel.detailsModel.energyBurned)
+            Text("Number of times rising wrist")
+            Text("\(rowDetailsViewModel.detailsModel.numberOfTimeGotLooked)")
                 .workoutTitleRed()
-            + Text(" kcal")
+            + Text(" times")
                     .workoutSubheadlineStyle()
         }
     }
@@ -123,27 +143,13 @@ struct DurationEneryView: View {
         HStack {
             duration
             Spacer()
-            energyBurned
+            numberOfTimes
         }
     }
 }
 
 struct DistanceStepsView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
-
-    var range: some View {
-        VStack(alignment: .trailing, spacing: 5) {
-            Text("Heart Rate Zone")
-            Text("\(rowDetailsViewModel.detailsModel.lowBPM)")
-                .workoutTitleLowZone()
-            + Text(" -- ")
-                .workoutSubheadlineStyle()
-            + Text("\(rowDetailsViewModel.detailsModel.highBPM)")
-                .workoutTitleHighZone()
-            + Text(" BPM")
-                .workoutSubheadlineStyle()
-        }
-    }
     
     var distance: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -159,19 +165,22 @@ struct DistanceStepsView: View {
         HStack {
             distance
             Spacer()
-            range
         }
     }
 }
 
 struct RangeCadenceView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
-
-    var cadence: some View {
+    
+    var range: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Sound(Start) Cadence")
-            Text("\(rowDetailsViewModel.detailsModel.cadence)")
-                .workoutTitleStyle()
+            Text("Heart Rate Zone")
+            Text("\(rowDetailsViewModel.detailsModel.lowBPM)")
+                .workoutTitleLowZone()
+            + Text(" -- ")
+                .workoutSubheadlineStyle()
+            + Text("\(rowDetailsViewModel.detailsModel.highBPM)")
+                .workoutTitleHighZone()
             + Text(" BPM")
                 .workoutSubheadlineStyle()
         }
@@ -188,7 +197,7 @@ struct RangeCadenceView: View {
     }
     var body: some View {
         HStack {
-            cadence
+            range
             Spacer()
             steps
         }

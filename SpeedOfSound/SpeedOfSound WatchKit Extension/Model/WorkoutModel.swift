@@ -12,9 +12,10 @@ struct WorkoutModel {
     var lowBPM: Int = 120
     var highBPM: Int = 140
     var cadence: Int = 120
+    var numberOfGotLooked: Int = 0
     
     var getData: String {
-        return "\(feedback.rawValue)" + "-\(lowBPM)" + "-\(highBPM)" + "-\(cadence)"
+        return "\(feedback.rawValue)" + "-\(lowBPM)" + "-\(highBPM)" + "-\(cadence)" + "-\(numberOfGotLooked)"
     }
 }
 

@@ -30,6 +30,11 @@ struct SummaryView: View {
                     SummaryMetricView(title: "Total Time",
                                       value: durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? "")
                         .foregroundStyle(.yellow)
+                    SummaryMetricView(title: "Avg. Heart Rate",
+                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
+                        .foregroundStyle(.red)
+                    SummaryMetricView(title: "Number of rise wrist",
+                                      value: workoutManager.workoutModel.numberOfGotLooked.formatted() + " times")
                     SummaryMetricView(title: "Total Distance",
                                       value: Measurement(value: workoutManager.workout?.totalDistance?.doubleValue(for: .meter()) ?? 0,
                                                          unit: UnitLength.meters)
@@ -37,9 +42,6 @@ struct SummaryView: View {
                                                                 usage: .road,
                                                                 numberFormatStyle: .number.precision(.fractionLength(2)))))
                         .foregroundStyle(.green)
-                    SummaryMetricView(title: "Avg. Heart Rate",
-                                      value: workoutManager.averageHeartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
-                        .foregroundStyle(.red)
                     Text("Activity Rings")
                     ActivityRingsView(healthStore: workoutManager.healthStore)
                         .frame(width: 50, height: 50)

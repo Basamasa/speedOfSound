@@ -40,6 +40,10 @@ class WorktoutDetailsModel {
         return nameMeta.cadence
     }
     
+    var numberOfTimeGotLooked: Int {
+        return nameMeta.numberOfGotLooked
+    }
+    
     private var nameMeta: WorkoutModel {
         let workoutData = workout.metadata?[HKMetadataKeyWorkoutBrandName]
         guard workoutData != nil else {return WorkoutModel.defaultValue}
