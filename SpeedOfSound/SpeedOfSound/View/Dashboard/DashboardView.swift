@@ -20,22 +20,27 @@ struct DashboardView: View {
     func cancelOrder() { }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        List {
             VStack {
                 DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running)
                     .padding(.bottom)
                 DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking)
-                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
+//                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
                 Rectangle()
                     .frame(height: 50)
                     .foregroundColor(.black)
             }
+            .listRowSeparator(.hidden)
         }
-        .padding()
+        .listStyle(PlainListStyle())
+//        .padding()
         .JMAlert(showModal: $dashboardViewModel.isNotReady, for: [.health(categories: .init(readAndWrite: dashboardViewModel.getPermission))])
         .task {
             await dashboardViewModel.checkPermission()
             await dashboardViewModel.loadWorkoutData() // ??
+        }
+        .refreshable {
+            await dashboardViewModel.loadWorkoutData()
         }
         .onAppear() {
             dashboardViewModel.checkCurrentAuthorizationSetting()

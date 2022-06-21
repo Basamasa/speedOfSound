@@ -165,6 +165,7 @@ class PlayerViewModel: ObservableObject, MetronomeDelegate {
         } else {
             stop()
         }
+        showGif = true
     }
     
     private func updateBpm() {

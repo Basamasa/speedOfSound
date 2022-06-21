@@ -21,7 +21,7 @@ struct DashboardRowView: View {
         VStack(alignment: .leading, spacing: 15) {
             TitleWorkouts(type: type)
             
-            Text("You did \(workouts.count) workouts in the last 7 days.")
+            Text("You have \(workouts.count) workouts")
                 .font(Font.body.bold())
                 .foregroundColor(Color.white)
             Divider()
@@ -44,13 +44,29 @@ struct TitleWorkouts: View {
     var body: some View {
         HStack(spacing: 3) {
             if type == .running {
-                Image("running")
-                    .resizable()
-                    .foregroundColor(Color(UIColor.systemGray))
-                    .frame(width: 50, height: 50, alignment: .center)
-                Text("Run")
-                    .foregroundColor(Color("Green"))
-                    .padding()
+                HStack {
+                    Image("running")
+                        .resizable()
+                        .foregroundColor(Color(UIColor.systemGray))
+                        .frame(width: 50, height: 50, alignment: .center)
+                    Text("Run")
+                        .foregroundColor(Color("Green"))
+                        .padding()
+                    Spacer()
+//                    NavigationLink(destination: EmptyView()) {
+//                        HStack {
+//                            Text("Show more")
+//                                .bold()
+//                                .font(.body)
+//                                .foregroundColor(.white)
+//                            Image(systemName: "chart.xyaxis.line")
+//                                .foregroundColor(.white)
+//                        }
+//                        .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
+//                        .background(.blue)
+//                        .cornerRadius(45)
+//                    }
+                }
             } else if type == .walking {
                 Image("walking")
                     .resizable()

@@ -113,6 +113,9 @@ struct ListenNowView: View {
                 playerViewModel.stop()
             }
         })
+        .onChange(of: playerViewModel.BPM, perform: { _ in
+            playerViewModel.bpmChange()
+        })
         .onAppear() {
             playerViewModel.soundViewAppear()
         }
