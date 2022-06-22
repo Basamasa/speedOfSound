@@ -33,9 +33,6 @@ struct FeedbackDetailView: View {
             }
         }
         .navigationTitle("Feedback details")
-        .onAppear() {
-            
-        }
     }
     
     static func weekOfData() -> MultiLineChartData {

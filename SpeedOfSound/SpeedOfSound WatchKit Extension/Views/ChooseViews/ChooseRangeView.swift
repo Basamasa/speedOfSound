@@ -18,7 +18,7 @@ struct ChooseRangeView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     Text("Age:")
-                    Picker("", selection: $workoutManager.ageOfUser) {
+                    Picker("", selection: $workoutManager.workoutModel.age) {
                         ForEach(ageRange, id: \.self) {
                             Text("\($0)")
                                 .tag($0)
@@ -33,7 +33,7 @@ struct ChooseRangeView: View {
                 }
                 VStack(alignment: .leading) {
                     Text("Rest heart rate:")
-                    Picker("", selection: $workoutManager.restingHeartRate) {
+                    Picker("", selection: $workoutManager.workoutModel.restingHeartRate) {
                         ForEach(heartRange, id: \.self) {
                             Text("\($0)")
                                 .tag($0)

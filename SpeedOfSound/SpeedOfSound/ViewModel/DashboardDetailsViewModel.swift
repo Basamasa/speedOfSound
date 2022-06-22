@@ -142,13 +142,13 @@ class DashboardDetailsViewModel: ObservableObject {
         for value in feedbackData {
             if value > Double(detailsModel.highBPM) { // Hihger than the zone
                 if maxBounds >= 2 {
-                    startCadence = Double(detailsModel.cadence) - 20
+                    startCadence = Double(detailsModel.cadence)
                     maxBounds = 0
                 }
                 maxBounds += 1
             } else if value < Double(detailsModel.lowBPM) { // Lower than the zone
                 if minBounds >= 2 {
-                    startCadence = Double(detailsModel.cadence) + 20
+                    startCadence = Double(detailsModel.cadence)
                     minBounds = 0
                 }
                 minBounds += 1
@@ -163,7 +163,7 @@ class DashboardDetailsViewModel: ObservableObject {
     private func makeMultiGraph(results: [Double]) {
         var dataPoints: [LineChartDataPoint] = []
         var feedbackDataPoints: [LineChartDataPoint] = []
-        var feedbackDatas = createSoundFeedbackData(feedbackData: results)
+        let feedbackDatas = createSoundFeedbackData(feedbackData: results)
         
         for (index, value) in results.enumerated() {
             var feedbackData: Double = 0

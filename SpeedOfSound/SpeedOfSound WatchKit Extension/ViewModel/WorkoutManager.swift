@@ -36,19 +36,8 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Workout data
     @Published var workoutModel = WorkoutModel()
-    
-    // Calculate heart rate zone
-    @Published var ageOfUser: Int = 20 {
-        didSet {
-            calculateHeartRateZone()
-        }
-    }
-    
-    @Published var restingHeartRate: Int = 80 {
-        didSet {
-            calculateHeartRateZone()
-        }
-    }
+    var countTimer: ParkBenchTimer?
+    var timeCountList: [CFAbsoluteTime] = []
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
@@ -71,9 +60,11 @@ class WorkoutManager: NSObject, ObservableObject {
     @Published var averageHeartRate: Double = 0
     @Published var heartRate: Double = 0 {
         didSet {
+            lastHeartRate = oldValue
             giveNotificationFeedback()
         }
     }
+    var lastHeartRate: Double = 0
 
     @Published var steps: Double = 0
     @Published var averageSteps: Double = 0
@@ -84,16 +75,6 @@ class WorkoutManager: NSObject, ObservableObject {
     let healthStore = HKHealthStore()
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
-    
-    // MARK: - Zone calculation
-    func calculateHeartRateZone() {
-        let MHR = 220 - ageOfUser
-        let lowBPM = Int((Double(MHR - restingHeartRate) * 0.6) + Double(restingHeartRate))
-        let highBPM = Int((Double(MHR - restingHeartRate) * 0.7) + Double(restingHeartRate))
-        
-        workoutModel.lowBPM = lowBPM
-        workoutModel.highBPM = highBPM
-    }
     
     // MARK: - Cadence calculation
     var isCadenceAvailable : Bool {
@@ -146,6 +127,7 @@ class WorkoutManager: NSObject, ObservableObject {
         pedometer.stopUpdates()
         WKInterfaceDevice.current().play(.success)
         timer.upstream.connect().cancel()
+        cadenceList = []
     }
     
     func cadenceWorkoutSelected() {
@@ -167,22 +149,33 @@ class WorkoutManager: NSObject, ObservableObject {
             if maxBounds >= 2 {
                 showTooHighFeedback = true
                 WKInterfaceDevice.current().play(.directionUp)
+                maxBounds = 0
+                workoutModel.numberOfFeedback += 1
+                countTimer = ParkBenchTimer()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     self.showTooHighFeedback = false
                 }
-                maxBounds = 0
             }
             maxBounds += 1
         } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
             if minBounds >= 2 {
                 showTooLowFeedback = true
                 WKInterfaceDevice.current().play(.directionDown)
+                minBounds = 0
+                workoutModel.numberOfFeedback += 1
+                countTimer = ParkBenchTimer()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     self.showTooLowFeedback = false
                 }
-                minBounds = 0
             }
             minBounds += 1
+        } else {
+            if (Int(lastHeartRate) < workoutModel.lowBPM) || (Int(lastHeartRate) > workoutModel.highBPM) {
+                if let timer = countTimer?.stop() {
+                    print("******** Just took \(timer) seconds ********")
+                    timeCountList.append(timer)
+                }
+            }
         }
     }
     
@@ -276,6 +269,7 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     func endWorkout() {
+        calculateAverageTimeGoingBackToZone()
         session?.end()
         showingSummaryView = true
         wcsessionManager.workSessionEnd()
@@ -283,6 +277,12 @@ class WorkoutManager: NSObject, ObservableObject {
 
     // MARK: - Workout Metrics
 
+    func calculateAverageTimeGoingBackToZone() {
+        guard !timeCountList.isEmpty else { return }
+        let average = Int(timeCountList.reduce(0, +)) / timeCountList.count
+        workoutModel.meanTimeNeededGetBackToZone = average
+    }
+    
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
 
@@ -320,11 +320,16 @@ class WorkoutManager: NSObject, ObservableObject {
         averageHeartRate = 0
         heartRate = 0
         distance = 0
+        workoutModel.numberOfFeedback = 0
+        workoutModel.numberOfGotLooked = 0
+        workoutModel.meanTimeNeededGetBackToZone = 0
+        timeCountList = []
     }
 }
 
 // MARK: - HKWorkoutSessionDelegate
 extension WorkoutManager: HKWorkoutSessionDelegate {
+    
     func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState,
                         from fromState: HKWorkoutSessionState, date: Date) {
         DispatchQueue.main.async {
@@ -395,6 +400,29 @@ extension WorkoutManager: HKLiveWorkoutBuilderDelegate {
             if workoutState == .running {
                 updateForStatistics(statistics)
             }
+        }
+    }
+}
+
+class ParkBenchTimer {
+    let startTime: CFAbsoluteTime
+    var endTime: CFAbsoluteTime?
+
+    init() {
+        startTime = CFAbsoluteTimeGetCurrent()
+    }
+
+    func stop() -> CFAbsoluteTime {
+        endTime = CFAbsoluteTimeGetCurrent()
+
+        return duration!
+    }
+
+    var duration: CFAbsoluteTime? {
+        if let endTime = endTime {
+            return endTime - startTime
+        } else {
+            return nil
         }
     }
 }

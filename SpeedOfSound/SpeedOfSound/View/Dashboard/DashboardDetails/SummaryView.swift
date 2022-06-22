@@ -174,7 +174,7 @@ struct RangeCadenceView: View {
     
     var range: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("Heart Rate Zone")
+            Text("Heart Rate Zone(Zone 2)")
             Text("\(rowDetailsViewModel.detailsModel.lowBPM)")
                 .workoutTitleLowZone()
             + Text(" -- ")
