@@ -16,7 +16,7 @@ struct WorkoutModel: Equatable {
     var numberOfFeedback: Int
     var meanTimeNeededGetBackToZone: Int
     var age: Int
-    var restingHeartRate: Int = 80
+    var restingHeartRate: Int
     
     static var defaultValue: WorkoutModel {
         WorkoutModel(feedback: 1, lowBPM: 120, highBPM: 140, cadence: 160, numberOfGotLooked: 0, numberOfFeedback: 0, meanTimeNeededGetBackToZone: 0, age: 20, restingHeartRate: 70)

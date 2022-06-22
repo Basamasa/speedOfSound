@@ -44,6 +44,22 @@ class WorktoutDetailsModel {
         return nameMeta.numberOfGotLooked
     }
     
+    var numberOfFeedback: Int {
+        return nameMeta.numberOfFeedback
+    }
+    
+    var meanTimeNeededGetBackToZone: Int {
+        return nameMeta.meanTimeNeededGetBackToZone
+    }
+    
+    var age: Int {
+        return nameMeta.age
+    }
+    
+    var restingHeartRate: Int {
+        return nameMeta.restingHeartRate
+    }
+    
     private var nameMeta: WorkoutModel {
         let workoutData = workout.metadata?[HKMetadataKeyWorkoutBrandName]
         guard workoutData != nil else {return WorkoutModel.defaultValue}

@@ -16,8 +16,9 @@ struct ChooseRangeView: View {
     var body: some View {
         VStack {
             ScrollView {
-                VStack(alignment: .leading) {
+                HStack {
                     Text("Age:")
+                    Spacer()
                     Picker("", selection: $workoutManager.workoutModel.age) {
                         ForEach(ageRange, id: \.self) {
                             Text("\($0)")
@@ -27,12 +28,13 @@ struct ChooseRangeView: View {
                     }
                     .pickerStyle(.wheel)
                     .compositingGroup()
-                    .frame(height: 60)
+                    .frame(width: 40, height: 60)
                     .clipped(antialiased: true)
                     .offset(y: -10)
                 }
-                VStack(alignment: .leading) {
+                HStack {
                     Text("Rest heart rate:")
+                    Spacer()
                     Picker("", selection: $workoutManager.workoutModel.restingHeartRate) {
                         ForEach(heartRange, id: \.self) {
                             Text("\($0)")
@@ -42,7 +44,7 @@ struct ChooseRangeView: View {
                     }
                     .pickerStyle(.wheel)
                     .compositingGroup()
-                    .frame(height: 60)
+                    .frame(width: 40, height: 60)
                     .clipped(antialiased: true)
                     .offset(y: -10)
                 }

@@ -185,7 +185,7 @@ class DashboardDetailsViewModel: ObservableObject {
                        pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
                        style: LineStyle(lineColour: ColourStyle(colour: .red), lineType: .line)),
             LineDataSet(dataPoints: feedbackDataPoints,
-                        legendTitle: "Sound feedback BPM",
+                        legendTitle: "Start Cadence",
                        pointStyle: PointStyle(pointType: .outline, pointShape: .circle),
                         style: LineStyle(lineColour: ColourStyle(colour: .yellow), lineType: .line))])
         DispatchQueue.main.async {

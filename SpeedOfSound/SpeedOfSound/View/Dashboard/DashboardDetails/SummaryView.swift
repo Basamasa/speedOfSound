@@ -18,21 +18,24 @@ struct SummaryView: View {
             Divider()
                 .background(Color(UIColor.systemGray2))
             
+            AgeView(rowDetailsViewModel: rowDetailsViewModel)
+            Divider()
+                .background(Color(UIColor.systemGray2))
+            
+            NumberOfTimesView(rowDetailsViewModel: rowDetailsViewModel)
+            Divider()
+                .background(Color(UIColor.systemGray2))
+            
             RangeCadenceView(rowDetailsViewModel: rowDetailsViewModel)
             Divider()
                 .background(Color(UIColor.systemGray2))
             
-            DurationEneryView(rowDetailsViewModel: rowDetailsViewModel)
-            Divider()
-                .background(Color(UIColor.systemGray2))
-            
-            DistanceStepsView(rowDetailsViewModel: rowDetailsViewModel)
-            Divider()
-                .background(Color(UIColor.systemGray2))
+//            DistanceStepsView(rowDetailsViewModel: rowDetailsViewModel)
+//            Divider()
+//                .background(Color(UIColor.systemGray2))
             
             VStack(alignment: .leading, spacing: 25) {
                 Text("Heart Rate Summary")
-                    .bold()
                 VStack {
                     DoughnutChart(chartData: rowDetailsViewModel.hearRatePercentageData)
                         .touchOverlay(chartData: rowDetailsViewModel.hearRatePercentageData)
@@ -68,6 +71,16 @@ struct FeedbackView: View {
         }
     }
     
+    var age: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("Age")
+            Text("\(rowDetailsViewModel.detailsModel.age)")
+                .workoutTitlCyan()
+            + Text(" years old")
+                    .workoutSubheadlineStyle()
+        }
+    }
+    
     var feedback: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Chosen Feedback")
@@ -77,12 +90,12 @@ struct FeedbackView: View {
 //                    .workoutTitlBlue()
                 NavigationLink(destination: FeedbackDetailView(rowDetailsViewModel: rowDetailsViewModel)) {
                     HStack {
-                        Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
+                        Text("\(rowDetailsViewModel.detailsModel.feedbackStyle): \(rowDetailsViewModel.detailsModel.cadence) BPM")
                             .bold()
                             .font(.body)
                             .foregroundColor(.white)
-                        Image(systemName: "chart.xyaxis.line")
-                            .foregroundColor(.white)
+//                        Image(systemName: "chart.xyaxis.line")
+//                            .foregroundColor(.white)
                     }
                     .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
                     .background(.blue)
@@ -97,14 +110,80 @@ struct FeedbackView: View {
         HStack {
             feedback
             Spacer()
-            cadence
+//            cadence
+            age
         }
     }
 }
 
-struct DurationEneryView: View {
+struct AgeView: View {
     @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
+    
+    var average: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Mean Correction Time")
+            Text("\(rowDetailsViewModel.detailsModel.meanTimeNeededGetBackToZone)")
+                .workoutTitleRed()
+            + Text(" seconds")
+                .workoutSubheadlineStyle()
+        }
+    }
+    
+    
+    var restingHeartRate: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("Resting Heart Rate")
+            Text("\(rowDetailsViewModel.detailsModel.restingHeartRate)")
+                .workoutTitleRed()
+            + Text(" BPM")
+                    .workoutSubheadlineStyle()
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            average
+            Spacer()
+            restingHeartRate
+        }
+    }
+}
 
+struct NumberOfTimesView: View {
+    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
+    
+    var numberOfTimes: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("Number of Times Rising Wrist")
+            Text("\(rowDetailsViewModel.detailsModel.numberOfTimeGotLooked)")
+                .workoutTitleRed()
+            + Text(" times")
+                    .workoutSubheadlineStyle()
+        }
+    }
+    
+    var numberOfFeedback: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Number of Feedback Given")
+            Text("\(rowDetailsViewModel.detailsModel.numberOfFeedback)")
+                .workoutTitlBlue()
+            + Text(" times")
+                    .workoutSubheadlineStyle()
+        }
+    }
+    
+    var body: some View {
+        HStack {
+            numberOfFeedback
+            Spacer()
+            numberOfTimes
+        }
+    }
+}
+
+struct DistanceStepsView: View {
+    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
+    
     var duration: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Duration")
@@ -129,28 +208,6 @@ struct DurationEneryView: View {
         }
     }
     
-    var numberOfTimes: some View {
-        VStack(alignment: .trailing, spacing: 5) {
-            Text("Number of times rising wrist")
-            Text("\(rowDetailsViewModel.detailsModel.numberOfTimeGotLooked)")
-                .workoutTitleRed()
-            + Text(" times")
-                    .workoutSubheadlineStyle()
-        }
-    }
-    
-    var body: some View {
-        HStack {
-            duration
-            Spacer()
-            numberOfTimes
-        }
-    }
-}
-
-struct DistanceStepsView: View {
-    @StateObject var rowDetailsViewModel: DashboardDetailsViewModel
-    
     var distance: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Distance")
@@ -165,6 +222,7 @@ struct DistanceStepsView: View {
         HStack {
             distance
             Spacer()
+            duration
         }
     }
 }
@@ -176,7 +234,7 @@ struct RangeCadenceView: View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Heart Rate Zone(Zone 2)")
             Text("\(rowDetailsViewModel.detailsModel.lowBPM)")
-                .workoutTitleLowZone()
+                .workoutTitleHighZone()
             + Text(" -- ")
                 .workoutSubheadlineStyle()
             + Text("\(rowDetailsViewModel.detailsModel.highBPM)")
