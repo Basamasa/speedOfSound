@@ -37,8 +37,6 @@ struct SummaryView: View {
                                       value: workoutManager.workoutModel.numberOfGotLooked.formatted() + " times")
                     SummaryMetricView(title: "Number Feedback Given",
                                       value: workoutManager.workoutModel.numberOfFeedback.formatted() + " times")
-                    SummaryMetricView(title: "Correction Mean Time",
-                                      value: workoutManager.workoutModel.meanTimeNeededGetBackToZone.formatted() + " seconds")
                     SummaryMetricView(title: "Total Distance",
                                       value: Measurement(value: workoutManager.workout?.totalDistance?.doubleValue(for: .meter()) ?? 0,
                                                          unit: UnitLength.meters)

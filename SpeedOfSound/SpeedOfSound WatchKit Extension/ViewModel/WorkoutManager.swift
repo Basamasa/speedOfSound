@@ -37,8 +37,8 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // Workout data
     @Published var workoutModel = WorkoutModel()
-    var countTimer: ParkBenchTimer?
-    var timeCountList: [CFAbsoluteTime] = []
+    var timeList_for_back_to_zone: [CFAbsoluteTime] = []
+    var heartRateTimer = Timer.publish(every: 8, on: .main, in: .common).autoconnect()
     
     // Pedometer(Cadence)
     let pedometer = CMPedometer()
@@ -54,18 +54,10 @@ class WorkoutManager: NSObject, ObservableObject {
     // Feedback
     @Published var showTooHighFeedback: Bool = false
     @Published var showTooLowFeedback: Bool = false
-    private var maxBounds: Int = 0
-    private var minBounds: Int = 0
     
     // Workout Metrics
     @Published var averageHeartRate: Double = 0
-    @Published var heartRate: Double = 0 {
-        didSet {
-            lastHeartRate = oldValue
-            giveNotificationFeedback()
-        }
-    }
-    var lastHeartRate: Double = 0
+    @Published var heartRate: Double = 0
 
     @Published var steps: Double = 0
     @Published var averageSteps: Double = 0
@@ -143,42 +135,21 @@ class WorkoutManager: NSObject, ObservableObject {
     
     // MARK: - Workout
     
-    func giveNotificationFeedback() {
+    private func giveFeedback(message: String) {
+        showTooHighFeedback = true
+        WKInterfaceDevice.current().play(.notification)
+//            speechSentence(message)
+        workoutModel.numberOfFeedback += 1
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            self.showTooHighFeedback = false
+        }
+    }
+    func checkHeartRateWithFeedback() {
 //        guard workoutModel.feedback == .notification else {return}
-        
         if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
-            if maxBounds >= 2 {
-                showTooHighFeedback = true
-                WKInterfaceDevice.current().play(.notification)
-//                speechSentence("Slow Down")
-                maxBounds = 0
-                workoutModel.numberOfFeedback += 1
-                countTimer = ParkBenchTimer()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    self.showTooHighFeedback = false
-                }
-            }
-            maxBounds += 1
+            giveFeedback(message: "Let's slow down, current heart rate at \(heartRate)")
         } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
-            if minBounds >= 2 {
-                showTooLowFeedback = true
-                WKInterfaceDevice.current().play(.notification)
-//                speechSentence("Speed Up")
-                minBounds = 0
-                workoutModel.numberOfFeedback += 1
-                countTimer = ParkBenchTimer()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    self.showTooLowFeedback = false
-                }
-            }
-            minBounds += 1
-        } else {
-            if (Int(lastHeartRate) < workoutModel.lowBPM) || (Int(lastHeartRate) > workoutModel.highBPM) {
-                if let timer = countTimer?.stop() {
-                    print("******** Just took \(timer) seconds ********")
-                    timeCountList.append(timer)
-                }
-            }
+            giveFeedback(message: "Let's speed up, current heart rate at \(heartRate)")
         }
     }
     
@@ -282,7 +253,6 @@ class WorkoutManager: NSObject, ObservableObject {
     }
 
     func endWorkout() {
-        calculateAverageTimeGoingBackToZone()
         session?.end()
         showingSummaryView = true
         wcsessionManager.workSessionEnd()
@@ -290,11 +260,11 @@ class WorkoutManager: NSObject, ObservableObject {
 
     // MARK: - Workout Metrics
 
-    func calculateAverageTimeGoingBackToZone() {
-        guard !timeCountList.isEmpty else { return }
-        let average = Int(timeCountList.reduce(0, +)) / timeCountList.count
-        workoutModel.meanTimeNeededGetBackToZone = average
-    }
+//    func calculateAverageTimeGoingBackToZone() {
+//        guard !timeCountList.isEmpty else { return }
+//        let average = Int(timeList_for_back_to_zone.reduce(0, +)) / timeList_for_back_to_zone.count
+//        workoutModel.meanTimeNeededGetBackToZone = average
+//    }
     
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
@@ -336,7 +306,7 @@ class WorkoutManager: NSObject, ObservableObject {
         workoutModel.numberOfFeedback = 0
         workoutModel.numberOfGotLooked = 0
         workoutModel.meanTimeNeededGetBackToZone = 0
-        timeCountList = []
+        timeList_for_back_to_zone = []
     }
 }
 
