@@ -63,9 +63,9 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
-    private func runQuery(predicate: NSPredicate) async -> [HKSample] {
+    private func runQuery(predicate: NSPredicate, withLimit: Int = 20) async -> [HKSample] {
         let samples = try! await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 20,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
+            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: withLimit,sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
                 if let hasError = error {
                     continuation.resume(throwing: hasError)
                     return
@@ -80,6 +80,24 @@ class DashboardViewModel: ObservableObject {
         }
         
         return samples
+    }
+    
+    func loadAllRunningWorkouts() async {
+        let runningWorkouts = HKQuery.predicateForWorkouts(with: .running)
+
+        let samplesRunning = await runQuery(predicate: runningWorkouts, withLimit: 100)
+        DispatchQueue.main.async {
+            self.runningWorkouts = samplesRunning as! [HKWorkout]
+        }
+    }
+    
+    func loadAllWalkingWorkouts() async {
+        let runningWorkouts = HKQuery.predicateForWorkouts(with: .walking)
+
+        let samplesRunning = await runQuery(predicate: runningWorkouts, withLimit: 100)
+        DispatchQueue.main.async {
+            self.walkingWorkouts = samplesRunning as! [HKWorkout]
+        }
     }
     
     func readRunningWorkouts() async {
@@ -110,9 +128,11 @@ class DashboardViewModel: ObservableObject {
     }
     
     func loadWorkoutData() async {
-        await readRunningWorkouts()
-        await readWalkingWorkouts()
-        await readCyclingWorkouts()
+        await loadAllRunningWorkouts()
+        await loadAllWalkingWorkouts()
+//        await readRunningWorkouts()
+//        await readWalkingWorkouts()
+//        await readCyclingWorkouts()
     }
 }
 

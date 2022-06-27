@@ -16,19 +16,21 @@ struct Constants {
 struct DashboardRowView: View {
     let workouts: [HKWorkout]
     let type: HKWorkoutActivityType
-
+    var animation: Namespace.ID
+    let workoutsNumber = 20
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             TitleWorkouts(type: type)
-            
-            Text("You have \(workouts.count) workouts")
+
+            Text("You have \(workoutsNumber) workouts")
                 .font(Font.body.bold())
                 .foregroundColor(Color.white)
             Divider()
                 .background(Color(UIColor.systemGray2))
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 20) {
-                    ForEach(workouts.batched(into: 4), id: \.self) { items in
+                    ForEach(Array(workouts.prefix(workoutsNumber)).batched(into: 4), id: \.self) { items in
                         ThreeRowWorkouts(workouts: items)
                     }
                 }
@@ -41,40 +43,32 @@ struct DashboardRowView: View {
 
 struct TitleWorkouts: View {
     let type: HKWorkoutActivityType
+    @ViewBuilder
+    func showView(imageName: String, name: String) -> some View {
+         HStack {
+             Image(imageName)
+                .resizable()
+                .foregroundColor(Color(UIColor.systemGray))
+                .frame(width: 50, height: 50, alignment: .center)
+             Text(name)
+                .foregroundColor(Color("Green"))
+                .padding()
+             Spacer()
+             Button {
+             } label: {
+                 Image(systemName: "hand.tap")
+                     .foregroundColor(Color("Green"))
+             }
+        }
+    }
+    
     var body: some View {
         HStack(spacing: 3) {
             if type == .running {
-                HStack {
-                    Image("running")
-                        .resizable()
-                        .foregroundColor(Color(UIColor.systemGray))
-                        .frame(width: 50, height: 50, alignment: .center)
-                    Text("Run")
-                        .foregroundColor(Color("Green"))
-                        .padding()
-                    Spacer()
-//                    NavigationLink(destination: EmptyView()) {
-//                        HStack {
-//                            Text("Show more")
-//                                .bold()
-//                                .font(.body)
-//                                .foregroundColor(.white)
-//                            Image(systemName: "chart.xyaxis.line")
-//                                .foregroundColor(.white)
-//                        }
-//                        .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
-//                        .background(.blue)
-//                        .cornerRadius(45)
-//                    }
-                }
+                showView(imageName: "running", name: "Running workout")
+
             } else if type == .walking {
-                Image("walking")
-                    .resizable()
-                    .foregroundColor(Color(UIColor.systemGray))
-                    .frame(width: 50, height: 50, alignment: .center)
-                Text("Walk")
-                    .foregroundColor(Color("Green"))
-                    .padding()
+                showView(imageName: "walking", name: "Walking workout")
             }
         }
         .font(Font.body.bold())

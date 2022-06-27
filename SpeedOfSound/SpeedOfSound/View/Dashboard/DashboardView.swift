@@ -13,27 +13,60 @@ import SwiftUICharts
 struct DashboardView: View {
     @StateObject var dashboardViewModel = DashboardViewModel()
     @State private var heartRateMode = true
+    @State var showAllRunning = false
+    @State var showAllWalking = false
 
-    func adjustOrder() { }
-    func rename() { }
-    func delay() { }
-    func cancelOrder() { }
-    
+    @Namespace var animation
+
+
     var body: some View {
-        List {
-            VStack {
-                DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running)
-                    .padding(.bottom)
-                DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking)
-//                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
-                Rectangle()
-                    .frame(height: 50)
-                    .foregroundColor(.black)
+        ZStack {
+            List {
+                VStack {
+                    if !showAllRunning {
+                        DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running, animation: animation)
+                            .matchedGeometryEffect(id: "running", in: animation)
+                            .padding(.bottom)
+                            .onTapGesture {
+                            }
+                            .onLongPressGesture {
+                                withAnimation {
+                                    showAllRunning = true
+                                }
+                            }
+                    }
+                    if !showAllWalking {
+                        DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking, animation: animation)
+                            .matchedGeometryEffect(id: "walking", in: animation)
+                            .onTapGesture {
+                            }
+                            .onLongPressGesture {
+                                withAnimation {
+                                    showAllWalking = true
+                                }
+                            }
+                    }
+
+    //                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
+                    Rectangle()
+                        .frame(height: 50)
+                        .foregroundColor(.black)
+                }
+                .animation(.default, value: showAllRunning)
+                .onTapGesture{}
+                .listRowSeparator(.hidden)
             }
-            .listRowSeparator(.hidden)
+            .listStyle(PlainListStyle())
+            
+            if showAllRunning {
+                MoreWorkoutView(type: .running, details: $showAllRunning, animation: animation, dashboardViewModel: dashboardViewModel)
+            }
+            
+            if showAllWalking {
+                MoreWorkoutView(type: .walking, details: $showAllWalking, animation: animation, dashboardViewModel: dashboardViewModel)
+            }
         }
-        .listStyle(PlainListStyle())
-//        .padding()
+        .animation(.default, value: showAllRunning)
         .JMAlert(showModal: $dashboardViewModel.isNotReady, for: [.health(categories: .init(readAndWrite: dashboardViewModel.getPermission))])
         .task {
             await dashboardViewModel.checkPermission()
@@ -51,12 +84,12 @@ struct DashboardView: View {
         .toolbar {
             Menu("Options") {
                 Toggle("Heart rate mode ❤️", isOn: $heartRateMode)
-                Button("Adjust Order", action: adjustOrder)
+                Button("Adjust Order", action: {})
                 Menu("Advanced") {
-                    Button("Rename", action: rename)
-                    Button("Delay", action: delay)
+                    Button("Rename", action: {})
+                    Button("Delay", action: {})
                 }
-                Button("Cancel", action: cancelOrder)
+                Button("Cancel", action: {})
             }
             .font(.title3)
             
