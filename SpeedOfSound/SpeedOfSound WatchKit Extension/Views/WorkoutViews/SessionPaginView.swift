@@ -40,10 +40,6 @@ struct SessionPagingView: View {
         .sheet(isPresented: $workoutManager.showTooLowFeedback, content: {
             NotificationView(message: "Slow")
         })
-        .onReceive(workoutManager.heartRateTimer) { time in
-            print(time)
-            workoutManager.checkHeartRateWithFeedback()
-        }
     }
 
     private func displayMetricsView() {

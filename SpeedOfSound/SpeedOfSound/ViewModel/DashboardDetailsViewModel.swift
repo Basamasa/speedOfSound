@@ -17,6 +17,7 @@ class DashboardDetailsViewModel: ObservableObject {
     @Published var multiLinChartData = MultiLineChartData(dataSets: MultiLineDataSet(dataSets: []))
     let detailsModel: WorktoutDetailsModel
     @Published var steps: Int = 0
+    @Published var meanCorrectionTime: Int = 0
     
     var averageCadence: Int {
         steps / Int(detailsModel.workout.duration) * 60
@@ -133,37 +134,48 @@ class DashboardDetailsViewModel: ObservableObject {
                                  noDataText: Text("hello"))
     }
     
-    func createSoundFeedbackData(feedbackData: [Double]) -> [Double] {
+    // MARK: - Multi graph
+    
+    private func createSoundFeedbackData(results: [Double]) -> [Double] {
         var data: [Double] = []
-        var maxBounds: Int = 0
-        var minBounds: Int = 0
-        var startCadence = Double(detailsModel.cadence)
-        
-        for value in feedbackData {
+        var lowHeartRates: Int = 0
+        var highHeartRates: Int = 0
+        var numberOutOfRange: Int = 0
+        var type: ValueType = .inside
+        enum ValueType {
+            case higher
+            case inside
+            case lower
+        }
+        for value in results {
             if value > Double(detailsModel.highBPM) { // Hihger than the zone
-                if maxBounds >= 2 {
-                    startCadence = Double(detailsModel.cadence)
-                    maxBounds = 0
+                if type != .higher {
+                    numberOutOfRange += 1
                 }
-                maxBounds += 1
+                type = .higher
+                highHeartRates += 1
             } else if value < Double(detailsModel.lowBPM) { // Lower than the zone
-                if minBounds >= 2 {
-                    startCadence = Double(detailsModel.cadence)
-                    minBounds = 0
+                if type != .lower {
+                    numberOutOfRange += 1
                 }
-                minBounds += 1
+                type = .lower
+                lowHeartRates += 1
+            } else {
+                type = .inside
             }
-            data.append(startCadence)
+            data.append(Double(detailsModel.cadence))
+        }
+        DispatchQueue.main.async {
+            self.meanCorrectionTime = (lowHeartRates + highHeartRates) / numberOutOfRange
         }
         
         return data
     }
     
-    // MARK: - Multi graph
     private func makeMultiGraph(results: [Double]) {
         var dataPoints: [LineChartDataPoint] = []
         var feedbackDataPoints: [LineChartDataPoint] = []
-        let feedbackDatas = createSoundFeedbackData(feedbackData: results)
+        let feedbackDatas = createSoundFeedbackData(results: results)
         
         for (index, value) in results.enumerated() {
             var feedbackData: Double = 0

@@ -23,29 +23,25 @@ struct DashboardView: View {
         ZStack {
             List {
                 VStack {
-                    if !showAllRunning {
-                        DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running, animation: animation)
-                            .matchedGeometryEffect(id: "running", in: animation)
-                            .padding(.bottom)
-                            .onTapGesture {
+                    DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running, animation: animation)
+                        .matchedGeometryEffect(id: "running", in: animation)
+                        .padding(.bottom)
+                        .onTapGesture {
+                        }
+                        .onLongPressGesture {
+                            withAnimation {
+                                showAllRunning = true
                             }
-                            .onLongPressGesture {
-                                withAnimation {
-                                    showAllRunning = true
-                                }
+                        }
+                    DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking, animation: animation)
+                        .matchedGeometryEffect(id: "walking", in: animation)
+                        .onTapGesture {
+                        }
+                        .onLongPressGesture {
+                            withAnimation {
+                                showAllWalking = true
                             }
-                    }
-                    if !showAllWalking {
-                        DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking, animation: animation)
-                            .matchedGeometryEffect(id: "walking", in: animation)
-                            .onTapGesture {
-                            }
-                            .onLongPressGesture {
-                                withAnimation {
-                                    showAllWalking = true
-                                }
-                            }
-                    }
+                        }
 
     //                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
                     Rectangle()

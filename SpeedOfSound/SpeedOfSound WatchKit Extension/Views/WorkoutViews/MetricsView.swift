@@ -32,6 +32,9 @@ struct MetricsView: View {
                 workoutManager.workoutModel.numberOfGotLooked += 1
             }
         }
+        .onReceive(workoutManager.heartRateTimer) { time in
+            workoutManager.checkHeartRateWithFeedback()
+        }
     }
 }
 

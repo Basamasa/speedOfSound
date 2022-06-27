@@ -136,7 +136,6 @@ class WorkoutManager: NSObject, ObservableObject {
     // MARK: - Workout
     
     private func giveFeedback(message: String) {
-        showTooHighFeedback = true
         WKInterfaceDevice.current().play(.notification)
 //            speechSentence(message)
         workoutModel.numberOfFeedback += 1
@@ -147,8 +146,10 @@ class WorkoutManager: NSObject, ObservableObject {
     func checkHeartRateWithFeedback() {
 //        guard workoutModel.feedback == .notification else {return}
         if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
+            showTooHighFeedback = true
             giveFeedback(message: "Let's slow down, current heart rate at \(heartRate)")
         } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
+            showTooLowFeedback = true
             giveFeedback(message: "Let's speed up, current heart rate at \(heartRate)")
         }
     }

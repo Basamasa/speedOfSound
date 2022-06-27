@@ -86,21 +86,16 @@ struct FeedbackView: View {
             Text("Chosen Feedback")
                 .bold()
             HStack {
-//                Text("\(rowDetailsViewModel.detailsModel.feedbackStyle)")
-//                    .workoutTitlBlue()
                 NavigationLink(destination: FeedbackDetailView(rowDetailsViewModel: rowDetailsViewModel)) {
                     HStack {
                         Text("\(rowDetailsViewModel.detailsModel.feedbackStyle): \(rowDetailsViewModel.detailsModel.cadence) BPM")
                             .bold()
                             .font(.body)
                             .foregroundColor(.white)
-//                        Image(systemName: "chart.xyaxis.line")
-//                            .foregroundColor(.white)
                     }
                     .padding(EdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5))
                     .background(.blue)
                     .cornerRadius(45)
-//                    .frame(width: 100, height: 49)
                 }
             }
         }
@@ -122,7 +117,7 @@ struct AgeView: View {
     var average: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Mean Correction Time")
-            Text("\(rowDetailsViewModel.detailsModel.meanTimeNeededGetBackToZone)")
+            Text("\(rowDetailsViewModel.meanCorrectionTime)")
                 .workoutTitleRed()
             + Text(" seconds")
                 .workoutSubheadlineStyle()
