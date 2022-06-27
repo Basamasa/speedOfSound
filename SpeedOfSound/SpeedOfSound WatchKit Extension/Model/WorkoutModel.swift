@@ -35,9 +35,10 @@ struct WorkoutModel {
     
     mutating func calculateHeartRateZone(zone: Zone) {
         let MHR = 220 - age
-        let lowBPM = Int((Double(MHR - restingHeartRate) * (zone.rawValue - 0.1)) + Double(restingHeartRate))
-        let highBPM = Int((Double(MHR - restingHeartRate) * zone.rawValue) + Double(restingHeartRate))
-        
+//        let lowBPM = Int((Double(MHR - restingHeartRate) * (zone.rawValue - 0.1)) + Double(restingHeartRate))
+//        let highBPM = Int((Double(MHR - restingHeartRate) * zone.rawValue) + Double(restingHeartRate))
+        let lowBPM = MHR * Int(zone.rawValue - 0.1)
+        let highBPM = MHR * Int(zone.rawValue)
         self.lowBPM = lowBPM
         self.highBPM = highBPM
     }

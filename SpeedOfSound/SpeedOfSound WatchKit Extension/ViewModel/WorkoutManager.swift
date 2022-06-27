@@ -11,6 +11,7 @@ import CoreMotion
 import WatchKit
 import UserNotifications
 import SwiftUI
+import AVFoundation
 
 enum WorkoutState {
     case running
@@ -148,7 +149,8 @@ class WorkoutManager: NSObject, ObservableObject {
         if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
             if maxBounds >= 2 {
                 showTooHighFeedback = true
-                WKInterfaceDevice.current().play(.directionUp)
+                WKInterfaceDevice.current().play(.notification)
+//                speechSentence("Slow Down")
                 maxBounds = 0
                 workoutModel.numberOfFeedback += 1
                 countTimer = ParkBenchTimer()
@@ -160,7 +162,8 @@ class WorkoutManager: NSObject, ObservableObject {
         } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
             if minBounds >= 2 {
                 showTooLowFeedback = true
-                WKInterfaceDevice.current().play(.directionDown)
+                WKInterfaceDevice.current().play(.notification)
+//                speechSentence("Speed Up")
                 minBounds = 0
                 workoutModel.numberOfFeedback += 1
                 countTimer = ParkBenchTimer()
@@ -178,6 +181,16 @@ class WorkoutManager: NSObject, ObservableObject {
             }
         }
     }
+    
+    func speechSentence(_ text: String) {
+       try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .voicePrompt, options: [])
+       var utterance: AVSpeechUtterance!
+       let synthesizer = AVSpeechSynthesizer()
+       utterance = AVSpeechUtterance(string: text)
+       utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+       utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+       synthesizer.speak(utterance)
+   }
     
     func selectedOneWorkout(workoutType: WorkoutType) {
         selectedWorkout = workoutType
