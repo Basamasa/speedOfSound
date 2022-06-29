@@ -10,11 +10,10 @@ import SwiftUI
 struct CadenceView: View {
     @EnvironmentObject var workoutManager: WorkoutManager
     private let range: [Int] = Array(60...200)
-    @State var showCadenceSheet: Bool = false
     var body: some View {
         VStack{
             HStack {
-                Picker("", selection: $workoutManager.selectedCadence) {
+                Picker("", selection: $workoutManager.workoutModel.cadence) {
                     ForEach(range, id: \.self) {
                         Text("\($0)")
                             .tag($0)
@@ -24,16 +23,8 @@ struct CadenceView: View {
                 .pickerStyle(.wheel)
                 .frame(height: 90)
                 Spacer()
-                Button {
-                    showCadenceSheet = true
-                } label: {
-                    Text("Test")
-                        .font(.footnote)
-                        .bold()
-                        .foregroundColor(Color("Green"))
-                }
             }
-            NavigationLink(destination: ContentView(cadence: workoutManager.selectedCadence)) {
+            NavigationLink(destination: ContentView()) {
                 Text("Finish")
                     .bold()
                     .foregroundColor(Color("Green"))
@@ -42,11 +33,6 @@ struct CadenceView: View {
         }
         .padding([.leading, .trailing])
         .navigationBarTitle("Cadence")
-        .sheet(isPresented: $showCadenceSheet) {
-            print("Dismiss cadence workout view")
-        } content: {
-            CadenceWorkoutView()
-        }
 
     }
 }

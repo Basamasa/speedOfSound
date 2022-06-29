@@ -15,14 +15,10 @@ struct WorkoutModel {
     var cadence: Int = 120
     var age: Int = 20 {
         didSet {
-            calculateHeartRateZone(zone: .light)
+            calculateHeartRateZone()
         }
     }
-    var restingHeartRate: Int = 80 {
-        didSet {
-            calculateHeartRateZone(zone: .light)
-        }
-    }
+    var restingHeartRate: Int = 80
     
     // Postset (After workout)
     var numberOfGotLooked: Int = 0
@@ -33,12 +29,12 @@ struct WorkoutModel {
         return "\(feedback.rawValue)" + "-\(lowBPM)" + "-\(highBPM)" + "-\(cadence)" + "-\(numberOfGotLooked)" + "-\(numberOfFeedback)" + "-\(meanTimeNeededGetBackToZone)" + "-\(age)" + "-\(restingHeartRate)"
     }
     
-    mutating func calculateHeartRateZone(zone: Zone) {
+    mutating func calculateHeartRateZone() {
         let MHR = 220 - age
 //        let lowBPM = Int((Double(MHR - restingHeartRate) * (zone.rawValue - 0.1)) + Double(restingHeartRate))
 //        let highBPM = Int((Double(MHR - restingHeartRate) * zone.rawValue) + Double(restingHeartRate))
-        self.lowBPM = Int(Double(MHR) * (zone.rawValue - 0.1))
-        self.highBPM = Int(Double(MHR) * zone.rawValue)
+        self.lowBPM = Int(Double(MHR) * 0.6)
+        self.highBPM = Int(Double(MHR) * 0.75)
     }
 }
 
@@ -52,8 +48,8 @@ enum Zone: Double {
 
 enum Feedbackstyle: Int {
     case notification = 0
-    case sound = 1
-    case sound2 = 2
+    case iosSound = 1
+    case appleWatchSound = 2
 }
 
 enum CadenceStyle: String {

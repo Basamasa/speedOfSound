@@ -25,9 +25,9 @@ struct ChooseFeedbackView: View {
                             .imageScale(.large)
                             .foregroundColor(Color("Green"))
                     }
-                    .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     
-                    Text("Only Notification")
+                    Text("Watch A")
                         .bold()
                         .font(.footnote)
                         .foregroundColor(Color("Green"))
@@ -38,16 +38,34 @@ struct ChooseFeedbackView: View {
                 .font(.body)
             }
             .padding(EdgeInsets(top: 20, leading: 5, bottom: 20, trailing: 5))
-
-            NavigationLink(destination:  ChooseRangeView(feedback: .sound)) {
+            
+            NavigationLink(destination:  ChooseRangeView(feedback: .appleWatchSound)) {
                 HStack {
                     VStack(alignment: .center) {
-                        Image(systemName: "metronome.fill")
+                        Image(systemName: "applewatch.radiowaves.left.and.right")
                             .imageScale(.large)
                             .foregroundColor(Color("Green"))
                     }
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    Text("Notification with Sound")
+                    Text("Watch B")
+                        .bold()
+                        .font(.footnote)
+                        .foregroundColor(Color("Green"))
+                    Spacer()
+
+                }
+            }
+            .padding(EdgeInsets(top: 20, leading: 5, bottom: 20, trailing: 5))
+
+            NavigationLink(destination:  ChooseRangeView(feedback: .iosSound)) {
+                HStack {
+                    VStack(alignment: .center) {
+                        Image(systemName: "iphone.radiowaves.left.and.right")
+                            .imageScale(.large)
+                            .foregroundColor(Color("Green"))
+                    }
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    Text("iOS B")
                         .bold()
                         .font(.footnote)
                         .foregroundColor(Color("Green"))

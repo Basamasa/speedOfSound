@@ -61,7 +61,6 @@
 		6B5D828B28327E7100988547 /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5D828A28327E7100988547 /* WorkoutModel.swift */; };
 		6B5D828E28328E7400988547 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5D828D28328E7400988547 /* SummaryView.swift */; };
 		6B5D829028328EC300988547 /* HeartRateRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5D828F28328EC300988547 /* HeartRateRangeView.swift */; };
-		6B5D82932832DEC500988547 /* CadenceWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5D82922832DEC500988547 /* CadenceWorkoutView.swift */; };
 		6B5E1C8C283A679300267A40 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E1C8B283A679300267A40 /* LocationManager.swift */; };
 		6B5E1C8E283A7AEB00267A40 /* Double+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E1C8D283A7AEB00267A40 /* Double+extensions.swift */; };
 		6B5E1C90283A87F500267A40 /* FeedbackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E1C8F283A87F500267A40 /* FeedbackDetailView.swift */; };
@@ -213,7 +212,6 @@
 		6B5D828A28327E7100988547 /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		6B5D828D28328E7400988547 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		6B5D828F28328EC300988547 /* HeartRateRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateRangeView.swift; sourceTree = "<group>"; };
-		6B5D82922832DEC500988547 /* CadenceWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CadenceWorkoutView.swift; sourceTree = "<group>"; };
 		6B5E1C8B283A679300267A40 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		6B5E1C8D283A7AEB00267A40 /* Double+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+extensions.swift"; sourceTree = "<group>"; };
 		6B5E1C8F283A87F500267A40 /* FeedbackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackDetailView.swift; sourceTree = "<group>"; };
@@ -462,7 +460,6 @@
 				6B5D828428325C6500988547 /* ChooseFeedbackView.swift */,
 				6B5D828628325CF200988547 /* ChooseRangeView.swift */,
 				6B5D82882832715E00988547 /* CadenceView.swift */,
-				6B5D82922832DEC500988547 /* CadenceWorkoutView.swift */,
 			);
 			path = ChooseViews;
 			sourceTree = "<group>";
@@ -942,7 +939,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B4D30A42816D2290078FEA3 /* SessionPaginView.swift in Sources */,
-				6B5D82932832DEC500988547 /* CadenceWorkoutView.swift in Sources */,
 				6B4D30AB2816D6060078FEA3 /* SummaryView.swift in Sources */,
 				6B305DD42815E6D500D877CB /* SessionDelegater.swift in Sources */,
 				6BE4A04D28107A58004CB806 /* NotificationController.swift in Sources */,

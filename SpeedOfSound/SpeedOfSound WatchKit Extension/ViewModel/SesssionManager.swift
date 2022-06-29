@@ -40,12 +40,10 @@ class SessionManager: ObservableObject {
         sendMessage("count", count: count)
     }
     
-    func workSessionBegin(isSoundFeedback: Bool) {
-        if isSoundFeedback {
-            while (!wcSession.isReachable) {
-            }
-            sendMessage("workSessionBegin", session: 1)
+    func workSessionBegin() {
+        while (!wcSession.isReachable) {
         }
+        sendMessage("workSessionBegin", session: 1)
     }
     
     func workSessionEnd() {
