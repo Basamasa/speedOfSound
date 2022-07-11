@@ -33,11 +33,13 @@ For our study we only need Watch A and iOS B.
 <img src="https://user-images.githubusercontent.com/25714024/178289945-de00fd15-81fa-44a2-acb5-c700080fbc47.PNG" width="150">
 </p>
 
-### Running Workouts. With Metronome(Watch B), without Metronome(Watch A, iOS B)
+### Running Workouts. 
+With Metronome(Watch B), without Metronome(Watch A, iOS B)
 <p float="left">
 <img src="https://user-images.githubusercontent.com/25714024/176018979-48cfb8a3-0e14-4a1d-af95-fc7c9aee0a80.PNG" width="150">
 &nbsp
 <img src="https://user-images.githubusercontent.com/25714024/178290154-ee7d80b2-7972-4b35-9765-c95ad31c11e8.PNG" width="150">
+&nbsp
 <img src="https://user-images.githubusercontent.com/25714024/178290179-090241d1-155f-47ef-b4fb-8bc8c784df22.PNG" width="150">
 &nbsp
 <img src="https://user-images.githubusercontent.com/25714024/176018700-720f906b-1c2a-4ab7-99ec-4cc49cc0a844.PNG" width="150">
@@ -52,25 +54,27 @@ For our study we only need Watch A and iOS B.
 
 ## iOS App
 
-### Running and Walking Workouts (In HealthKit Database)
+### Running test and All workouts
 <p float="left">
-<img src="https://user-images.githubusercontent.com/25714024/176021384-267a1b72-23c4-4a22-af83-138ad4ab8656.PNG" width="250">
+<img src="https://user-images.githubusercontent.com/25714024/178298105-c8479cbe-b13e-48cd-8735-a2e7c00b5f84.PNG" width="250">
 &nbsp
-<img src="https://user-images.githubusercontent.com/25714024/176021437-cd89ce19-84d2-43e6-a5e7-c1654f93d38b.PNG" width="250">
+<img src="https://user-images.githubusercontent.com/25714024/178298124-f887ae79-6021-4831-b036-c1c70add65b4.PNG" width="250">
 </p>
 
-### Metronome Player (Play and Pause Automatically With Apple Watch When Start Working Out)
+### Metronome Player 
+Play and pause automatically with Apple Watch when start the running
 <p float="left">
 <img src="https://user-images.githubusercontent.com/25714024/176022146-59cf0aed-bbff-481f-8d56-af9b4e59efca.PNG" width="250">
 &nbsp
 <img src="https://user-images.githubusercontent.com/25714024/176022228-511287ec-b74c-4876-b008-2c12b82506cc.PNG" width="250">
 </p>
 
-### Workout Details (Data That Are Collected)
+### Workout Details 
+Data That Are Collected
 <p float="left">
-<img src="https://user-images.githubusercontent.com/25714024/176022303-8af7dca8-44c1-464a-a64f-43dd740402c0.PNG" width="250">
+<img src="https://user-images.githubusercontent.com/25714024/178298434-1aedf103-6f86-49f1-853b-fab82de3fd6a.jpeg" width="250">
 &nbsp
-<img src="https://user-images.githubusercontent.com/25714024/176022318-4247f12f-f762-442d-b110-6deeef9dabd1.PNG" width="250">
+<img src="https://user-images.githubusercontent.com/25714024/178298447-0c5b14ea-95b0-4afe-bec4-1156ab1925cb.PNG" width="250">
 </p>
 
 ### Collected Data
