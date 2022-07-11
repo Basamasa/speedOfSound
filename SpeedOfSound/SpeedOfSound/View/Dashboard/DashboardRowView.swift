@@ -17,20 +17,19 @@ struct DashboardRowView: View {
     let workouts: [HKWorkout]
     let type: HKWorkoutActivityType
     var animation: Namespace.ID
-    let workoutsNumber = 20
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             TitleWorkouts(type: type)
 
-            Text("You have \(workoutsNumber) workouts")
+            Text("You have \(workouts.count) workouts")
                 .font(Font.body.bold())
                 .foregroundColor(Color.white)
             Divider()
                 .background(Color(UIColor.systemGray2))
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 20) {
-                    ForEach(Array(workouts.prefix(workoutsNumber)).batched(into: 4), id: \.self) { items in
+                    ForEach(Array(workouts.prefix(workouts.count)).batched(into: 4), id: \.self) { items in
                         ThreeRowWorkouts(workouts: items)
                     }
                 }
@@ -65,10 +64,10 @@ struct TitleWorkouts: View {
     var body: some View {
         HStack(spacing: 3) {
             if type == .running {
-                showView(imageName: "running", name: "Running workout")
+                showView(imageName: "running", name: "Running test")
 
             } else if type == .walking {
-                showView(imageName: "walking", name: "Walking workout")
+                showView(imageName: "walking", name: "All workouts")
             }
         }
         .font(Font.body.bold())

@@ -71,16 +71,6 @@ struct FeedbackView: View {
         }
     }
     
-    var age: some View {
-        VStack(alignment: .trailing, spacing: 5) {
-            Text("Age")
-            Text("\(rowDetailsViewModel.detailsModel.age)")
-                .workoutTitlCyan()
-            + Text(" years old")
-                    .workoutSubheadlineStyle()
-        }
-    }
-    
     var feedback: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("Chosen Feedback")
@@ -101,12 +91,21 @@ struct FeedbackView: View {
         }
     }
     
+    var standard_deviation: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("Standard deviation")
+            Text("\(rowDetailsViewModel.standard_deviation)")
+                .workoutTitlCyan()
+        }
+    }
+
+    
     var body: some View {
         HStack {
             feedback
             Spacer()
+            standard_deviation
 //            cadence
-            age
         }
     }
 }
@@ -124,6 +123,15 @@ struct AgeView: View {
         }
     }
     
+    var age: some View {
+        VStack(alignment: .trailing, spacing: 5) {
+            Text("Age")
+            Text("\(rowDetailsViewModel.detailsModel.age)")
+                .workoutTitlCyan()
+            + Text(" years old")
+                    .workoutSubheadlineStyle()
+        }
+    }
     
     var restingHeartRate: some View {
         VStack(alignment: .trailing, spacing: 5) {
@@ -139,7 +147,7 @@ struct AgeView: View {
         HStack {
             average
             Spacer()
-            restingHeartRate
+            age
         }
     }
 }

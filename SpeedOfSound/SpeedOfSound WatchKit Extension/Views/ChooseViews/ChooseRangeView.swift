@@ -32,22 +32,22 @@ struct ChooseRangeView: View {
                     .clipped(antialiased: true)
                     .offset(y: -10)
                 }
-                HStack {
-                    Text("Rest heart rate:")
-                    Spacer()
-                    Picker("", selection: $workoutManager.workoutModel.restingHeartRate) {
-                        ForEach(heartRange, id: \.self) {
-                            Text("\($0)")
-                                .tag($0)
-                                .foregroundColor(Color("MainHighlight"))
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .compositingGroup()
-                    .frame(width: 40, height: 60)
-                    .clipped(antialiased: true)
-                    .offset(y: -10)
-                }
+//                HStack {
+//                    Text("Rest heart rate:")
+//                    Spacer()
+//                    Picker("", selection: $workoutManager.workoutModel.restingHeartRate) {
+//                        ForEach(heartRange, id: \.self) {
+//                            Text("\($0)")
+//                                .tag($0)
+//                                .foregroundColor(Color("MainHighlight"))
+//                        }
+//                    }
+//                    .pickerStyle(.wheel)
+//                    .compositingGroup()
+//                    .frame(width: 40, height: 60)
+//                    .clipped(antialiased: true)
+//                    .offset(y: -10)
+//                }
                 VStack(alignment: .leading) {
                     Text("Heart rate zone:")
                     HStack {

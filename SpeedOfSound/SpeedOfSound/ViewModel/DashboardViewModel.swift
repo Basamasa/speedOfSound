@@ -82,12 +82,32 @@ class DashboardViewModel: ObservableObject {
         return samples
     }
     
+    func loadAllRunningTest() async {
+        let runningWorkouts = HKQuery.predicateForWorkouts(with: .running)
+
+        let samplesRunning = await runQuery(predicate: runningWorkouts, withLimit: 100)
+        DispatchQueue.main.async {
+            let workouts = samplesRunning as! [HKWorkout]
+            
+            self.runningWorkouts = workouts.filter { workout in
+                let minutes = Int(floor(workout.duration.truncatingRemainder(dividingBy: 3600)) / 60)
+                if minutes > 15 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+    }
+    
     func loadAllRunningWorkouts() async {
         let runningWorkouts = HKQuery.predicateForWorkouts(with: .running)
 
         let samplesRunning = await runQuery(predicate: runningWorkouts, withLimit: 100)
         DispatchQueue.main.async {
-            self.runningWorkouts = samplesRunning as! [HKWorkout]
+            let workouts = samplesRunning as! [HKWorkout]
+
+            self.walkingWorkouts = workouts
         }
     }
     
@@ -128,8 +148,8 @@ class DashboardViewModel: ObservableObject {
     }
     
     func loadWorkoutData() async {
+        await loadAllRunningTest()
         await loadAllRunningWorkouts()
-        await loadAllWalkingWorkouts()
 //        await readRunningWorkouts()
 //        await readWalkingWorkouts()
 //        await readCyclingWorkouts()

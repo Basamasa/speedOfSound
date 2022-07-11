@@ -18,16 +18,25 @@ class DashboardDetailsViewModel: ObservableObject {
     let detailsModel: WorktoutDetailsModel
     @Published var steps: Int = 0
     @Published var meanCorrectionTime: Int = 0
+    var standard_deviation: Double = 0
     
     var averageCadence: Int {
-        steps / Int(detailsModel.workout.duration) * 60
+        let time = NSInteger(detailsModel.workout.duration)
+
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
+        if seconds > 30 {
+            return steps / minutes + 1
+        } else {
+            return steps / minutes
+        }
     }
     
     init(workout: HKWorkout) {
         self.detailsModel = WorktoutDetailsModel(workout: workout)
     }
     
-    private func getPercentageValue(upNumber: Double, downNumber: Double) -> Double {
+    func getPercentageValue(upNumber: Double, downNumber: Double) -> Double {
         if downNumber == 0 {
             return 0
         }
@@ -35,8 +44,15 @@ class DashboardDetailsViewModel: ObservableObject {
         return x.round(to: 1)
     }
     
+    func standardDeviation(arr : [Double]) {
+        let length = Double(arr.count)
+        let avg = arr.reduce(0, {$0 + $1}) / length
+        let sumOfSquaredAvgDiff = arr.map { pow($0 - avg, 2.0)}.reduce(0, {$0 + $1})
+        standard_deviation = sqrt(sumOfSquaredAvgDiff / length)
+    }
+    
     // MARK: - Heart rate
-    private func heartRatesChanged(results: [Double]) {
+    private func makeHeartRateGraph(results: [Double]) {
         var dataPoints: [LineChartDataPoint] = []
         var lowHeartRatePercentage: Double = 0
         var insideHeartRatePercentage: Double = 0
@@ -218,8 +234,9 @@ class DashboardDetailsViewModel: ObservableObject {
     
     func getHeartRates() {
         detailsModel.getHeartRates() { results in
-            self.heartRatesChanged(results: results)
+            self.makeHeartRateGraph(results: results)
             self.makeMultiGraph(results: results)
+            self.standardDeviation(arr: results)
         }
     }
     

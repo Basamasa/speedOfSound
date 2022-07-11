@@ -37,12 +37,12 @@ class WorkoutManager: NSObject, ObservableObject {
     // Metronome
     @Published var soundOnAppleWatch = false
     let myMetronome = WatchMetronomeModel(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
-
+    @Published var BPM: Double = 120
     
     // Workout data
     @Published var workoutModel = WorkoutModel()
     var timeList_for_back_to_zone: [CFAbsoluteTime] = []
-    var heartRateTimer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
+    var heartRateTimer = Timer.publish(every: 20, on: .main, in: .common).autoconnect()
 
     // Feedback
     @Published var showTooHighFeedback: Bool = false
@@ -62,6 +62,19 @@ class WorkoutManager: NSObject, ObservableObject {
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
     
+    private func updateBpm() {
+        BPM = Double(myMetronome.tempoBPM)
+    }
+    
+    func clickOnMinusButton() {
+        myMetronome.incrementTempo(by: -1)
+        updateBpm()
+    }
+    
+    func clickOnPlusButton() {
+        myMetronome.incrementTempo(by: 1)
+        updateBpm()
+    }
     
     // MARK: - Workout
     
@@ -116,6 +129,7 @@ class WorkoutManager: NSObject, ObservableObject {
             wcsessionManager.sendWorkOutModel(workoutModel.getData)
         } else if workoutModel.feedback == .appleWatchSound {
             myMetronome.setTempo(to: workoutModel.cadence)
+            updateBpm()
             try? myMetronome.start()
         }
     }
