@@ -18,7 +18,7 @@ enum WorkoutState {
     case ended
 }
 
-class WorkoutManager: NSObject, ObservableObject {
+final class WorkoutManager: NSObject, ObservableObject {
     var wcsessionManager = SessionManager()
     var selectedWorkout: WorkoutType?
     var workoutState: WorkoutState = .ended

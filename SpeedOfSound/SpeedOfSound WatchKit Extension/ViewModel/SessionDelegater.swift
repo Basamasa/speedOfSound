@@ -9,7 +9,7 @@ import Foundation
 import WatchConnectivity
 import Combine
 
-class SessionDelegater: NSObject, WCSessionDelegate {
+final class SessionDelegater: NSObject, WCSessionDelegate {
     let countSubject: PassthroughSubject<Int, Never>
     let workoutSubject: PassthroughSubject<String, Never>
     let cadenceSubject: PassthroughSubject<Int, Never>

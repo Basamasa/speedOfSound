@@ -7,7 +7,7 @@
 
 import HealthKit
 
-class DashboardViewModel: ObservableObject {
+final class DashboardViewModel: ObservableObject {
     let store = HKHealthStore()
     
     @Published var isNotReady = false

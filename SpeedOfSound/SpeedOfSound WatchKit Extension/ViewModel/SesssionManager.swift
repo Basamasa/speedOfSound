@@ -10,7 +10,7 @@ import HealthKit
 import WatchConnectivity
 import Combine
 
-class SessionManager: ObservableObject {
+final class SessionManager: ObservableObject {
     var wcSession: WCSession
     let delegate: WCSessionDelegate
     let subject1 = PassthroughSubject<Int, Never>()

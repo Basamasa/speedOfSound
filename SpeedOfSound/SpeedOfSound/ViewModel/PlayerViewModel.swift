@@ -15,7 +15,7 @@ enum FeedbackType: Int {
     case sound = 1
 }
 
-class PlayerViewModel: ObservableObject, MetronomeDelegate {
+final class PlayerViewModel: ObservableObject, MetronomeDelegate {
     // BPM metronome
     @Published var mode:isMetroRunning = .stopped
     @Published var effectIndex = 0

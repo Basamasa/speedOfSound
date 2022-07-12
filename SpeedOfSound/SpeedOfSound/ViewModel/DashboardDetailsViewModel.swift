@@ -8,7 +8,7 @@ import HealthKit
 import SwiftUICharts
 import SwiftUI
 
-class DashboardDetailsViewModel: ObservableObject {
+final class DashboardDetailsViewModel: ObservableObject {
     let store = HKHealthStore()
     @Published var heartRateData: LineChartData = LineChartData(dataSets: LineDataSet(dataPoints: []))    
     var hearRatePercentageData = DoughnutChartData(dataSets:

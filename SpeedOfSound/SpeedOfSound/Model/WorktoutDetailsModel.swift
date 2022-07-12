@@ -9,7 +9,7 @@ import HealthKit
 import Foundation
 import CoreMotion
 
-class WorktoutDetailsModel {
+final class WorktoutDetailsModel {
     let workout: HKWorkout
     let store = HKHealthStore()
     var runningWorkoutsHeartRate: [Double] = []

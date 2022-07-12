@@ -60,7 +60,6 @@ struct MoreWorkoutView: View {
             }
         }
         .matchedGeometryEffect(id: id, in: animation)
-
         .cardStyle()
         .padding()
     }

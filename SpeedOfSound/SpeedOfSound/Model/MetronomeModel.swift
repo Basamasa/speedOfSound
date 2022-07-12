@@ -15,7 +15,7 @@ protocol MetronomeDelegate: AnyObject {
     func metronomeTicking(_ metronome: MetronomeModel, currentTick: Int)
 }
 
-class MetronomeModel {
+final class MetronomeModel {
     
     struct Constants {
         static let kBipDurationSeconds = 0.02

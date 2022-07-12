@@ -8,7 +8,7 @@
 import Combine
 import WatchConnectivity
 
-class SessionDelegater: NSObject, WCSessionDelegate {
+final class SessionDelegater: NSObject, WCSessionDelegate {
     let countSubject: PassthroughSubject<Int, Never>
     let sessionWorkoutSubject: PassthroughSubject<Int, Never>
     let cadenceSubject: PassthroughSubject<Int, Never>
