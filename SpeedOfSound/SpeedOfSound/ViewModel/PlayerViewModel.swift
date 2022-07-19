@@ -74,6 +74,15 @@ final class PlayerViewModel: ObservableObject, MetronomeDelegate {
         subject4
             .receive(on: DispatchQueue.main)
             .assign(to: &$workoutModel)
+        
+        do {
+          let audioSession = AVAudioSession.sharedInstance()
+          try audioSession.setActive(true)
+          try AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
+
+        } catch {
+          print("Audio error")
+        }
     }
     
     // MARK: - Cadence
