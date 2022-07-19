@@ -16,36 +16,7 @@ struct MetricsView: View {
             VStack(alignment: .leading) {
                 ElapsedTimeView(elapsedTime: workoutManager.builder?.elapsedTime ?? 0, showSubseconds: context.cadence == .live)
                     .foregroundStyle(.yellow)
-//                Text(Measurement(value: workoutManager.activeEnergy, unit: UnitEnergy.kilocalories)
-//                        .formatted(.measurement(width: .abbreviated, usage: .workout, numberFormatStyle: .number.precision(.fractionLength(0)))))
                 Text(workoutManager.heartRate.formatted(.number.precision(.fractionLength(0))) + " bpm")
-                if workoutManager.workoutModel.feedback == .appleWatchSound {
-                    VStack(alignment: .leading) {
-                        Text(workoutManager.BPM.formatted(.number.precision(.fractionLength(0))) + " BPM")
-                            .digitalCrownRotation($workoutManager.BPM)
-                        HStack {
-                            Button {
-                                workoutManager.clickOnMinusButton()
-                            } label: {
-                                Image(systemName: "minus")
-                            }
-                            .tint(.green)
-                            .font(.title2)
-                            .buttonStyle(PlainButtonStyle())
-                            .padding([.leading, .trailing])
-                            Button {
-                                workoutManager.clickOnPlusButton()
-                            } label: {
-                                Image(systemName: "plus")
-                            }
-                            .tint(.green)
-                            .font(.title2)
-                            .buttonStyle(PlainButtonStyle())
-                            .padding([.leading, .trailing])
-                        }
-                    }
-                }
-//                Text(Measurement(value: workoutManager.distance, unit: UnitLength.meters).formatted(.measurement(width: .abbreviated, usage: .road)))
             }
             .font(.system(.title, design: .rounded).monospacedDigit().lowercaseSmallCaps())
             .frame(maxWidth: .infinity, alignment: .leading)

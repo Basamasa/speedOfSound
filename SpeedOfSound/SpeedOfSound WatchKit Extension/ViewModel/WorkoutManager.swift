@@ -34,11 +34,6 @@ final class WorkoutManager: NSObject, ObservableObject {
         }
     }
     
-    // Metronome
-    @Published var soundOnAppleWatch = false
-    let myMetronome = WatchMetronomeModel(audioFormat: AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)!)
-    @Published var BPM: Double = 120
-    
     // Workout data
     @Published var workoutModel = WorkoutModel()
     var timeList_for_back_to_zone: [CFAbsoluteTime] = []
@@ -62,43 +57,9 @@ final class WorkoutManager: NSObject, ObservableObject {
     var session: HKWorkoutSession?
     var builder: HKLiveWorkoutBuilder?
     
-    private func updateBpm() {
-        BPM = Double(myMetronome.tempoBPM)
-    }
-    
-    func clickOnMinusButton() {
-        myMetronome.incrementTempo(by: -1)
-        updateBpm()
-    }
-    
-    func clickOnPlusButton() {
-        myMetronome.incrementTempo(by: 1)
-        updateBpm()
-    }
-    
     // MARK: - Workout
     
-    private func giveFeedback(message: String) {
-        WKInterfaceDevice.current().play(.notification)
-//            speechSentence(message)
-        workoutModel.numberOfFeedback += 1
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-            self.showTooHighFeedback = false
-            self.showTooLowFeedback = false
-        }
-    }
-    func checkHeartRateWithFeedback() {
-//        guard workoutModel.feedback == .notification else {return}
-        if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
-            showTooHighFeedback = true
-            giveFeedback(message: "Let's slow down, current heart rate at \(heartRate)")
-        } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
-            showTooLowFeedback = true
-            giveFeedback(message: "Let's speed up, current heart rate at \(heartRate)")
-        }
-    }
-    
-    func speechSentence(_ text: String) {
+   func speechSentence(_ text: String) {
        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .voicePrompt, options: [])
        var utterance: AVSpeechUtterance!
        let synthesizer = AVSpeechSynthesizer()
@@ -107,6 +68,29 @@ final class WorkoutManager: NSObject, ObservableObject {
        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
        synthesizer.speak(utterance)
    }
+    
+    private func giveFeedback(message: String) {
+        if workoutModel.feedback == .notification {
+            showTooHighFeedback = true
+            WKInterfaceDevice.current().play(.notification)
+            workoutModel.numberOfFeedback += 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                self.showTooHighFeedback = false
+                self.showTooLowFeedback = false
+            }
+        } else if workoutModel.feedback == .appleWatchSound {
+            WKInterfaceDevice.current().play(.notification)
+            speechSentence(message)
+        }
+    }
+    func checkHeartRateWithFeedback() {
+//        guard workoutModel.feedback == .notification else {return}
+        if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
+            giveFeedback(message: "Let's slow down, current heart rate at \(heartRate)")
+        } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
+            giveFeedback(message: "Let's speed up, current heart rate at \(heartRate)")
+        }
+    }
     
     func selectedOneWorkout(workoutType: WorkoutType) {
         selectedWorkout = workoutType
@@ -123,15 +107,6 @@ final class WorkoutManager: NSObject, ObservableObject {
                 startWorkout(workoutType: HKWorkoutActivityType.walking, locationType: .indoor)
             }
         }
-        
-        if workoutModel.feedback == .iosSound {
-            wcsessionManager.workSessionBegin()
-            wcsessionManager.sendWorkOutModel(workoutModel.getData)
-        } else if workoutModel.feedback == .appleWatchSound {
-            myMetronome.setTempo(to: workoutModel.cadence)
-            updateBpm()
-            try? myMetronome.start()
-        }
     }
     
     // Start the workout.
@@ -147,12 +122,6 @@ final class WorkoutManager: NSObject, ObservableObject {
             return
         }
 
-//        let metadata : NSDictionary = [
-//            HKMetadataKeyWorkoutBrandName: workoutModel.getData,
-//        ]
-//
-//        builder?.addMetadata(metadata as! [String : String]) { (success, error) in
-//        }
         session?.delegate = self
         builder?.delegate = self
 
@@ -207,19 +176,9 @@ final class WorkoutManager: NSObject, ObservableObject {
         session?.end()
         showingSummaryView = true
         wcsessionManager.workSessionEnd()
-        
-        if workoutModel.feedback == .appleWatchSound {
-            myMetronome.stop()
-        }
     }
 
     // MARK: - Workout Metrics
-
-//    func calculateAverageTimeGoingBackToZone() {
-//        guard !timeCountList.isEmpty else { return }
-//        let average = Int(timeList_for_back_to_zone.reduce(0, +)) / timeList_for_back_to_zone.count
-//        workoutModel.meanTimeNeededGetBackToZone = average
-//    }
     
     func updateForStatistics(_ statistics: HKStatistics?) {
         guard let statistics = statistics else { return }
@@ -302,18 +261,6 @@ extension WorkoutManager: HKWorkoutSessionDelegate {
             }
         }
     }
-    
-//    func workoutSession(_ workoutSession: HKWorkoutSession, didGenerate event: HKWorkoutEvent) {
-//        switch event.type {
-//        case .motionPaused:
-//            WKInterfaceDevice.current().play(.stop)
-//            pause()
-//        case .motionResumed:
-//            WKInterfaceDevice.current().play(.start)
-//            resume()
-//        default: break
-//        }
-//    }
 
     func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: Error) {
 
@@ -362,337 +309,5 @@ class ParkBenchTimer {
         } else {
             return nil
         }
-    }
-}
-
-protocol WatchMetronomeDelegate: AnyObject {
-    func metronomeTicking(_ metronome: WatchMetronomeModel, currentTick: Int)
-}
-
-class WatchMetronomeModel {
-    
-    struct Constants {
-        static let kBipDurationSeconds = 0.02
-        static let kTempoChangeResponsivenessSeconds = 0.25
-        static let kDivisions = [2, 4, 8, 16]
-    }
-    
-    struct MeterConfig {
-        static let min = 2
-        static let `default` = 4
-        static let max = 8
-    }
-    
-    struct TempoConfig {
-        static let min = 40
-        static let `default` = 160
-        static let max = 208
-    }
-    
-    public private(set) var meter = 0
-    public private(set) var division = 0
-    public private(set) var tempoBPM = 0
-    public private(set) var beatNumber  = 0
-    public private(set) var isPlaying = false
-    
-    public weak var delegate: WatchMetronomeDelegate?
-    
-    let engine: AVAudioEngine = AVAudioEngine()
-    /// owned by engine
-    let player: AVAudioPlayerNode = AVAudioPlayerNode()
-    
-    let bufferSampleRate: Double
-    let audioFormat: AVAudioFormat
-    var soundBuffer = [AVAudioPCMBuffer?]()
-    
-    var timeInterval: TimeInterval = 0
-    var divisionIndex = 0
-    
-    var bufferNumber = 0
-    
-    var syncQueue = DispatchQueue(label: "Metronome")
-
-    var nextBeatSampleTime: AVAudioFramePosition = 0
-    /// controls responsiveness to tempo changes
-    var beatsToScheduleAhead  = 0
-    var beatsScheduled = 0
-
-    var playerStarted = false
-
-    
-    public init(audioFormat:AVAudioFormat) {
-        
-        self.audioFormat = audioFormat
-        self.bufferSampleRate = audioFormat.sampleRate
-
-        initiazeDefaults()
-        
-        // How many audio frames?
-        let bipFrames = UInt32(Constants.kBipDurationSeconds * audioFormat.sampleRate)
-        
-        // Use two triangle waves which are generate for the metronome bips.
-        // Create the PCM buffers.
-        soundBuffer.append(AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: bipFrames))
-        soundBuffer.append(AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: bipFrames))
-        
-        // Fill in the number of valid sample frames in the buffers (required).
-        soundBuffer[0]?.frameLength = bipFrames
-        soundBuffer[1]?.frameLength = bipFrames
-        
-        // Generate the metronme bips, first buffer will be A440 and the second buffer Middle C.
-        let wg1 = TriangleWaveModel(sampleRate: Float(audioFormat.sampleRate), frequency: 261.6)
-        let wg2 = TriangleWaveModel(sampleRate: Float(audioFormat.sampleRate))
-        
-        wg1.render(soundBuffer[0]!)
-        wg2.render(soundBuffer[1]!)
-        
-        engine.attach(player)
-        engine.connect(player, to:  engine.outputNode, fromBus: 0, toBus: 0, format: audioFormat)
-        
-    }
-    
-    deinit {
-        self.stop()
-        engine.detach(player)
-        soundBuffer[0] = nil
-        soundBuffer[1] = nil
-    }
-    
-    public func start() throws {
-        
-        // Start the engine without playing anything yet.
-        try engine.start()
-        isPlaying = true
-        
-        updateTimeInterval()
-        nextBeatSampleTime = 0
-        beatNumber = 0
-        bufferNumber = 0
-        
-        self.syncQueue.async() {
-            self.scheduleBeats()
-        }
-    }
-    
-    func initiazeDefaults() {
-        tempoBPM = TempoConfig.default
-        meter = MeterConfig.default
-        timeInterval = 0
-        divisionIndex = 1
-        beatNumber = 0
-        division = Constants.kDivisions[divisionIndex]
-        beatsScheduled = 0;
-    }
-
-    
-    public func stop() {
-        isPlaying = false
-        
-        /* Note that pausing or stopping all AVAudioPlayerNode's connected to an engine does
-         NOT pause or stop the engine or the underlying hardware.
-         
-         The engine must be explicitly paused or stopped for the hardware to stop.
-         */
-        player.stop()
-        player.reset()
-        
-        /* Stop the audio hardware and the engine and release the resources allocated by the prepare method.
-         
-         Note that pause will also stop the audio hardware and the flow of audio through the engine, but
-         will not deallocate the resources allocated by the prepare method.
-         
-         It is recommended that the engine be paused or stopped (as applicable) when not in use,
-         to minimize power consumption.
-         */
-        engine.stop()
-        
-        playerStarted = false
-    }
-    
-    public func incrementTempo(by increment: Int) {
-        
-        tempoBPM += increment;
-        
-        tempoBPM = min(max(tempoBPM, TempoConfig.min), TempoConfig.max)
-        
-        updateTimeInterval()
-    }
-    
-    public func setTempo(to value: Int) {
-        
-        tempoBPM = min(max(value, TempoConfig.min), TempoConfig.max)
-        
-        updateTimeInterval()
-    }
-    
-    public func incrementMeter(by increment: Int) {
-        meter += increment;
-        
-        meter = min(max(meter, MeterConfig.min), MeterConfig.max)
-        
-        beatNumber = 0
-    }
-    
-    public func incrementDivisionIndex(by increment: Int) throws {
-        
-        let wasRunning = isPlaying
-        
-        if (wasRunning) {
-            stop()
-        }
-        
-        divisionIndex += increment
-        
-        divisionIndex = min(max(divisionIndex, 0), Constants.kDivisions.count - 1)
-        
-        division = Constants.kDivisions[divisionIndex];
-        
-        
-        
-        if (wasRunning) {
-            try start()
-        }
-    }
-    
-    public func reset() {
-        
-        initiazeDefaults()
-        updateTimeInterval()
-        
-        isPlaying = false
-        playerStarted = false
-    }
-    
-    
-    
-    func scheduleBeats() {
-        if (!isPlaying) { return }
-        
-        while (beatsScheduled < beatsToScheduleAhead) {
-            // Schedule the beat.
-            
-            let playerBeatTime = AVAudioTime(sampleTime: nextBeatSampleTime, atRate: bufferSampleRate)
-            // This time is relative to the player's start time.
-            
-            player.scheduleBuffer(soundBuffer[bufferNumber]!, at: playerBeatTime, options: AVAudioPlayerNodeBufferOptions(rawValue: 0), completionHandler: {
-                self.syncQueue.async() {
-                    self.beatsScheduled -= 1
-                    self.bufferNumber ^= 1
-                    self.scheduleBeats()
-                }
-            })
-            
-            beatsScheduled += 1
-            
-            if (!playerStarted) {
-                // We defer the starting of the player so that the first beat will play precisely
-                // at player time 0. Having scheduled the first beat, we need the player to be running
-                // in order for nodeTimeForPlayerTime to return a non-nil value.
-                player.play()
-                playerStarted = true
-            }
-            
-            // Schedule the delegate callback (metronomeTicking:bar:beat:) if necessary.
-            
-            let callBackMeter = meter
-            if let delegate = self.delegate , self.isPlaying && self.meter == callBackMeter {
-                let callbackBeat = beatNumber
-                
-                let nodeBeatTime: AVAudioTime = player.nodeTime(forPlayerTime: playerBeatTime)!
-                let output: AVAudioIONode = engine.outputNode
-                
-//                os_log(" %@, %@, %f", playerBeatTime, nodeBeatTime, output.presentationLatency)
-                
-                let latencyHostTicks: UInt64 = AVAudioTime.hostTime(forSeconds: output.presentationLatency)
-                let dispatchTime = DispatchTime(uptimeNanoseconds: nodeBeatTime.hostTime + latencyHostTicks)
-                DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: dispatchTime) {
-                    delegate.metronomeTicking(self, currentTick: callbackBeat)
-                }
-            }
-            beatNumber = (beatNumber + 1) % meter
-            
-            let samplesPerBeat = AVAudioFramePosition(timeInterval * bufferSampleRate)
-            nextBeatSampleTime += samplesPerBeat
-        }
-    }
-    
-
-    func updateTimeInterval() {
-        
-        timeInterval = (60.0 / Double(tempoBPM)) * (4.0 / Double(Constants.kDivisions[divisionIndex]))
-        
-        beatsToScheduleAhead = Int(Constants.kTempoChangeResponsivenessSeconds / timeInterval)
-        
-        beatsToScheduleAhead = max(beatsToScheduleAhead, 1)
-    }
-    
- 
-    
-}
-
-class TriangleWaveModel: NSObject {
-    var mSampleRate: Float = 44100.0
-    var mFreqHz: Float = 440.0
-    var mAmplitude: Float = 0.25
-    var mFrameCount: Float = 0.0
-    
-    override init() {
-        super.init()
-    }
-    
-    convenience init(sampleRate: Float) {
-        self.init(sampleRate: sampleRate, frequency: 440.0, amplitude: 0.25)
-    }
-    
-    convenience init(sampleRate: Float, frequency: Float) {
-        self.init(sampleRate: sampleRate, frequency: frequency, amplitude: 0.25)
-    }
-    
-    init(sampleRate: Float, frequency: Float, amplitude: Float) {
-        super.init()
-        
-        self.mSampleRate = sampleRate
-        self.mFreqHz = frequency
-        self.mAmplitude = amplitude
-    }
-    
-    func render(_ buffer: AVAudioPCMBuffer) {
-//        print("Buffer: \(buffer.format.description) \(buffer.description)\n")
-        
-        let nFrames = buffer.frameLength
-        let nChannels = buffer.format.channelCount
-        let isInterleaved = buffer.format.isInterleaved
-        
-        let amp = mAmplitude
-        
-        let phaseStep = mFreqHz / mSampleRate;
-        
-        if (isInterleaved) {
-            var ptr = buffer.floatChannelData?[0]
-            
-            for frame in 0 ..< nFrames {
-                let phase = fmodf(Float(frame) * phaseStep, 1.0)
-                let value = (fabsf(2.0 - 4.0 * phase) - 1.0) * amp;
-                
-                for _ in 0 ..< nChannels {
-                    ptr?.pointee = value;
-                    ptr = ptr?.successor()
-                }
-            }
-        } else {
-            for ch in 0 ..< nChannels {
-                var ptr = buffer.floatChannelData?[Int(ch)]
-                
-                for frame in 0 ..< nFrames {
-                    let phase = fmodf(Float(frame) * phaseStep, 1.0)
-                    let value = (fabsf(2.0 - 4.0 * phase) - 1.0) * amp;
-                    
-                    ptr?.pointee = value
-                    
-                    ptr = ptr?.successor()
-                }
-            }
-        }
-        mFrameCount = Float(nFrames);
     }
 }
