@@ -69,26 +69,43 @@ final class WorkoutManager: NSObject, ObservableObject {
        synthesizer.speak(utterance)
    }
     
-    private func giveFeedback(message: String) {
+    enum Feedback {
+        case slow
+        case quick
+    }
+    
+    private func giveFeedback(feedback: Feedback) {
         if workoutModel.feedback == .notification {
-            showTooHighFeedback = true
-            WKInterfaceDevice.current().play(.notification)
-            workoutModel.numberOfFeedback += 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                self.showTooHighFeedback = false
-                self.showTooLowFeedback = false
+            if feedback == .quick {
+                WKInterfaceDevice.current().play(.failure)
+                
+            } else if feedback == .slow {
+                WKInterfaceDevice.current().play(.success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    WKInterfaceDevice.current().play(WKHapticType.success)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    WKInterfaceDevice.current().play(WKHapticType.success)
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    WKInterfaceDevice.current().play(WKHapticType.success)
+                }
             }
         } else if workoutModel.feedback == .appleWatchSound {
-            WKInterfaceDevice.current().play(.notification)
-            speechSentence(message)
+            if feedback == .quick {
+                speechSentence("Let's slow down")
+            } else if feedback == .slow {
+                speechSentence("Let's speed up")
+            }
         }
+        workoutModel.numberOfFeedback += 1
     }
     func checkHeartRateWithFeedback() {
 //        guard workoutModel.feedback == .notification else {return}
         if Int(heartRate) > workoutModel.highBPM { // Hihger than the zone
-            giveFeedback(message: "Let's slow down, current heart rate at \(heartRate)")
+            giveFeedback(feedback: .quick)
         } else if Int(heartRate) < workoutModel.lowBPM { // Lower than the zone
-            giveFeedback(message: "Let's speed up, current heart rate at \(heartRate)")
+            giveFeedback(feedback: .slow)
         }
     }
     
