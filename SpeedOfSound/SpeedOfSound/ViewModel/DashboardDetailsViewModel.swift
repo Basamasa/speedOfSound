@@ -25,6 +25,7 @@ final class DashboardDetailsViewModel: ObservableObject {
 
         let seconds = time % 60
         let minutes = (time / 60) % 60
+        guard minutes != 0 else {return 0}
         if seconds > 30 {
             return steps / minutes + 1
         } else {

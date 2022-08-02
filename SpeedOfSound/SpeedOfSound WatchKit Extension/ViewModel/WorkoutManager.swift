@@ -80,15 +80,14 @@ final class WorkoutManager: NSObject, ObservableObject {
                 WKInterfaceDevice.current().play(.failure)
                 
             } else if feedback == .slow {
-                WKInterfaceDevice.current().play(.success)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    WKInterfaceDevice.current().play(WKHapticType.success)
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    WKInterfaceDevice.current().play(WKHapticType.failure)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    WKInterfaceDevice.current().play(WKHapticType.success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    WKInterfaceDevice.current().play(WKHapticType.failure)
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    WKInterfaceDevice.current().play(WKHapticType.success)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    WKInterfaceDevice.current().play(WKHapticType.failure)
                 }
             }
         } else if workoutModel.feedback == .appleWatchSound {
