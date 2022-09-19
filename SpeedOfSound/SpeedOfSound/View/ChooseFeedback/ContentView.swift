@@ -24,73 +24,6 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             ZStack(alignment: .bottom) {
-//                TabView {
-//                    NavigationView {
-//                        ZStack {
-//                            Color.black.edgesIgnoringSafeArea(.all)
-//                            VStack {
-//                                Text("Choose a feedback")
-//                                    .font(.title)
-//                                    .bold()
-//                                    .offset(y: -40)
-//                                    .foregroundColor(Color.white)
-//                                Button {
-//                                    withAnimation {
-////                                        playerViewModel.showNotificationPickerView = true
-//                                        playerViewModel.showGif = true
-//                                    }
-//                                } label: {
-//                                    Label("Notification feedback", systemImage: "applewatch.radiowaves.left.and.right")
-//                                            .frame(width: 230, height: 60)
-//                                            .background(.white)
-//                                            .foregroundColor(.black)
-//                                            .cornerRadius(25)
-//                                }
-//
-//                                Button {
-//                                    withAnimation {
-////                                        playerViewModel.showSoundPickerView = true
-//                                        playerViewModel.showGif = true
-//                                    }
-//                                } label: {
-//                                    Label("Sound feedback", systemImage: "metronome.fill")
-//                                            .frame(width: 230, height: 60)
-//                                            .background(.white)
-//                                            .foregroundColor(.black)
-//                                            .cornerRadius(25)
-//
-//                                }
-//                            }
-//                        }
-//                        .navigationTitle("Sound of Speed")
-//                        .navigationBarTitleTextColor(.white)
-//                        .navigationBarTitleDisplayMode(.large)
-//                    }
-//                    .tabItem {
-//                        VStack {
-//                            Image(systemName: "badge.plus.radiowaves.right")
-//                                .renderingMode(.template)
-//                            Text("Feedback")
-//                        }
-//
-//                    }
-//                    .foregroundColor(.white)
-//
-//                    NavigationView {
-//                        ZStack {
-//                            Color.black.edgesIgnoringSafeArea(.all)
-//                            DashboardView()
-//                        }
-//                    }
-//                    .tabItem {
-//                        VStack {
-//                            Image(systemName: "list.bullet.rectangle.fill")
-//                                .renderingMode(.template)
-//                            Text("Dashboard")
-//                        }
-//                    }
-//                }
-//                .accentColor(.white)
                 TabView {
                     NavigationView {
                         DashboardView()
@@ -100,8 +33,7 @@ struct ContentView: View {
                 }
                 .accentColor(.white)
 
-                NowPlayingBar(content: ListenNowView(showPlayer: $playerViewModel.showPlayer))
-                    .tabItem {}
+                ListenNowView(showPlayer: $playerViewModel.showPlayer)
                 
                 HalfASheet(isPresented: $playerViewModel.showGif) {
                     VStack(alignment: .leading) {

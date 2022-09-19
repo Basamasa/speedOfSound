@@ -24,45 +24,16 @@ struct DashboardView: View {
             List {
                 VStack {
                     DashboardRowView(workouts: dashboardViewModel.runningWorkouts, type: .running, animation: animation)
-                        .matchedGeometryEffect(id: "running", in: animation)
-                        .padding(.bottom)
-                        .onTapGesture {
-                        }
-                        .onLongPressGesture {
-                            withAnimation {
-                                showAllRunning = true
-                            }
-                        }
-                    DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking, animation: animation)
-                        .matchedGeometryEffect(id: "walking", in: animation)
-                        .onTapGesture {
-                        }
-                        .onLongPressGesture {
-                            withAnimation {
-                                showAllWalking = true
-                            }
-                        }
 
-    //                DashboardRowView(workouts: dashboardViewModel.cyclingWorkouts, type: .cycling)
+                    DashboardRowView(workouts: dashboardViewModel.walkingWorkouts, type: .walking, animation: animation)
+
                     Rectangle()
                         .frame(height: 50)
                         .foregroundColor(.black)
                 }
-                .animation(.default, value: showAllRunning)
-                .onTapGesture{}
-                .listRowSeparator(.hidden)
             }
             .listStyle(PlainListStyle())
-            
-            if showAllRunning {
-                MoreWorkoutView(type: .running, details: $showAllRunning, animation: animation, dashboardViewModel: dashboardViewModel)
-            }
-            
-            if showAllWalking {
-                MoreWorkoutView(type: .walking, details: $showAllWalking, animation: animation, dashboardViewModel: dashboardViewModel)
-            }
         }
-        .animation(.default, value: showAllRunning)
         .JMAlert(showModal: $dashboardViewModel.isNotReady, for: [.health(categories: .init(readAndWrite: dashboardViewModel.getPermission))])
         .task {
             await dashboardViewModel.checkPermission()

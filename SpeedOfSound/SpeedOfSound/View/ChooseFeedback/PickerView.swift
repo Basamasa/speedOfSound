@@ -35,7 +35,6 @@ struct PickerView: View {
                     Spacer()
                 }
                 .padding([.leading, .trailing])
-//                .offset(y: -30)
                 HStack {
                     Picker("", selection: $playerViewModel.lowBPM) {
                         ForEach(heartRange, id: \.self) {

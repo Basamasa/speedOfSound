@@ -8,16 +8,6 @@
 import SwiftUI
 import AVFoundation
 
-struct NowPlayingBar<Content: View>: View {
-    var content: Content
-    
-    @ViewBuilder var body: some View {
-        ZStack(alignment: .bottom) {
-            content
-        }
-    }
-}
-
 struct ListenNowView: View {
     @EnvironmentObject var playerViewModel: PlayerViewModel
     @Binding var showPlayer: Bool
@@ -38,7 +28,6 @@ struct ListenNowView: View {
                         .foregroundColor(playerViewModel.mode == .running ? Color("Green") : .white)
                 }
                 .foregroundColor(Color("ButtonAccent"))
-//                .matchedGeometryEffect(id: "BPM", in: namespace)
                 .padding()
                 
                 Spacer()
@@ -53,13 +42,11 @@ struct ListenNowView: View {
                         .font(.largeTitle)
                 })
                 .padding()
-//                .matchedGeometryEffect(id: "PlayButton", in: namespace)
             }
         }
         .background(.black)
         .cornerRadius(10, corners: [.topLeft, .topRight])
         .frame(height: showPlayer == true ? 500 : 65)
-//        .matchedGeometryEffect(id: "NowPlayer", in: namespace)
         .onTapGesture {
             withAnimation {
                 showPlayer = true
@@ -70,7 +57,6 @@ struct ListenNowView: View {
     var bigPlayer: some View {
         VStack {
             PlayerView(namespace: namespace)
-//                .matchedGeometryEffect(id: "NowPlayer", in: namespace)
         }
         .background(.black)
         .cornerRadius(10, corners: [.topLeft, .topRight])
@@ -88,7 +74,7 @@ struct ListenNowView: View {
                 }
             }
             .presentationDetents(undimmed: [.fraction(0.1), .medium, .large], selection: $selectedDetent)
-//            .interactiveDismissDisabled()
+            .interactiveDismissDisabled()
         }
         
         .onChange(of: playerViewModel.sessionWorkout, perform: { newValue in
