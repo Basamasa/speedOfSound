@@ -96,13 +96,13 @@ struct ContentView: View {
                         DashboardView()
                     }
                     .tabItem {
-                        
                     }
                 }
                 .accentColor(.white)
 
                 NowPlayingBar(content: ListenNowView(showPlayer: $playerViewModel.showPlayer))
                     .tabItem {}
+                
                 HalfASheet(isPresented: $playerViewModel.showGif) {
                     VStack(alignment: .leading) {
                         HStack {

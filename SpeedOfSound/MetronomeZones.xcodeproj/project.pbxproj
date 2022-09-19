@@ -64,6 +64,8 @@
 		6B5E1C8C283A679300267A40 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E1C8B283A679300267A40 /* LocationManager.swift */; };
 		6B5E1C8E283A7AEB00267A40 /* Double+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E1C8D283A7AEB00267A40 /* Double+extensions.swift */; };
 		6B5E1C90283A87F500267A40 /* FeedbackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5E1C8F283A87F500267A40 /* FeedbackDetailView.swift */; };
+		6B8877E228D8C9FB0008A56F /* UndimmedDetentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8877E128D8C9FB0008A56F /* UndimmedDetentController.swift */; };
+		6B8877E428D8CA4F0008A56F /* Set+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8877E328D8CA4F0008A56F /* Set+extensions.swift */; };
 		6BE24DD02839269C00320E9B /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 6BE24DCF2839269C00320E9B /* SwiftUICharts */; };
 		6BE24DD22839463100320E9B /* SummaryTitleWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE24DD12839463100320E9B /* SummaryTitleWorkouts.swift */; };
 		6BE4A01828107A54004CB806 /* SpeedOfSoundApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */; };
@@ -215,6 +217,8 @@
 		6B5E1C8B283A679300267A40 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		6B5E1C8D283A7AEB00267A40 /* Double+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+extensions.swift"; sourceTree = "<group>"; };
 		6B5E1C8F283A87F500267A40 /* FeedbackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackDetailView.swift; sourceTree = "<group>"; };
+		6B8877E128D8C9FB0008A56F /* UndimmedDetentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndimmedDetentController.swift; sourceTree = "<group>"; };
+		6B8877E328D8CA4F0008A56F /* Set+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+extensions.swift"; sourceTree = "<group>"; };
 		6BE24DD12839463100320E9B /* SummaryTitleWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTitleWorkouts.swift; sourceTree = "<group>"; };
 		6BE4A01428107A54004CB806 /* MetronomeZones.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetronomeZones.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE4A01728107A54004CB806 /* SpeedOfSoundApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOfSoundApp.swift; sourceTree = "<group>"; };
@@ -353,6 +357,7 @@
 				6B305DC72815860E00D877CB /* Colors.swift */,
 				6B3402B0281DD1A100C71216 /* Styles.swift */,
 				6B3402C6281F3B3F00C71216 /* Representables.swift */,
+				6B8877E128D8C9FB0008A56F /* UndimmedDetentController.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 				6B46836628217EDE0048E20B /* Text+extensions.swift */,
 				6B436F29283197C500CB5655 /* CGFloat+extensions.swift */,
 				6B5E1C8D283A7AEB00267A40 /* Double+extensions.swift */,
+				6B8877E328D8CA4F0008A56F /* Set+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -896,6 +902,7 @@
 				6B4434BF28259144006CBA12 /* DashboardDetailsViewModel.swift in Sources */,
 				6BE4A01A28107A54004CB806 /* ContentView.swift in Sources */,
 				6B305DAF28145B8500D877CB /* PlayerView.swift in Sources */,
+				6B8877E428D8CA4F0008A56F /* Set+extensions.swift in Sources */,
 				6B3402D3282107E700C71216 /* DashboardViewModel.swift in Sources */,
 				6B305DB128145CBA00D877CB /* PlayerViewModel.swift in Sources */,
 				6B3402C0281EEBD400C71216 /* MetronomeModel.swift in Sources */,
@@ -903,6 +910,7 @@
 				6B3402AF281DA46A00C71216 /* DashboardView.swift in Sources */,
 				6B46836A282349430048E20B /* WorktoutDetailsModel.swift in Sources */,
 				6B3402CE28205EF300C71216 /* ListenNowView.swift in Sources */,
+				6B8877E228D8C9FB0008A56F /* UndimmedDetentController.swift in Sources */,
 				6BE24DD22839463100320E9B /* SummaryTitleWorkouts.swift in Sources */,
 				6B5D828E28328E7400988547 /* SummaryView.swift in Sources */,
 				6B5D828B28327E7100988547 /* WorkoutModel.swift in Sources */,
@@ -1272,7 +1280,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1308,7 +1316,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

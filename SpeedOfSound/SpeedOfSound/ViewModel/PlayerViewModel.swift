@@ -26,7 +26,7 @@ final class PlayerViewModel: ObservableObject, MetronomeDelegate {
 
     // Picker view Popups
     @Published var showGif: Bool = false
-    @Published var showPlayer: Bool = false
+    @Published var showPlayer: Bool = true
     @Published var showNotificationPickerView: Bool = false
     @Published var showSoundPickerView: Bool = false
     

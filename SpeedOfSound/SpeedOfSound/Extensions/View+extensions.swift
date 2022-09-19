@@ -37,6 +37,19 @@ extension View {
     func onLoad(perform action: (() -> Void)? = nil) -> some View {
         modifier(ViewDidLoadModifier(perform: action))
     }
+    
+    func presentationDetents(undimmed detents: Set<PresentationDetent>) -> some View {
+        self.background(UndimmedDetentView())
+            .presentationDetents(detents.withLarge())
+    }
+
+    func presentationDetents(undimmed detents: Set<PresentationDetent>,selection: Binding<PresentationDetent>) -> some View {
+        self.background(UndimmedDetentView())
+            .presentationDetents(
+                detents.withLarge(),
+                selection: selection
+            )
+    }
 }
 
 extension AnyTransition {

@@ -137,7 +137,6 @@ struct PlayerView: View {
 
             Spacer()
         }
-        .frame(height: 400)
         .background(.black)
     }
 }
