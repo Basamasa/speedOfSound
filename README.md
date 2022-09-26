@@ -8,8 +8,12 @@ Target heart rate zone is an important method for professional athletes to avoid
 We will monitor the runners' heart rate during the race with Apple Watch. And we will use an watchOS app to give feedback to runners when the runner is outside the target heart rate zone. The mobile app should be able to give metronome feedback in addition to the normal feedback from watchOS app (notification).
 We will first test the normal feedback (notification) without metronome to see how the app makes the runner stay in the target heart rate zone, then we will use both the normal feedback (notification) and metronome to see the difference from the first experiment.
 
+<img src="https://user-images.githubusercontent.com/25714024/192391399-f12dc376-61bb-4642-86b5-02b47f8047b5.PNG" width="550">
 <img src="https://user-images.githubusercontent.com/25714024/190269830-171c1caf-835a-48e6-ac4c-4f710c8d0737.png" width="550">
+
+
 </p>
+
 
 ## Apple Watch App
 ### Choose feedback. 
